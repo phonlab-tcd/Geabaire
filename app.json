@@ -3,7 +3,7 @@
     "name": "aac_viewer",
     "slug": "aac_viewer",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "landscape",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
@@ -29,5 +29,9 @@
     "web": {
       "favicon": "./assets/favicon.png"
     }
+  },
+  "supabase": {
+    "url": "https://zdncttzvbopsyxjxdria.supabase.co",
+    "anon_key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpkbmN0dHp2Ym9wc3l4anhkcmlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjUyMzEwNTcsImV4cCI6MTk4MDgwNzA1N30.G78eXL4ZJMDbzDHFJ_RpPaR3BGJjRj8Pyb_zIc4gshk"
   }
 }

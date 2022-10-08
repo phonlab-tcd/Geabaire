@@ -5,20 +5,41 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import store from "./state/store";
 import Home from "./views/Home";
+import { useEffect, useState } from "react";
+import Auth from "./views/Auth";
+import { supabase } from "./state/supabase";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+    const [session, setSession] = useState(null);
     NavigationBar.setVisibilityAsync("hidden");
+
+    useEffect(() => {
+        const session = supabase.auth.session();
+        setSession(session);
+
+        supabase.auth.onAuthStateChange((event, session) => {
+            console.log(event, session);
+        });
+    }, []);
 
     return (
         <Provider store={store}>
             <StatusBar hidden={true} />
-            <NavigationContainer>
-                <Stack.Navigator>
-                    <Stack.Screen name="Home" component={Home} />
-                </Stack.Navigator>
-            </NavigationContainer>
+            {session && session.user ? (
+                <NavigationContainer>
+                    <Stack.Navigator
+                        screenOptions={{
+                            headerShown: false,
+                        }}
+                    >
+                        <Stack.Screen name="Home" component={Home} />
+                    </Stack.Navigator>
+                </NavigationContainer>
+            ) : (
+                <Auth />
+            )}
         </Provider>
     );
 }
