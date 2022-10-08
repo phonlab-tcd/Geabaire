@@ -1,24 +1,24 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import * as NavigationBar from "expo-navigation-bar";
+import { StatusBar } from "expo-status-bar";
 import { Provider } from "react-redux";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import store from "./state/store";
+import Home from "./views/Home";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
+    NavigationBar.setVisibilityAsync("hidden");
+
     return (
         <Provider store={store}>
-            <View style={styles.container}>
-                <Text>Open up App.js to start working on your app!</Text>
-                <StatusBar style="auto" />
-            </View>
+            <StatusBar hidden={true} />
+            <NavigationContainer>
+                <Stack.Navigator>
+                    <Stack.Screen name="Home" component={Home} />
+                </Stack.Navigator>
+            </NavigationContainer>
         </Provider>
     );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
