@@ -15,13 +15,17 @@ export default function App() {
     const [session, setSession] = useState(null);
     NavigationBar.setVisibilityAsync("hidden");
 
-    useEffect(() => {
-        const session = supabase.auth.session();
+    async function authHandler() {
+        const session = await supabase.auth.session();
         setSession(session);
 
-        supabase.auth.onAuthStateChange((event, session) => {
-            console.log(event, session);
+        supabase.auth.onAuthStateChange((_event, session) => {
+            setSession(session);
         });
+    }
+
+    useEffect(() => {
+        authHandler();
     }, []);
 
     return (
