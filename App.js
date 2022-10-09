@@ -8,6 +8,7 @@ import Home from "./views/Home";
 import { useEffect, useState } from "react";
 import Auth from "./views/Auth";
 import { supabase } from "./state/supabase";
+import BoardView from "./views/BoardView";
 
 const Stack = createNativeStackNavigator();
 
@@ -39,6 +40,7 @@ export default function App() {
                         }}
                     >
                         <Stack.Screen name="Home" component={Home} />
+                        <Stack.Screen name="Board" component={BoardView} />
                     </Stack.Navigator>
                 </NavigationContainer>
             ) : (
