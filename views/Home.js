@@ -1,10 +1,9 @@
 import { useNavigation } from "@react-navigation/native";
 import { View, Text, StyleSheet } from "react-native";
 import { Button } from "react-native-elements";
-import { obf } from "../obf/obf";
+import { supabase } from "../state/supabase";
 
 export default function Home() {
-    const board = new obf("./irish_obz_dc");
     const navigation = useNavigation();
 
     return (
@@ -19,6 +18,12 @@ export default function Home() {
                 type="outline"
                 fontSize={50}
                 onPress={() => navigation.navigate("Board")}
+            />
+            <Button
+                title="Logout"
+                type="clear"
+                fontSize={50}
+                onPress={() => supabase.auth.signOut()}
             />
         </View>
     );

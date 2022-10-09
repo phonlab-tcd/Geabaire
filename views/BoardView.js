@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { FlatList, StyleSheet, TouchableOpacity, View } from "react-native";
 import {
     faDeleteLeft,
     faHouse,
@@ -8,8 +8,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TextInput } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useEffect, useState } from "react";
+import { getObfBoard } from "../state/handlers/boardHandler";
+import BoardButton from "../components/boards/BoardButton";
 export default function BoardView() {
+    let [board, setBoard] = useState(null);
+
     const navigation = useNavigation();
+
+    let load = async () => {
+        let boardData = await getObfBoard("1_1701841");
+        setBoard(boardData);
+    };
+
+    useEffect(() => {
+        load();
+    }, []);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -43,7 +57,16 @@ export default function BoardView() {
                     />
                 </TouchableOpacity>
             </View>
-            <View style={styles.boardContainer}></View>
+            {board && (
+                <View style={styles.boardContainer}>
+                    <FlatList
+                        style={styles.boardContainer}
+                        data={board.buttons}
+                        numColumns={board.grid.columns}
+                        renderItem={BoardButton}
+                    />
+                </View>
+            )}
         </SafeAreaView>
     );
 }
@@ -77,7 +100,9 @@ const styles = StyleSheet.create({
         borderColor: "#f2f2f2",
         borderRadius: 12,
     },
-    boardContainer: {},
+    boardContainer: {
+        flex: 1,
+    },
     iconContainer: {
         borderColor: "#f2f2f2",
         borderRadius: 12,
