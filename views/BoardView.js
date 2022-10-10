@@ -66,7 +66,7 @@ export default function BoardView() {
 
                 <TextInput
                     style={styles.speakBox}
-                    onChangeText={(sentence) => setText(sentence)}
+                    onChangeText={(sentence) => setSentence(sentence)}
                     defaultValue={sentence}
                 />
 
