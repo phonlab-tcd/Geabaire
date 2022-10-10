@@ -13,18 +13,20 @@ export default function Home() {
                 A simple application made as an alternative to Coughdrop which
                 supports alternative languages more easily.
             </Text>
-            <Button
-                title="Speak Mode"
-                type="outline"
-                fontSize={50}
-                onPress={() => navigation.navigate("Board")}
-            />
-            <Button
-                title="Logout"
-                type="clear"
-                fontSize={50}
-                onPress={() => supabase.auth.signOut()}
-            />
+            <View>
+                <Button
+                    title="Speak Mode"
+                    type="solid"
+                    fontSize={50}
+                    onPress={() => navigation.navigate("Board")}
+                />
+                <Button
+                    title="Logout"
+                    type="clear"
+                    fontSize={50}
+                    onPress={() => supabase.auth.signOut()}
+                />
+            </View>
         </View>
     );
 }
