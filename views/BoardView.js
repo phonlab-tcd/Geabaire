@@ -1,4 +1,10 @@
-import { FlatList, StyleSheet, TouchableOpacity, View } from "react-native";
+import {
+    Dimensions,
+    FlatList,
+    StyleSheet,
+    TouchableOpacity,
+    View,
+} from "react-native";
 import {
     faDeleteLeft,
     faHouse,
@@ -11,14 +17,33 @@ import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { getObfBoard } from "../state/handlers/boardHandler";
 import BoardButton from "../components/boards/BoardButton";
+import { FlatGrid } from "react-native-super-grid";
 export default function BoardView() {
     let [board, setBoard] = useState(null);
+    let [sentence, setSentence] = useState("");
 
     const navigation = useNavigation();
+    const windowHeight = Dimensions.get("window").height;
+
+    let gridItemHeight;
+
+    if (board) {
+        gridItemHeight = (windowHeight - 110) / board.grid.rows;
+    }
 
     let load = async () => {
         let boardData = await getObfBoard("1_1701841");
         setBoard(boardData);
+    };
+
+    let addWord = (word) => {
+        setSentence((sentence) => (sentence + " " + word).trim());
+    };
+
+    let removeLastWord = () => {
+        setSentence((sentence) =>
+            sentence.substring(0, sentence.lastIndexOf(" "))
+        );
     };
 
     useEffect(() => {
@@ -39,9 +64,16 @@ export default function BoardView() {
                     />
                 </TouchableOpacity>
 
-                <TextInput style={styles.speakBox} />
+                <TextInput
+                    style={styles.speakBox}
+                    onChangeText={(sentence) => setText(sentence)}
+                    defaultValue={sentence}
+                />
 
-                <TouchableOpacity style={styles.iconContainer}>
+                <TouchableOpacity
+                    style={styles.iconContainer}
+                    onPress={() => removeLastWord()}
+                >
                     <FontAwesomeIcon
                         style={styles.topBarIcon}
                         icon={faDeleteLeft}
@@ -49,7 +81,10 @@ export default function BoardView() {
                     />
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.iconContainer}>
+                <TouchableOpacity
+                    style={styles.iconContainer}
+                    onPress={() => setSentence("")}
+                >
                     <FontAwesomeIcon
                         style={styles.topBarIcon}
                         icon={faXmark}
@@ -58,14 +93,19 @@ export default function BoardView() {
                 </TouchableOpacity>
             </View>
             {board && (
-                <View style={styles.boardContainer}>
-                    <FlatList
-                        style={styles.boardContainer}
-                        data={board.buttons}
-                        numColumns={board.grid.columns}
-                        renderItem={BoardButton}
-                    />
-                </View>
+                <FlatGrid
+                    itemDimension={130}
+                    data={board.buttons}
+                    style={styles.boardContainer}
+                    spacing={3}
+                    renderItem={({ item }) => (
+                        <BoardButton
+                            item={item}
+                            height={gridItemHeight}
+                            addWord={addWord}
+                        />
+                    )}
+                />
             )}
         </SafeAreaView>
     );
@@ -89,6 +129,17 @@ const styles = StyleSheet.create({
     topBarIcon: {
         color: "#f2f2f2",
     },
+    iconContainer: {
+        borderColor: "#f2f2f2",
+        borderRadius: 12,
+        borderWidth: 3,
+        padding: 10,
+        marginRight: 10,
+    },
+    boardContainer: {
+        flex: 1,
+        height: "100%",
+    },
     speakBox: {
         flex: 1,
         height: 70,
@@ -99,15 +150,5 @@ const styles = StyleSheet.create({
         marginRight: 45,
         borderColor: "#f2f2f2",
         borderRadius: 12,
-    },
-    boardContainer: {
-        flex: 1,
-    },
-    iconContainer: {
-        borderColor: "#f2f2f2",
-        borderRadius: 12,
-        borderWidth: 3,
-        padding: 10,
-        marginRight: 10,
     },
 });

@@ -1,19 +1,24 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-export default function BoardButton({ item }) {
+export default function BoardButton({ item, height, addWord }) {
+    console.log(height);
     let style = {
-        flex: 1,
+        height: height,
         borderColor: "rgba(12, 12, 12, 0.3)",
         borderWidth: 1,
-        padding: 12,
-        marginVertical: 8,
-        marginHorizontal: 16,
+        padding: 6,
     };
 
     return (
-        <TouchableOpacity>
+        <TouchableOpacity
+            onPress={() => {
+                addWord(item.label);
+            }}
+        >
             <View style={style}>
-                <Text style={styles.labelStyle}>{item.label}</Text>
+                <Text style={styles.labelStyle} numberOfLines={1}>
+                    {item.label}
+                </Text>
             </View>
         </TouchableOpacity>
     );
@@ -21,6 +26,6 @@ export default function BoardButton({ item }) {
 
 const styles = StyleSheet.create({
     labelStyle: {
-        fontSize: 36,
+        fontSize: 16,
     },
 });
