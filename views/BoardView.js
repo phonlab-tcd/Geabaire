@@ -1,10 +1,4 @@
-import {
-    Dimensions,
-    FlatList,
-    StyleSheet,
-    TouchableOpacity,
-    View,
-} from "react-native";
+import { Dimensions, StyleSheet, TouchableOpacity, View } from "react-native";
 import {
     faDeleteLeft,
     faHouse,
@@ -28,7 +22,7 @@ export default function BoardView() {
     let gridItemHeight;
 
     if (board) {
-        gridItemHeight = (windowHeight - 110) / board.grid.rows;
+        gridItemHeight = (windowHeight - 70) / board.grid.rows;
     }
 
     let load = async () => {

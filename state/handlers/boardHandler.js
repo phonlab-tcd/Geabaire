@@ -8,11 +8,22 @@ let getObfBoard = async (id) => {
         .select()
         .eq("obf_id", id);
 
+    console.log(error);
+    console.log(data);
+
     if (data.length < 1) {
         return undefined;
     }
 
-    return data[0]["obf_data"];
+    return data[0]["obfdata"];
+};
+
+let getObfImage = async (id) => {
+    let userId = supabase.auth.session().id;
+
+    const { data, error } = await supabase.storage
+        .from("obfdata")
+        .download(`${userId}/${id}.`);
 };
 
 export { getObfBoard };
