@@ -22,7 +22,7 @@ export default function BoardView() {
     let gridItemHeight;
 
     if (board) {
-        gridItemHeight = (windowHeight - 70) / board.grid.rows;
+        gridItemHeight = (windowHeight - 60) / board.grid.rows;
     }
 
     let load = async () => {
