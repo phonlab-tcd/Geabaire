@@ -1,3 +1,5 @@
+import { faFolder } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
 import { getObfBoard } from "../../state/handlers/boardHandler";
@@ -42,6 +44,13 @@ export default function BoardButton({ item, height, addWord, images }) {
                     {item.label}
                 </Text>
                 <Image source={{ uri: imageLink }} style={styles.imageStyle} />
+                {item["load_board"] && (
+                    <FontAwesomeIcon
+                        style={styles.topRight}
+                        icon={faFolder}
+                        color="rgba(12, 12, 12, 0.3)"
+                    />
+                )}
             </View>
         </TouchableOpacity>
     );
@@ -55,5 +64,12 @@ const styles = StyleSheet.create({
     imageStyle: {
         width: 40,
         height: 40,
+    },
+    topRight: {
+        position: "absolute",
+        top: 0,
+        right: 0,
+        marginTop: 3,
+        marginRight: 3,
     },
 });
