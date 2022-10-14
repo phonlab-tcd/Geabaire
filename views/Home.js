@@ -13,18 +13,36 @@ export default function Home() {
                 A simple application made as an alternative to Coughdrop which
                 supports alternative languages more easily.
             </Text>
-            <View>
+
+            <View style={styles.buttons}>
                 <Button
+                    style={styles.button}
                     title="Speak Mode"
                     type="solid"
                     fontSize={50}
                     onPress={() => navigation.navigate("Board")}
                 />
                 <Button
+                    style={styles.button}
                     title="Logout"
                     type="clear"
                     fontSize={50}
                     onPress={() => supabase.auth.signOut()}
+                />
+            </View>
+
+            <View>
+                <Button
+                    style={styles.button}
+                    buttonStyle={{
+                        backgroundColor: "rgba(78, 116, 289, 1)",
+                        borderRadius: 3,
+                    }}
+                    title="Board Editor"
+                    type="solid"
+                    color="red"
+                    fontSize={50}
+                    onPress={() => navigation.navigate("BoardEditor")}
                 />
             </View>
         </View>
@@ -53,5 +71,12 @@ const styles = StyleSheet.create({
     },
     p: {
         color: "#002223",
+    },
+    buttons: {
+        paddingTop: 15,
+        flexDirection: "row",
+    },
+    button: {
+        margin: 7,
     },
 });
