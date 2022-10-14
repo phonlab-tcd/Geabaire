@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { getObfBoard } from "../state/handlers/boardHandler";
 import BoardButton from "../components/boards/BoardButton";
 import { FlatGrid } from "react-native-super-grid";
-export default function BoardView() {
+export default function BoardView({ route }) {
     let [boards, setBoards] = useState(null);
     let board;
 
@@ -34,7 +34,7 @@ export default function BoardView() {
 
     let load = async () => {
         if (!boards || boards.length === 0) {
-            setBoards([await getObfBoard("1_1701841")]);
+            setBoards([await getObfBoard(route.params.rootId)]);
         }
     };
 
@@ -58,8 +58,6 @@ export default function BoardView() {
             sentence.substring(0, sentence.lastIndexOf(" "))
         );
     };
-
-    console.log(board);
 
     useEffect(() => {
         load();

@@ -15,4 +15,16 @@ let getObfBoard = async (id) => {
     return data[0]["obfdata"];
 };
 
-export { getObfBoard };
+let getAvailableBoards = async () => {
+    let { data, error } = await supabase
+        .from("user_profiles")
+        .select()
+        .limit(1)
+        .single();
+
+    if (error) console.error(error);
+
+    return data.boards;
+};
+
+export { getObfBoard, getAvailableBoards };
