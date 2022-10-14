@@ -2,10 +2,16 @@ import { faFolder } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
-import { getObfBoard } from "../../state/handlers/boardHandler";
 
-export default function BoardButton({ item, height, addWord, images }) {
+export default function BoardButton({
+    item,
+    height,
+    addWord,
+    openFolder,
+    images,
+}) {
     let [imageLink, setImageLink] = useState(null);
+    const isFolder = Boolean(item["load_board"]);
 
     useEffect(() => {
         function getImage(id) {
@@ -27,9 +33,11 @@ export default function BoardButton({ item, height, addWord, images }) {
 
     return (
         <TouchableOpacity
-            onPress={() => {
-                addWord(item.label);
-            }}
+            onPress={() =>
+                isFolder
+                    ? openFolder(item["load_board"].id)
+                    : addWord(item.label)
+            }
         >
             <View
                 style={[
@@ -44,7 +52,7 @@ export default function BoardButton({ item, height, addWord, images }) {
                     {item.label}
                 </Text>
                 <Image source={{ uri: imageLink }} style={styles.imageStyle} />
-                {item["load_board"] && (
+                {isFolder && (
                     <FontAwesomeIcon
                         style={styles.topRight}
                         icon={faFolder}

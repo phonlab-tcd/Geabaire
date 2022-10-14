@@ -2,6 +2,7 @@ import { Dimensions, StyleSheet, TouchableOpacity, View } from "react-native";
 import {
     faDeleteLeft,
     faHouse,
+    faRotateLeft,
     faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -13,7 +14,9 @@ import { getObfBoard } from "../state/handlers/boardHandler";
 import BoardButton from "../components/boards/BoardButton";
 import { FlatGrid } from "react-native-super-grid";
 export default function BoardView() {
-    let [board, setBoard] = useState(null);
+    let [boards, setBoards] = useState(null);
+    let board;
+
     let [sentence, setSentence] = useState("");
 
     const navigation = useNavigation();
@@ -21,13 +24,29 @@ export default function BoardView() {
 
     let gridItemHeight;
 
+    if (boards && boards.length > 0) {
+        board = boards[boards.length - 1];
+    }
+
     if (board) {
         gridItemHeight = (windowHeight - 110) / board.grid.rows;
     }
 
     let load = async () => {
-        let boardData = await getObfBoard("1_1701841");
-        setBoard(boardData);
+        if (!boards || boards.length === 0) {
+            setBoards([await getObfBoard("1_1701841")]);
+        }
+    };
+
+    let openFolder = async (id) => {
+        let newBoard = await getObfBoard(id);
+        setBoards((boards) => [...boards, newBoard]);
+    };
+
+    let closeFolder = () => {
+        if (boards.length > 1) {
+            setBoards((boards) => boards.slice(0, -1));
+        }
     };
 
     let addWord = (word) => {
@@ -39,6 +58,8 @@ export default function BoardView() {
             sentence.substring(0, sentence.lastIndexOf(" "))
         );
     };
+
+    console.log(board);
 
     useEffect(() => {
         load();
@@ -54,6 +75,17 @@ export default function BoardView() {
                     <FontAwesomeIcon
                         style={styles.topBarIcon}
                         icon={faHouse}
+                        size={45}
+                    />
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={styles.iconContainer}
+                    onPress={() => closeFolder()}
+                >
+                    <FontAwesomeIcon
+                        style={styles.topBarIcon}
+                        icon={faRotateLeft}
                         size={45}
                     />
                 </TouchableOpacity>
@@ -98,6 +130,7 @@ export default function BoardView() {
                             height={gridItemHeight}
                             addWord={addWord}
                             images={board.images}
+                            openFolder={openFolder}
                         />
                     )}
                 />
