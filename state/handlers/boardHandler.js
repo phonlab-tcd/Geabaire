@@ -23,7 +23,12 @@ let getObfImage = async (id) => {
 
     const { data, error } = await supabase.storage
         .from("obfdata")
-        .download(`${userId}/${id}.`);
+        .getPublicUrl(id.replace("images", userId));
+
+    console.log(error);
+
+    console.log(data);
+    return data;
 };
 
-export { getObfBoard };
+export { getObfBoard, getObfImage };
