@@ -6,13 +6,14 @@ let getObfBoard = async (id) => {
     let { data, error } = await supabase
         .from("obf_boards")
         .select()
-        .eq("obf_id", id);
+        .eq("obf_id", id)
+        .single();
 
     if (data.length < 1) {
         return undefined;
     }
 
-    return data[0]["obfdata"];
+    return { board: data["buttondata"], images: data["obfdata"]["images"] };
 };
 
 let getAvailableBoards = async () => {

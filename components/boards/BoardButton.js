@@ -1,57 +1,42 @@
 import { faFolder } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { useEffect, useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, Image } from "react-native";
 
-export default function BoardButton({
-    item,
-    height,
-    addWord,
-    openFolder,
-    images,
-}) {
-    let [imageLink, setImageLink] = useState(null);
+export default function BoardButton({ item, addWord, openFolder, images }) {
+    const matchingImages = images.filter((image) => image.id == item.image_id);
+    const imageLink =
+        matchingImages.length > 0 ? matchingImages[0].url : undefined;
     const isFolder = Boolean(item["load_board"]);
 
-    useEffect(() => {
-        function getImage(id) {
-            let matchingImages = images.filter((image) => image.id == id);
-            return matchingImages[0];
-        }
-
-        setImageLink(getImage(item.image_id).url);
-    }, []);
-
     let style = {
-        height: height,
+        height: "100%",
         borderColor: "rgba(12, 12, 12, 0.3)",
         borderWidth: 1,
-        padding: 6,
         alignItems: "center",
         justifyContent: "center",
+        backgroundColor: item["background_color"],
+        borderColor: item["border_color"],
     };
 
     return (
-        <TouchableOpacity
-            onPress={() =>
-                isFolder
-                    ? openFolder(item["load_board"].id)
-                    : addWord(item.label)
-            }
-        >
-            <View
-                style={[
-                    style,
-                    {
-                        backgroundColor: item["background_color"],
-                        borderColor: item["border_color"],
-                    },
-                ]}
+        item && (
+            <TouchableOpacity
+                onPress={() => {
+                    isFolder
+                        ? openFolder(item["load_board"].id)
+                        : addWord(item.label);
+                }}
+                style={style}
             >
                 <Text style={styles.labelStyle} numberOfLines={1}>
                     {item.label}
                 </Text>
-                <Image source={{ uri: imageLink }} style={styles.imageStyle} />
+                {imageLink && (
+                    <Image
+                        source={{ uri: imageLink }}
+                        style={styles.imageStyle}
+                    />
+                )}
                 {isFolder && (
                     <FontAwesomeIcon
                         style={styles.topRight}
@@ -59,8 +44,8 @@ export default function BoardButton({
                         color="rgba(12, 12, 12, 0.3)"
                     />
                 )}
-            </View>
-        </TouchableOpacity>
+            </TouchableOpacity>
+        )
     );
 }
 
@@ -70,8 +55,8 @@ const styles = StyleSheet.create({
         textAlign: "center",
     },
     imageStyle: {
-        width: 40,
-        height: 40,
+        width: "45%",
+        height: "45%",
     },
     topRight: {
         position: "absolute",
