@@ -1,10 +1,8 @@
-# AAC Viewer
+# Geabaire
 
 [![OpenAAC](https://www.openaac.org/images/OpenAAC-chat-red.svg)](https://www.openaac.org/advocates.html)
 [![Status Badge](https://img.shields.io/badge/status-alpha-236b88)](https://aac.paradaux.io)
 [![Status Badge](https://img.shields.io/badge/deployed%20with-cloudflare%20pages-F6821F)](https://aac.paradaux.io)
-
-Name to be changed at some point.
 
 This project serves to be an alternative version of another Open Source project, CoughDrop that is free as in freedom rather than free as in beer. The project is licensed under AGPLv3 to ensure the products of this project are not used for malicious commercial purposes. 
 
