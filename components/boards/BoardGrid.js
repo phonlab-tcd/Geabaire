@@ -5,7 +5,7 @@ import EmptyButton from "./EmptyButton";
 
 export default function BoardGrid({ board, addWord, openFolder }) {
     let rows = board.board.map((row) => (
-        <Row key={JSON.stringify(row)} row={row}>
+        <Row key={JSON.stringify(row) + Math.random()} row={row}>
             {row.map((button) => {
                 if (button) {
                     return (
