@@ -6,6 +6,9 @@ import axios from "axios";
 
 const synthesisDirectory = FileSystem.cacheDirectory + "synthesis";
 
+/**
+ * Play the provided string as Irish text.
+ */
 let play = async (string) => {
     return ({ sound: playbackObject } = await Audio.Sound.createAsync(
         { uri: getSynthesisUrl(string) },
@@ -13,14 +16,11 @@ let play = async (string) => {
     ));
 };
 
-let getSynthesisUrl = (string) => {
-    string = encodeURI(string);
-    let voice = encodeURI("ga_CO_snc_nemo");
 
-    return `https://abair.ie/api2/synthesise?input=${string}&voice=${voice}&audioEncoding=MP3&outputType=AUDIO&speed=1&pitch=1&normalise=true`;
-};
-
-let playLocalSave = async (string) => {
+/**
+ * Play the provided string as Irish text, using the local cache
+ */
+ let playLocalSave = async (string) => {
     let base64String = await getSynthesisBytes(string);
 
     let audioLocation = synthesisDirectory + uuid.v4();
@@ -35,6 +35,13 @@ let playLocalSave = async (string) => {
         { uri: audioLocation },
         { shouldPlay: true }
     ));
+};
+
+let getSynthesisUrl = (string) => {
+    string = encodeURI(string);
+    let voice = encodeURI("ga_CO_snc_nemo");
+
+    return `https://abair.ie/api2/synthesise?input=${string}&voice=${voice}&audioEncoding=MP3&outputType=AUDIO&speed=1&pitch=1&normalise=true`;
 };
 
 let getSynthesisBytes = async (string) => {
