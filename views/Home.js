@@ -11,7 +11,7 @@ export default function Home() {
     let [boards, setBoards] = useState();
     const navigation = useNavigation();
 
-    // navigation.navigate("Board", { rootId: "1_1701841" });
+    navigation.navigate("Board", { rootId: "1_1701841" });
 
     let boardButtons = [];
 

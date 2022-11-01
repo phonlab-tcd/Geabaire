@@ -6,6 +6,7 @@ import BoardControls from "../components/boards/BoardControls";
 import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import BoardGrid from "../components/boards/BoardGrid";
+import { getSynthesisBytes, play } from "../state/handlers/synthesisHelper";
 export default function BoardView({ route }) {
     let [boards, setBoards] = useState(null);
     let board =
@@ -21,9 +22,8 @@ export default function BoardView({ route }) {
 
     let addWord = (word) => {
         setSentence((sentence) => (sentence + " " + word).trim());
+        play(word);
     };
-
-    console.log(board);
 
     const navigation = useNavigation();
 
