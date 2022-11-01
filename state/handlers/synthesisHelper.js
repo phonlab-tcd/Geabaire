@@ -7,6 +7,20 @@ import axios from "axios";
 const synthesisDirectory = FileSystem.cacheDirectory + "synthesis";
 
 let play = async (string) => {
+    return ({ sound: playbackObject } = await Audio.Sound.createAsync(
+        { uri: getSynthesisUrl(string) },
+        { shouldPlay: true }
+    ));
+};
+
+let getSynthesisUrl = (string) => {
+    string = encodeURI(string);
+    let voice = encodeURI("ga_CO_snc_nemo");
+
+    return `https://abair.ie/api2/synthesise?input=${string}&voice=${voice}&audioEncoding=MP3&outputType=AUDIO&speed=1&pitch=1&normalise=true`;
+};
+
+let playLocalSave = async (string) => {
     let base64String = await getSynthesisBytes(string);
 
     let audioLocation = synthesisDirectory + uuid.v4();
@@ -60,4 +74,4 @@ async function ensureDirExists() {
     }
 }
 
-export { getSynthesisBytes, play };
+export { getSynthesisBytes, playLocalSave, play };
