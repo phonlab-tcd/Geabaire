@@ -6,14 +6,14 @@ import BoardControls from "../components/boards/BoardControls";
 import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import BoardGrid from "../components/boards/BoardGrid";
-import { getSynthesisBytes, play } from "../state/handlers/synthesisHelper";
+import { play } from "../state/handlers/synthesisHelper";
 export default function BoardView({ route }) {
     let [boards, setBoards] = useState(null);
     let board =
         boards && boards.length > 0 ? boards[boards.length - 1] : undefined;
 
     let [sentence, setSentence] = useState("");
-    let [settingsVisable, setSettingsVisable] = useState(false);
+    let [settingsVisable, setSettingsVisable] = useState(true);
 
     let openFolder = async (id) => {
         let newBoard = await getObfBoard(id);

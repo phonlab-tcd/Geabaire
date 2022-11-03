@@ -10,10 +10,10 @@ const synthesisDirectory = FileSystem.cacheDirectory + "synthesis";
  * Play the provided string as Irish text.
  */
 let play = async (string) => {
-    return ({ sound: playbackObject } = await Audio.Sound.createAsync(
+    await Audio.Sound.createAsync(
         { uri: getSynthesisUrl(string) },
         { shouldPlay: true }
-    ));
+    );
 };
 
 

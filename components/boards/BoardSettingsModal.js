@@ -1,12 +1,22 @@
-import { faCross, faXmark } from "@fortawesome/free-solid-svg-icons";
+import {
+    faCross,
+    faSpaghettiMonsterFlying,
+    faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { ScrollView } from "react-native";
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Button } from "react-native-elements";
+import { Switch } from "react-native-web";
+import { useRecoilState } from "recoil";
+import { settingsState } from "../../state/atoms";
 
 export default function BoardSettingsModal({
     settingsVisable,
     setSettingsVisable,
 }) {
+    const [settings, setSettings] = useRecoilState(settingsState);
+
     return (
         <Modal
             animationType="slide"
@@ -18,26 +28,49 @@ export default function BoardSettingsModal({
         >
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
-                    <View style={styles.modalTop}>
-                        <Text style={styles.headerText}>Board Settings</Text>
-                        <TouchableOpacity
-                            onPress={() => setSettingsVisable((prev) => !prev)}
-                        >
-                            <FontAwesomeIcon
-                                icon={faXmark}
-                                size={32}
-                                color="white"
-                            />
-                        </TouchableOpacity>
-                    </View>
+                    <ScrollView>
+                        <View style={styles.modalTop}>
+                            <Text style={styles.headerText}>
+                                Board Settings
+                            </Text>
+                            <TouchableOpacity
+                                onPress={() =>
+                                    setSettingsVisable((prev) => !prev)
+                                }
+                            >
+                                <FontAwesomeIcon
+                                    icon={faXmark}
+                                    size={32}
+                                    color="white"
+                                />
+                            </TouchableOpacity>
+                        </View>
 
-                    <Button
-                        style={styles.button}
-                        title="Close"
-                        type="clear"
-                        fontSize={50}
-                        onPress={() => setSettingsVisable((prev) => !prev)}
-                    />
+                        <View>
+                            <Switch
+                                trackColor={{
+                                    false: "#767577",
+                                    true: "#81b0ff",
+                                }}
+                                thumbColor={
+                                    settings.doSpeakEachWord
+                                        ? "#f5dd4b"
+                                        : "#f4f3f4"
+                                }
+                                ios_backgroundColor="#3e3e3e"
+                                onValueChange={() => {}}
+                                value={settings.doSpeakEachWord}
+                            />
+                        </View>
+
+                        <Button
+                            style={styles.button}
+                            title="Close"
+                            type="clear"
+                            fontSize={50}
+                            onPress={() => setSettingsVisable((prev) => !prev)}
+                        />
+                    </ScrollView>
                 </View>
             </View>
         </Modal>
