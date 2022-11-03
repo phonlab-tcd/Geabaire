@@ -1,15 +1,14 @@
 import * as NavigationBar from "expo-navigation-bar";
 import { StatusBar } from "expo-status-bar";
-import { Provider } from "react-redux";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import store from "./state/store";
 import Home from "./views/Home";
 import { useEffect, useState } from "react";
 import Auth from "./views/Auth";
 import { supabase } from "./state/supabase";
 import BoardView from "./views/BoardView";
 import BoardEditor from "./views/BoardEditor.js";
+import { RecoilRoot } from "recoil";
 
 const Stack = createNativeStackNavigator();
 
@@ -31,7 +30,7 @@ export default function App() {
     }, []);
 
     return (
-        <Provider store={store}>
+        <RecoilRoot>
             <StatusBar hidden={true} />
             {session && session.user ? (
                 <NavigationContainer>
@@ -51,6 +50,6 @@ export default function App() {
             ) : (
                 <Auth />
             )}
-        </Provider>
+        </RecoilRoot>
     );
 }
