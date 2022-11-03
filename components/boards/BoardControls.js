@@ -13,6 +13,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { TextInput } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import TouchableIcon from "./TouchableIcon";
+import { useEffect } from "react";
 
 export default function BoardControls({
     boards,
@@ -39,115 +41,70 @@ export default function BoardControls({
         );
     };
 
+    // useEffect(() => {}, [sentence]);
+
     return (
-        <View style={styles.topBar}>
-            <TouchableOpacity
-                style={styles.iconContainer}
-                onPress={() => navigation.navigate("Home")}
-            >
-                <FontAwesomeIcon
-                    style={styles.topBarIcon}
+        <View style={styles.container}>
+            <View style={styles.settingsContainer}>
+                <TouchableIcon
                     icon={faArrowRightFromBracket}
                     size={45}
+                    action={() => navigation.navigate("Home")}
                 />
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.iconContainer}
-                onPress={resetFolder}
-            >
-                <FontAwesomeIcon
-                    style={styles.topBarIcon}
-                    icon={faHouse}
-                    size={45}
-                />
-            </TouchableOpacity>
-
-            <TouchableOpacity
-                style={styles.iconContainer}
-                onPress={() => closeFolder()}
-            >
-                <FontAwesomeIcon
-                    style={styles.topBarIcon}
+                <TouchableIcon icon={faHouse} size={45} action={resetFolder} />
+                <TouchableIcon
                     icon={faRotateLeft}
                     size={45}
+                    action={closeFolder}
                 />
-            </TouchableOpacity>
+            </View>
 
             <TextInput
-                style={styles.speakBox}
-                onChangeText={(sentence) => setSentence(sentence)}
                 defaultValue={sentence}
+                onChangeText={(newText) => setSentence(newText)}
+                style={styles.sentenceContainer}
+                autoCorrect={false}
             />
 
-            <TouchableOpacity
-                style={styles.iconContainer}
-                onPress={() => removeLastWord()}
-            >
-                <FontAwesomeIcon
-                    style={styles.topBarIcon}
+            <View style={styles.settingsContainer}>
+                <TouchableIcon
                     icon={faDeleteLeft}
                     size={45}
+                    action={removeLastWord}
                 />
-            </TouchableOpacity>
-
-            <TouchableOpacity
-                style={styles.iconContainer}
-                onPress={() => setSentence("")}
-            >
-                <FontAwesomeIcon
-                    style={styles.topBarIcon}
+                <TouchableIcon
                     icon={faXmark}
                     size={45}
+                    action={() => setSentence("")}
                 />
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.iconContainer}
-                onPress={() => setSettingsVisable((prev) => !prev)}
-            >
-                <FontAwesomeIcon
-                    style={styles.topBarIcon}
+                <TouchableIcon
                     icon={faGear}
                     size={45}
+                    action={() => setSettingsVisable((prev) => !prev)}
                 />
-            </TouchableOpacity>
+            </View>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "#f2f2f2",
-        flex: 1,
-    },
-    topBar: {
-        height: "12%",
-        width: "100%",
+        height: 50,
         flexDirection: "row",
         justifyContent: "space-between",
-        backgroundColor: "rgba(12, 12, 12, 0.3)",
+        backgroundColor: "#edede9",
         alignItems: "center",
         paddingLeft: 32,
         paddingRight: 32,
     },
-    topBarIcon: {
-        color: "#f2f2f2",
+    settingsContainer: {
+        flexDirection: "row",
     },
-    iconContainer: {
-        borderColor: "#f2f2f2",
-        borderRadius: 12,
-        borderWidth: 3,
-        padding: 10,
-        marginRight: 10,
-    },
-    speakBox: {
-        flex: 1,
-        height: 70,
-        borderWidth: 4,
-        fontSize: 40,
-        paddingLeft: 9,
-        marginLeft: 32,
-        marginRight: 45,
-        borderColor: "#f2f2f2",
-        borderRadius: 12,
+    sentenceContainer: {
+        flex: 8,
+        margin: 15,
+        backgroundColor: "#CCC",
+        height: "100%",
+        fontSize: 25,
     },
 });
