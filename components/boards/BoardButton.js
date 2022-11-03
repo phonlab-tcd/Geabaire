@@ -35,6 +35,7 @@ export default function BoardButton({ item, addWord, openFolder, images }) {
                     <Image
                         source={{ uri: imageLink }}
                         style={styles.imageStyle}
+                        resizeMode="contain"
                     />
                 )}
                 {isFolder && (
