@@ -7,6 +7,9 @@ import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import BoardGrid from "../components/boards/BoardGrid";
 import { play } from "../state/handlers/synthesisHelper";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { settingsState } from "../state/atoms/settings";
+import { sentenceSpeechTimer } from "../state/atoms/timers";
 export default function BoardView({ route }) {
     let [boards, setBoards] = useState(null);
     let board =
@@ -15,14 +18,38 @@ export default function BoardView({ route }) {
     let [sentence, setSentence] = useState("");
     let [settingsVisable, setSettingsVisable] = useState(true);
 
+    let [speechTimer, setSpeechTimer] = useRecoilState(sentenceSpeechTimer);
+
+    const settings = useRecoilValue(settingsState);
+
     let openFolder = async (id) => {
         let newBoard = await getObfBoard(id);
         setBoards((boards) => [...boards, newBoard]);
     };
 
     let addWord = (word) => {
-        setSentence((sentence) => (sentence + " " + word).trim());
-        play(word);
+        setSentence((sentence) => {
+            let newSentence = (sentence + " " + word).trim();
+
+            if (settings.doSpeakEachWord) {
+                play(word, settings);
+            }
+
+            // Reset time since last button press to stop sentence speech
+            if (speechTimer) {
+                clearTimeout(speechTimer);
+            }
+
+            // Set new timeout
+            setSpeechTimer(
+                setTimeout(() => {
+                    // TODO: add corrector step.
+                    play(newSentence, settings);
+                }, settings.speakSentenceDelay)
+            );
+
+            return newSentence;
+        });
     };
 
     const navigation = useNavigation();
@@ -56,6 +83,7 @@ export default function BoardView({ route }) {
                     board={board}
                     openFolder={openFolder}
                     addWord={addWord}
+                    settings={settings}
                 />
             )}
         </SafeAreaView>

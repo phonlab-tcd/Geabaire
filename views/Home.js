@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { Modal } from "react-native";
 import { View, Text, StyleSheet } from "react-native";
-import { Button } from "react-native-elements";
+import GButton from "../components/GButton";
 import { getAvailableBoards } from "../state/handlers/boardHandler";
 import { supabase } from "../state/supabase";
 
@@ -19,13 +19,10 @@ export default function Home() {
 
     if (boards) {
         boardButtons = boards.map((item) => (
-            <Button
+            <GButton
                 key={item.id}
-                style={styles.button}
-                title={item.name}
-                type="solid"
-                fontSize={50}
-                onPress={() => {
+                label={item.name}
+                action={() => {
                     navigation.navigate("Board", { rootId: item.id });
                     setBoardListModal((old) => !old);
                 }}
@@ -54,52 +51,33 @@ export default function Home() {
                     <View style={styles.modalView}>
                         <Text>Available Boards</Text>
                         {boardButtons}
-                        <Button
+                        {/* <Button
                             style={styles.button}
                             title="Close"
                             type="clear"
                             fontSize={50}
                             onPress={() => setBoardListModal((old) => !old)}
-                        />
+                        /> */}
                     </View>
                 </View>
             </Modal>
-            <Text style={styles.header}>OpenAAC Viewer</Text>
-            <Text style={styles.subheader}>
-                A simple application made as an alternative to Coughdrop which
-                supports alternative languages more easily.
-            </Text>
+            <Text style={styles.header}>Geabaire</Text>
+            <Text style={styles.subheader}>An OpenAAC board renderer.</Text>
 
             <View style={styles.buttons}>
-                <Button
-                    style={styles.button}
-                    title="Speak Mode"
-                    type="solid"
-                    fontSize={50}
-                    onPress={() => setBoardListModal((old) => !old)}
+                <GButton
+                    label="Speak Mode"
+                    action={() => setBoardListModal((old) => !old)}
                 />
-                <Button
-                    style={styles.button}
-                    title="Logout"
-                    type="clear"
-                    fontSize={50}
-                    onPress={() => supabase.auth.signOut()}
+                <GButton
+                    label="Log out"
+                    action={() => supabase.auth.signOut()}
                 />
             </View>
-            <View>
-                <Button
-                    style={styles.button}
-                    buttonStyle={{
-                        backgroundColor: "rgba(78, 116, 289, 1)",
-                        borderRadius: 3,
-                    }}
-                    title="Board Editor"
-                    type="solid"
-                    color="red"
-                    fontSize={50}
-                    onPress={() => navigation.navigate("BoardEditor")}
-                />
-            </View>
+            <GButton
+                label="Board Editor"
+                action={() => navigation.navigate("BoardEditor")}
+            />
         </View>
     );
 }
@@ -130,9 +108,6 @@ const styles = StyleSheet.create({
     buttons: {
         paddingTop: 15,
         flexDirection: "row",
-    },
-    button: {
-        margin: 7,
     },
     modalView: {
         margin: 20,

@@ -1,20 +1,20 @@
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { TouchableOpacity } from "react-native";
 import { View } from "react-native";
 import { StyleSheet } from "react-native";
-import { getObfBoard } from "../../state/handlers/boardHandler";
 import {
     faArrowRightFromBracket,
     faDeleteLeft,
     faGear,
     faHouse,
     faRotateLeft,
+    faVolumeHigh,
     faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { TextInput } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import TouchableIcon from "./TouchableIcon";
-import { useEffect } from "react";
+import { play } from "../../state/handlers/synthesisHelper";
+import { settingsState } from "../../state/atoms/settings";
+import { useRecoilValue } from "recoil";
 
 export default function BoardControls({
     boards,
@@ -24,6 +24,7 @@ export default function BoardControls({
     setSettingsVisable,
 }) {
     const navigation = useNavigation();
+    const settings = useRecoilValue(settingsState);
 
     let resetFolder = () => {
         setBoards((boards) => [boards[0]]);
@@ -41,8 +42,6 @@ export default function BoardControls({
         );
     };
 
-    // useEffect(() => {}, [sentence]);
-
     return (
         <View style={styles.container}>
             <View style={styles.settingsContainer}>
@@ -56,6 +55,13 @@ export default function BoardControls({
                     icon={faRotateLeft}
                     size={45}
                     action={closeFolder}
+                />
+                <TouchableIcon
+                    icon={faVolumeHigh}
+                    size={45}
+                    action={() => {
+                        play(sentence, settings);
+                    }}
                 />
             </View>
 

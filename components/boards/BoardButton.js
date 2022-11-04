@@ -7,7 +7,6 @@ export default function BoardButton({ item, addWord, openFolder, images }) {
     const imageLink =
         matchingImages.length > 0 ? matchingImages[0].url : undefined;
     const isFolder = Boolean(item["load_board"]);
-
     let style = {
         height: "100%",
         borderColor: "rgba(12, 12, 12, 0.3)",

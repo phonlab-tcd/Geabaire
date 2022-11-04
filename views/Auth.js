@@ -1,71 +1,57 @@
-import React, { useState } from "react";
-import { Alert, StyleSheet, View } from "react-native";
-import { supabase } from "../state/supabase";
-import { Button, Input } from "react-native-elements";
+import { useState } from "react";
+import {
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
+} from "react-native";
+import { signIn, signUp } from "../state/handlers/authHandler";
 
 export default function Auth() {
-    const [email, setEmail] = useState("");
+    const [email, setEmaiil] = useState("");
     const [password, setPassword] = useState("");
-    const [loading, setLoading] = useState(false);
-
-    async function signInWithEmail() {
-        setLoading(true);
-        const { error } = await supabase.auth.signIn({
-            email: email,
-            password: password,
-        });
-
-        if (error) Alert.alert(error.message);
-        setLoading(false);
-    }
-
-    async function signUpWithEmail() {
-        setLoading(true);
-        const { error } = await supabase.auth.signUp({
-            email: email,
-            password: password,
-        });
-
-        if (error) Alert.alert(error.message);
-        setLoading(false);
-    }
 
     return (
-        <View>
-            <View style={[styles.verticallySpaced, styles.mt20]}>
-                <Input
-                    label="Email"
-                    leftIcon={{ type: "font-awesome", name: "envelope" }}
-                    onChangeText={(text) => setEmail(text)}
-                    value={email}
-                    placeholder="email@address.com"
-                    autoCapitalize={"none"}
-                />
+        <View style={styles.container}>
+            <View styles={styles.topBar}>
+                <Text style={styles.topBarText}>Authentication</Text>
             </View>
-            <View style={styles.verticallySpaced}>
-                <Input
-                    label="Password"
-                    leftIcon={{ type: "font-awesome", name: "lock" }}
-                    onChangeText={(text) => setPassword(text)}
-                    value={password}
-                    secureTextEntry={true}
-                    placeholder="Password"
-                    autoCapitalize={"none"}
-                />
-            </View>
-            <View style={[styles.verticallySpaced, styles.mt20]}>
-                <Button
-                    title="Sign in"
-                    disabled={loading}
-                    onPress={() => signInWithEmail()}
-                />
-            </View>
-            <View style={styles.verticallySpaced}>
-                <Button
-                    title="Sign up"
-                    disabled={loading}
-                    onPress={() => signUpWithEmail()}
-                />
+            <View style={styles.fields}>
+                <View style={styles.field}>
+                    <Text style={styles.fieldText}>Email</Text>
+                    <TextInput
+                        style={styles.fieldInput}
+                        value={email}
+                        onChangeText={setEmaiil}
+                    />
+                </View>
+                <View style={styles.field}>
+                    <Text style={styles.fieldText}>Password</Text>
+                    <TextInput
+                        style={styles.fieldInput}
+                        secureTextEntry={true}
+                        value={password}
+                        onChangeText={setPassword}
+                    />
+                </View>
+
+                <TouchableOpacity
+                    style={[styles.button, styles.buttonActive]}
+                    onPress={() => {
+                        signUp(email, password);
+                    }}
+                >
+                    <Text style={styles.buttonActiveText}>Sign Up</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => {
+                        signIn(email, password);
+                    }}
+                >
+                    <Text style={styles.buttonText}>Sign In</Text>
+                </TouchableOpacity>
             </View>
         </View>
     );
@@ -73,15 +59,55 @@ export default function Auth() {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 40,
-        padding: 12,
+        flex: 1,
+        backgroundColor: "#141414",
     },
-    verticallySpaced: {
-        paddingTop: 4,
-        paddingBottom: 4,
-        alignSelf: "stretch",
+    topBar: {
+        width: "100%",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
     },
-    mt20: {
-        marginTop: 20,
+    topBarText: {
+        color: "#CCC",
+        fontSize: 24,
+        textAlign: "center",
+    },
+    fields: {},
+    field: {},
+    fieldText: {
+        color: "white",
+        fontSize: 16,
+        margin: 16,
+        marginTop: 3,
+        marginBottom: 3,
+    },
+    fieldInput: {
+        color: "white",
+        backgroundColor: "#181818",
+        padding: 10,
+        fontSize: 14,
+        margin: 16,
+        marginTop: 3,
+        marginBottom: 3,
+    },
+    button: {
+        backgroundColor: "#181818",
+        margin: 12,
+        borderRadius: 12,
+        padding: 10,
+        paddingTop: 5,
+        paddingBottom: 5,
+    },
+    buttonText: {
+        fontSize: 10,
+        color: "#CCC",
+        textTransform: "uppercase",
+    },
+    buttonActive: {
+        backgroundColor: "#709fc5",
+    },
+    buttonActiveText: {
+        color: "black",
     },
 });

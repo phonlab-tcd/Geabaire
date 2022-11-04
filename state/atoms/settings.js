@@ -1,28 +1,41 @@
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
 
 const doSpeakEachWordState = atom({
     key: "doSpeakEachWordState",
-    value: true,
+    default: true,
 });
 
 const speakSentenceDelayState = atom({
     key: "speakSentenceDelayState",
-    value: 2000,
+    default: 6000,
 });
 
 const voiceState = atom({
     key: "voiceState",
-    value: "ga_CO_snc_nemo",
+    default: "ga_CO_snc_nemo",
 });
 
 const speedState = atom({
     key: "speedState",
-    value: 1,
+    default: 1,
 });
 
 const pitchState = atom({
     key: "pitchState",
-    value: 1,
+    default: 1,
+});
+
+const settingsState = selector({
+    key: "settings",
+    get: ({ get }) => {
+        return {
+            doSpeakEachWord: get(doSpeakEachWordState),
+            speakSentenceDelay: get(speakSentenceDelayState),
+            voice: get(voiceState),
+            speed: get(speedState),
+            pitch: get(pitchState),
+        };
+    },
 });
 
 export {
@@ -31,4 +44,5 @@ export {
     voiceState,
     speedState,
     pitchState,
+    settingsState,
 };

@@ -1,14 +1,15 @@
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as NavigationBar from "expo-navigation-bar";
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Home from "./views/Home";
 import { useEffect, useState } from "react";
+import { RecoilRoot } from "recoil";
+
+import Home from "./views/Home";
 import Auth from "./views/Auth";
 import { supabase } from "./state/supabase";
 import BoardView from "./views/BoardView";
 import BoardEditor from "./views/BoardEditor.js";
-import { RecoilRoot } from "recoil";
 
 const Stack = createNativeStackNavigator();
 
@@ -17,8 +18,9 @@ export default function App() {
     NavigationBar.setVisibilityAsync("hidden");
 
     async function authHandler() {
-        const session = await supabase.auth.session();
-        setSession(session);
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            setSession(session);
+        });
 
         supabase.auth.onAuthStateChange((_event, session) => {
             setSession(session);

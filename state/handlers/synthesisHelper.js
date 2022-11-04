@@ -9,18 +9,17 @@ const synthesisDirectory = FileSystem.cacheDirectory + "synthesis";
 /**
  * Play the provided string as Irish text.
  */
-let play = async (string) => {
+let play = async (string, settings) => {
     await Audio.Sound.createAsync(
-        { uri: getSynthesisUrl(string) },
+        { uri: getSynthesisUrl(string, settings) },
         { shouldPlay: true }
     );
 };
 
-
 /**
  * Play the provided string as Irish text, using the local cache
  */
- let playLocalSave = async (string) => {
+let playLocalSave = async (string) => {
     let base64String = await getSynthesisBytes(string);
 
     let audioLocation = synthesisDirectory + uuid.v4();
@@ -37,11 +36,13 @@ let play = async (string) => {
     ));
 };
 
-let getSynthesisUrl = (string) => {
-    string = encodeURI(string);
-    let voice = encodeURI("ga_CO_snc_nemo");
+let getSynthesisUrl = (input, settings) => {
+    let string = encodeURI(input);
+    let voice = encodeURI(settings.voice);
+    let speed = encodeURI(settings.speed);
+    let pitch = encodeURI(settings.pitch);
 
-    return `https://abair.ie/api2/synthesise?input=${string}&voice=${voice}&audioEncoding=MP3&outputType=AUDIO&speed=1&pitch=1&normalise=true`;
+    return `https://abair.ie/api2/synthesise?input=${string}&voice=${voice}&audioEncoding=MP3&outputType=AUDIO&speed=${speed}&pitch=${pitch}&normalise=true`;
 };
 
 let getSynthesisBytes = async (string) => {

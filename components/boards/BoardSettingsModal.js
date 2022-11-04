@@ -1,22 +1,22 @@
-import {
-    faCross,
-    faSpaghettiMonsterFlying,
-    faXmark,
-} from "@fortawesome/free-solid-svg-icons";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { ScrollView } from "react-native";
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { Button } from "react-native-elements";
-import { Switch } from "react-native-web";
-import { useRecoilState } from "recoil";
-import { settingsState } from "../../state/atoms";
+import {
+    doSpeakEachWordState,
+    pitchState,
+    speakSentenceDelayState,
+    speedState,
+    voiceState,
+} from "../../state/atoms/settings";
+import SliderEntry from "../settings/SliderEntry";
+import StringEntry from "../settings/StringEntry";
+import SwitchEntry from "../settings/SwitchEntry";
 
 export default function BoardSettingsModal({
     settingsVisable,
     setSettingsVisable,
 }) {
-    const [settings, setSettings] = useRecoilState(settingsState);
-
     return (
         <Modal
             animationType="slide"
@@ -28,7 +28,7 @@ export default function BoardSettingsModal({
         >
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
-                    <ScrollView>
+                    <ScrollView styles={styles.fill}>
                         <View style={styles.modalTop}>
                             <Text style={styles.headerText}>
                                 Board Settings
@@ -45,30 +45,32 @@ export default function BoardSettingsModal({
                                 />
                             </TouchableOpacity>
                         </View>
+                        <SwitchEntry
+                            title="Speak each word"
+                            atom={doSpeakEachWordState}
+                        />
+                        <StringEntry title="Voice" atom={voiceState} />
+                        <SliderEntry
+                            title="Speed"
+                            atom={speedState}
+                            min={0.1}
+                            max={1.5}
+                            step={0.1}
+                        />
 
-                        <View>
-                            <Switch
-                                trackColor={{
-                                    false: "#767577",
-                                    true: "#81b0ff",
-                                }}
-                                thumbColor={
-                                    settings.doSpeakEachWord
-                                        ? "#f5dd4b"
-                                        : "#f4f3f4"
-                                }
-                                ios_backgroundColor="#3e3e3e"
-                                onValueChange={() => {}}
-                                value={settings.doSpeakEachWord}
-                            />
-                        </View>
-
-                        <Button
-                            style={styles.button}
-                            title="Close"
-                            type="clear"
-                            fontSize={50}
-                            onPress={() => setSettingsVisable((prev) => !prev)}
+                        <SliderEntry
+                            title="Pitch"
+                            atom={pitchState}
+                            min={0.1}
+                            max={1.5}
+                            step={0.1}
+                        />
+                        <SliderEntry
+                            title="Speak Sentence Delay"
+                            atom={speakSentenceDelayState}
+                            min={1000}
+                            max={15000}
+                            step={1000}
                         />
                     </ScrollView>
                 </View>
@@ -96,6 +98,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         paddingLeft: 23,
         paddingRight: 23,
+        marginBottom: 12,
     },
     headerText: {
         color: "white",
@@ -103,6 +106,11 @@ const styles = StyleSheet.create({
         padding: 12,
     },
     button: {
+        marginBottom: "auto",
         marginTop: "auto",
+    },
+    fill: {
+        flex: 1,
+        flexGrow: 1,
     },
 });

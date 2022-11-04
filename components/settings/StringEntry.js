@@ -1,23 +1,17 @@
-import { Switch, Text, View } from "react-native";
+import { Switch, Text, TextInput, View } from "react-native";
 import { StyleSheet } from "react-native";
 import { useRecoilState } from "recoil";
 
-export default function SwitchEntry({ title, atom }) {
+export default function StringEntry({ title, atom }) {
     const [value, setValue] = useRecoilState(atom);
 
     return (
         <View style={styles.container}>
             <Text style={styles.key}>{title}</Text>
-            <Switch
+            <TextInput
                 style={styles.value}
-                trackColor={{
-                    false: "#767577",
-                    true: "#81b0ff",
-                }}
-                thumbColor={value ? "#f5dd4b" : "#f4f3f4"}
-                ios_backgroundColor="#3e3e3e"
-                onValueChange={setValue}
-                value={value}
+                defaultValue={value}
+                onChangeText={setValue}
             />
         </View>
     );
@@ -36,5 +30,7 @@ const styles = StyleSheet.create({
     value: {
         marginLeft: "auto",
         marginRight: 35,
+        backgroundColor: "#CCC",
+        padding: 3,
     },
 });
