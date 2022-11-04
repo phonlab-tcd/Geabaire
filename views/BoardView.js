@@ -16,7 +16,7 @@ export default function BoardView({ route }) {
         boards && boards.length > 0 ? boards[boards.length - 1] : undefined;
 
     let [sentence, setSentence] = useState("");
-    let [settingsVisable, setSettingsVisable] = useState(true);
+    let [settingsVisable, setSettingsVisable] = useState(false);
 
     let [speechTimer, setSpeechTimer] = useRecoilState(sentenceSpeechTimer);
 
