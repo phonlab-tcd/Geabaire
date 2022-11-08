@@ -3,7 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { ScrollView } from "react-native";
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import {
+    doCorrectSentencesBeforeSpeakingState,
+    doDisplayCorrectedSentencesAfterSpeakingState,
+    doShowImagesInHomeBarState,
     doSpeakEachWordState,
+    doSpeakFullSentenceState,
     pitchState,
     speakSentenceDelayState,
     speedState,
@@ -45,10 +49,32 @@ export default function BoardSettingsModal({
                                 />
                             </TouchableOpacity>
                         </View>
+
                         <SwitchEntry
                             title="Speak each word"
                             atom={doSpeakEachWordState}
                         />
+
+                        <SwitchEntry
+                            title="Speak full sentences after delay"
+                            atom={doSpeakFullSentenceState}
+                        />
+
+                        <SwitchEntry
+                            title="Show images in home bar"
+                            atom={doShowImagesInHomeBarState}
+                        />
+
+                        <SwitchEntry
+                            title="Correct Sentences before speaking"
+                            atom={doCorrectSentencesBeforeSpeakingState}
+                        />
+
+                        <SwitchEntry
+                            title="Display corrected sentence after speaking"
+                            atom={doDisplayCorrectedSentencesAfterSpeakingState}
+                        />
+
                         <StringEntry title="Voice" atom={voiceState} />
                         <SliderEntry
                             title="Speed"

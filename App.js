@@ -10,6 +10,7 @@ import Auth from "./views/Auth";
 import { supabase } from "./state/supabase";
 import BoardView from "./views/BoardView";
 import BoardEditor from "./views/BoardEditor.js";
+import LoadingView from "./views/LoadingView";
 
 const Stack = createNativeStackNavigator();
 
@@ -41,6 +42,7 @@ export default function App() {
                             headerShown: false,
                         }}
                     >
+                        <Stack.Screen name="Loading" component={LoadingView} />
                         <Stack.Screen name="Home" component={Home} />
                         <Stack.Screen name="Board" component={BoardView} />
                         <Stack.Screen

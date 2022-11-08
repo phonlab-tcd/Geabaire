@@ -2,27 +2,47 @@ import { atom, selector } from "recoil";
 
 const doSpeakEachWordState = atom({
     key: "doSpeakEachWordState",
-    default: true,
+    default: false,
+});
+
+const doSpeakFullSentenceState = atom({
+    key: "doSpeakFullSentenceState",
+    default: false,
+});
+
+const doShowImagesInHomeBarState = atom({
+    key: "doShowImagesInHomeBarState",
+    default: false,
+});
+
+const doCorrectSentencesBeforeSpeakingState = atom({
+    key: "doCorrectSentencesBeforeSpeakingState",
+    default: false,
+});
+
+const doDisplayCorrectedSentencesAfterSpeakingState = atom({
+    key: "doDisplayCorrectedSentencesAfterSpeakingState",
+    default: false,
 });
 
 const speakSentenceDelayState = atom({
     key: "speakSentenceDelayState",
-    default: 6000,
+    default: 0,
 });
 
 const voiceState = atom({
     key: "voiceState",
-    default: "ga_CO_snc_nemo",
+    default: "",
 });
 
 const speedState = atom({
     key: "speedState",
-    default: 1,
+    default: 0,
 });
 
 const pitchState = atom({
     key: "pitchState",
-    default: 1,
+    default: 0,
 });
 
 const settingsState = selector({
@@ -30,7 +50,15 @@ const settingsState = selector({
     get: ({ get }) => {
         return {
             doSpeakEachWord: get(doSpeakEachWordState),
+            doSpeakFullSentence: get(doSpeakFullSentenceState),
+            doShowImagesInHomeBar: get(doShowImagesInHomeBarState),
             speakSentenceDelay: get(speakSentenceDelayState),
+            doCorrectSentencesBeforeSpeaking: get(
+                doCorrectSentencesBeforeSpeakingState
+            ),
+            doDisplayCorrectedSentencesAfterSpeaking: get(
+                doDisplayCorrectedSentencesAfterSpeakingState
+            ),
             voice: get(voiceState),
             speed: get(speedState),
             pitch: get(pitchState),
@@ -40,6 +68,10 @@ const settingsState = selector({
 
 export {
     doSpeakEachWordState,
+    doSpeakFullSentenceState,
+    doShowImagesInHomeBarState,
+    doCorrectSentencesBeforeSpeakingState,
+    doDisplayCorrectedSentencesAfterSpeakingState,
     speakSentenceDelayState,
     voiceState,
     speedState,
