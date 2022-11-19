@@ -14,7 +14,6 @@ export default function BoardView({ route }) {
     let board =
         boards && boards.length > 0 ? boards[boards.length - 1] : undefined;
 
-    let [sentence, setSentence] = useState("");
     let [settingsVisable, setSettingsVisable] = useState(false);
     const settings = useRecoilValue(settingsState);
 
@@ -49,8 +48,6 @@ export default function BoardView({ route }) {
             <BoardControls
                 boards={boards}
                 setBoards={setBoards}
-                sentence={sentence}
-                setSentence={setSentence}
                 setSettingsVisable={setSettingsVisable}
             />
             {board && (

@@ -2,7 +2,12 @@ import { faFolder } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { StyleSheet, Text, TouchableOpacity, Image } from "react-native";
 
-export default function BoardButton({ item, addWord, openFolder, images }) {
+export default function BoardButton({
+    item,
+    addButtonPress,
+    openFolder,
+    images,
+}) {
     const matchingImages = images.filter((image) => image.id == item.image_id);
     const imageLink =
         matchingImages.length > 0 ? matchingImages[0].url : undefined;
@@ -23,7 +28,7 @@ export default function BoardButton({ item, addWord, openFolder, images }) {
                 onPress={() => {
                     isFolder
                         ? openFolder(item["load_board"].id)
-                        : addWord(item.label);
+                        : addButtonPress({ label: item.label, imageLink });
                 }}
                 style={[styles.container, style]}
             >

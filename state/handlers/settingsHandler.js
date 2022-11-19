@@ -15,8 +15,9 @@ let updateUserSettings = async (settings) => {
 
     const { data, error } = await supabase
         .from("user_profiles")
-        .update({ settings: settings })
-        .eq("uuid", user.user.id);
+        .update({ uuid: user.user.id, settings: settings });
+
+    console.log(error);
 };
 
 export { getUserSettings, updateUserSettings };

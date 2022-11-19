@@ -17,17 +17,19 @@ import { play } from "../../state/handlers/synthesisHelper";
 import { settingsState } from "../../state/atoms/settings";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { sentenceSpeechTimer } from "../../state/atoms/timers";
+import useSentence from "../../state/hooks/useSentence";
 
 export default function BoardControls({
     boards,
     setBoards,
-    sentence,
-    setSentence,
     setSettingsVisable,
 }) {
     const navigation = useNavigation();
+    const { sentence, removeLastButtonPress, clearSentence } = useSentence();
     const settings = useRecoilValue(settingsState);
     const [speechTimer, setSpeechTimer] = useRecoilState(sentenceSpeechTimer);
+
+    console.log(sentence);
 
     let resetFolder = () => {
         setBoards((boards) => [boards[0]]);
@@ -37,12 +39,6 @@ export default function BoardControls({
         if (boards.length > 1) {
             setBoards((boards) => boards.slice(0, -1));
         }
-    };
-
-    let removeLastWord = () => {
-        setSentence((sentence) =>
-            sentence.substring(0, sentence.lastIndexOf(" "))
-        );
     };
 
     return (
@@ -73,7 +69,6 @@ export default function BoardControls({
 
             <TextInput
                 defaultValue={sentence}
-                onChangeText={(newText) => setSentence(newText)}
                 style={styles.sentenceContainer}
                 autoCorrect={false}
             />
@@ -82,12 +77,12 @@ export default function BoardControls({
                 <TouchableIcon
                     icon={faDeleteLeft}
                     size={45}
-                    action={removeLastWord}
+                    action={removeLastButtonPress}
                 />
                 <TouchableIcon
                     icon={faXmark}
                     size={45}
-                    action={() => setSentence("")}
+                    action={clearSentence}
                 />
                 <TouchableIcon icon={fa2} size={45} action={() => {}} />
                 <TouchableIcon

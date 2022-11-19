@@ -1,10 +1,12 @@
 import { StyleSheet } from "react-native";
 import { Col, Grid, Row } from "react-native-easy-grid";
+import useSentence from "../../state/hooks/useSentence";
 import BoardButton from "./BoardButton";
 import EmptyButton from "./EmptyButton";
 
+export default function BoardGrid({ board, openFolder }) {
+    let { addButtonPress } = useSentence();
 
-export default function BoardGrid({ board, addWord, openFolder }) {
     let rows = board.board.map((row) => (
         <Row key={JSON.stringify(row) + Math.random()} row={row}>
             {row.map((button) => {
@@ -14,7 +16,7 @@ export default function BoardGrid({ board, addWord, openFolder }) {
                             <BoardButton
                                 item={button}
                                 images={board.images}
-                                addWord={addWord}
+                                addButtonPress={addButtonPress}
                                 openFolder={openFolder}
                             />
                         </Col>
