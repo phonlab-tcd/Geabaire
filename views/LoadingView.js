@@ -3,71 +3,20 @@ import { useEffect } from "react";
 import { View } from "react-native";
 import { StyleSheet } from "react-native";
 import { Text } from "react-native";
-import { useRecoilState } from "recoil";
-import {
-    doCorrectSentencesBeforeSpeakingState,
-    doDisplayCorrectedSentencesAfterSpeakingState,
-    doShowImagesInHomeBarState,
-    doSpeakEachWordState,
-    doSpeakFullSentenceState,
-    pitchState,
-    speakSentenceDelayState,
-    speedState,
-    voiceState,
-} from "../state/atoms/settings";
 import { getUserSettings } from "../state/handlers/settingsHandler";
+import useSettings from "../state/hooks/useSettings";
 
 export default function LoadingView() {
     let navigation = useNavigation();
-
-    // Settings state
-    let [doSpeakEachWord, setDoSpeakEachWord] =
-        useRecoilState(doSpeakEachWordState);
-
-    let [doSpeakFullSentence, setDoSpeakFulLSentence] = useRecoilState(
-        doSpeakFullSentenceState
-    );
-
-    let [doShowImagesInHomeBar, setDoShowImagesInHomeBar] = useRecoilState(
-        doShowImagesInHomeBarState
-    );
-
-    let [
-        doCorrectSentencesBeforeSpeaking,
-        setDoCorrectSentencesBeforeSpeaking,
-    ] = useRecoilState(doCorrectSentencesBeforeSpeakingState);
-    let [
-        doDisplayCorrectedSentencesAfterSpeaking,
-        setDoDisplayCorrectedSentencesAfterSpeaking,
-    ] = useRecoilState(doDisplayCorrectedSentencesAfterSpeakingState);
-    let [speakSentenceDelay, setSpeakSentenceDelay] = useRecoilState(
-        speakSentenceDelayState
-    );
-    let [voice, setVoice] = useRecoilState(voiceState);
-    let [speed, setSpeed] = useRecoilState(speedState);
-    let [pitch, setPitch] = useRecoilState(pitchState);
+    let { setSettings } = useSettings();
 
     async function load() {
+        // Load and set settings
         let settings = await getUserSettings();
         setSettings(settings);
 
+        // Finished loading, go to the home screen.
         navigation.navigate("Home");
-    }
-
-    function setSettings(settings) {
-        setDoSpeakEachWord(settings.doSpeakEachWord);
-        setDoSpeakFulLSentence(settings.doSpeakFullSentence);
-        setDoShowImagesInHomeBar(settings.doShowImagesInHomeBar);
-        setDoCorrectSentencesBeforeSpeaking(
-            settings.doCorrectSentencesBeforeSpeaking
-        );
-        setDoDisplayCorrectedSentencesAfterSpeaking(
-            settings.doDisplayCorrectedSentencesAfterSpeaking
-        );
-        setSpeakSentenceDelay(settings.speakSentenceDelay);
-        setVoice(settings.voice);
-        setSpeed(settings.speed);
-        setPitch(settings.pitch);
     }
 
     useEffect(() => {
