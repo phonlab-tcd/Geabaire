@@ -3,6 +3,7 @@ import { Col, Grid, Row } from "react-native-easy-grid";
 import BoardButton from "./BoardButton";
 import EmptyButton from "./EmptyButton";
 
+
 export default function BoardGrid({ board, addWord, openFolder }) {
     let rows = board.board.map((row) => (
         <Row key={JSON.stringify(row) + Math.random()} row={row}>

@@ -20,6 +20,7 @@ import SwitchEntry from "../settings/SwitchEntry";
 export default function BoardSettingsModal({
     settingsVisable,
     setSettingsVisable,
+    setSettings,
 }) {
     return (
         <Modal
@@ -28,6 +29,7 @@ export default function BoardSettingsModal({
             visible={settingsVisable}
             onRequestClose={() => {
                 setSettingsVisable((prev) => !prev);
+                setSettings();
             }}
         >
             <View style={styles.centeredView}>
@@ -38,9 +40,10 @@ export default function BoardSettingsModal({
                                 Board Settings
                             </Text>
                             <TouchableOpacity
-                                onPress={() =>
-                                    setSettingsVisable((prev) => !prev)
-                                }
+                                onPress={() => {
+                                    setSettingsVisable((prev) => !prev);
+                                    setSettings();
+                                }}
                             >
                                 <FontAwesomeIcon
                                     icon={faXmark}
@@ -90,6 +93,34 @@ export default function BoardSettingsModal({
                             min={0.1}
                             max={1.5}
                             step={0.1}
+                        />
+                        <SliderEntry
+                            title="Speak Sentence Delay"
+                            atom={speakSentenceDelayState}
+                            min={1000}
+                            max={15000}
+                            step={1000}
+                        />
+                        <SliderEntry
+                            title="Speak Sentence Delay"
+                            atom={speakSentenceDelayState}
+                            min={1000}
+                            max={15000}
+                            step={1000}
+                        />
+                        <SliderEntry
+                            title="Speak Sentence Delay"
+                            atom={speakSentenceDelayState}
+                            min={1000}
+                            max={15000}
+                            step={1000}
+                        />
+                        <SliderEntry
+                            title="Speak Sentence Delay"
+                            atom={speakSentenceDelayState}
+                            min={1000}
+                            max={15000}
+                            step={1000}
                         />
                         <SliderEntry
                             title="Speak Sentence Delay"

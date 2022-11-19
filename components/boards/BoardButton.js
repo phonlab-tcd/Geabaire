@@ -25,7 +25,7 @@ export default function BoardButton({ item, addWord, openFolder, images }) {
                         ? openFolder(item["load_board"].id)
                         : addWord(item.label);
                 }}
-                style={style}
+                style={[styles.container, style]}
             >
                 <Text style={styles.labelStyle} numberOfLines={1}>
                     {item.label}
@@ -50,6 +50,7 @@ export default function BoardButton({ item, addWord, openFolder, images }) {
 }
 
 const styles = StyleSheet.create({
+    container: {},
     labelStyle: {
         fontSize: 16,
         textAlign: "center",

@@ -4,12 +4,11 @@ import { getObfBoard } from "../state/handlers/boardHandler";
 import BoardSettingsModal from "../components/boards/BoardSettingsModal";
 import BoardControls from "../components/boards/BoardControls";
 import { StyleSheet } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import BoardGrid from "../components/boards/BoardGrid";
-import { play } from "../state/handlers/synthesisHelper";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import { settingsState } from "../state/atoms/settings";
-import { sentenceSpeechTimer } from "../state/atoms/timers";
+import { updateUserSettings } from "../state/handlers/settingsHandler";
+
 export default function BoardView({ route }) {
     let [boards, setBoards] = useState(null);
     let board =
@@ -17,9 +16,6 @@ export default function BoardView({ route }) {
 
     let [sentence, setSentence] = useState("");
     let [settingsVisable, setSettingsVisable] = useState(false);
-
-    let [speechTimer, setSpeechTimer] = useRecoilState(sentenceSpeechTimer);
-
     const settings = useRecoilValue(settingsState);
 
     let openFolder = async (id) => {
@@ -27,37 +23,16 @@ export default function BoardView({ route }) {
         setBoards((boards) => [...boards, newBoard]);
     };
 
-    let addWord = (word) => {
-        setSentence((sentence) => {
-            let newSentence = (sentence + " " + word).trim();
-
-            if (settings.doSpeakEachWord) {
-                play(word, settings);
-            }
-
-            // Reset time since last button press to stop sentence speech
-            if (speechTimer) {
-                clearTimeout(speechTimer);
-            }
-
-            // Set new timeout
-            setSpeechTimer(
-                setTimeout(() => {
-                    // TODO: add corrector step.
-                    play(newSentence, settings);
-                }, settings.speakSentenceDelay)
-            );
-
-            return newSentence;
-        });
-    };
-
-    const navigation = useNavigation();
+    let addWord = async (word) => {};
 
     let load = async () => {
         if (!boards || boards.length === 0) {
             setBoards([await getObfBoard(route.params.rootId)]);
         }
+    };
+
+    let setSettings = () => {
+        updateUserSettings(settings);
     };
 
     useEffect(() => {
@@ -69,6 +44,7 @@ export default function BoardView({ route }) {
             <BoardSettingsModal
                 settingsVisable={settingsVisable}
                 setSettingsVisable={setSettingsVisable}
+                setSettings={setSettings}
             />
             <BoardControls
                 boards={boards}

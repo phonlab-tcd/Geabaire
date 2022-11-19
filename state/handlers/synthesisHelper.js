@@ -3,6 +3,7 @@ import { Audio } from "expo-av";
 import uuid from "react-native-uuid";
 
 import axios from "axios";
+import { getCorrectedText } from "./correctorHelper";
 
 const synthesisDirectory = FileSystem.cacheDirectory + "synthesis";
 
@@ -15,6 +16,8 @@ let play = async (string, settings) => {
         { shouldPlay: true }
     );
 };
+
+// TODO: create corrected speech synthesis function
 
 /**
  * Play the provided string as Irish text, using the local cache

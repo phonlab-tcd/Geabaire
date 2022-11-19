@@ -1,6 +1,7 @@
 import { View } from "react-native";
 import { StyleSheet } from "react-native";
 import {
+    fa2,
     faArrowRightFromBracket,
     faDeleteLeft,
     faGear,
@@ -14,7 +15,8 @@ import { useNavigation } from "@react-navigation/native";
 import TouchableIcon from "./TouchableIcon";
 import { play } from "../../state/handlers/synthesisHelper";
 import { settingsState } from "../../state/atoms/settings";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { sentenceSpeechTimer } from "../../state/atoms/timers";
 
 export default function BoardControls({
     boards,
@@ -25,6 +27,7 @@ export default function BoardControls({
 }) {
     const navigation = useNavigation();
     const settings = useRecoilValue(settingsState);
+    const [speechTimer, setSpeechTimer] = useRecoilState(sentenceSpeechTimer);
 
     let resetFolder = () => {
         setBoards((boards) => [boards[0]]);
@@ -60,6 +63,9 @@ export default function BoardControls({
                     icon={faVolumeHigh}
                     size={45}
                     action={() => {
+                        clearTimeout(speechTimer);
+                        setSpeechTimer(null);
+                        // TODO add corrector here
                         play(sentence, settings);
                     }}
                 />
@@ -83,6 +89,7 @@ export default function BoardControls({
                     size={45}
                     action={() => setSentence("")}
                 />
+                <TouchableIcon icon={fa2} size={45} action={() => {}} />
                 <TouchableIcon
                     icon={faGear}
                     size={45}
