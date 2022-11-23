@@ -9,12 +9,12 @@ import {
     speedState,
     voiceState,
 } from "../atoms/settings";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { settingsState } from "../atoms/settings";
 
 export default function useSettings() {
     // Settings state
-    let settings = useRecoilState(settingsState);
+    let settings = useRecoilValue(settingsState);
 
     let setDoSpeakEachWord = useSetRecoilState(doSpeakEachWordState);
     let setDoSpeakFulLSentence = useSetRecoilState(doSpeakFullSentenceState);
