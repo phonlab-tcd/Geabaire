@@ -13,10 +13,6 @@ import {
 import { TextInput } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import TouchableIcon from "./TouchableIcon";
-import { play } from "../../state/handlers/synthesisHelper";
-import { settingsState } from "../../state/atoms/settings";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { sentenceSpeechTimer } from "../../state/atoms/timers";
 import useSentence from "../../state/hooks/useSentence";
 
 export default function BoardControls({
@@ -26,10 +22,6 @@ export default function BoardControls({
 }) {
     const navigation = useNavigation();
     const { sentence, removeLastButtonPress, clearSentence, playNow } = useSentence();
-    const settings = useRecoilValue(settingsState);
-
-
-    console.log(sentence);
 
     let resetFolder = () => {
         setBoards((boards) => [boards[0]]);

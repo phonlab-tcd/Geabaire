@@ -14,7 +14,7 @@ export default function BoardView({ route }) {
     let board =
         boards && boards.length > 0 ? boards[boards.length - 1] : undefined;
 
-    let [settingsVisable, setSettingsVisable] = useState(false);
+    let [settingsVisable, setSettingsVisable] = useState(true);
     const settings = useRecoilValue(settingsState);
 
     let openFolder = async (id) => {

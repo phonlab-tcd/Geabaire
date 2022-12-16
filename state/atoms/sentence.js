@@ -9,7 +9,6 @@ const buttonPressesState = atom({
 const sentenceState = selector({
     key: "sentence",
     get: ({ get }) => {
-        console.log("test");
         let sentence = "";
         let buttonPresses = get(buttonPressesState);
 

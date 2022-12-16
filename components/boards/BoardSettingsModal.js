@@ -2,6 +2,8 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { ScrollView } from "react-native";
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Dropdown } from "react-native-element-dropdown";
+import { useRecoilSnapshot, useRecoilValue } from "recoil";
 import {
     doCorrectSentencesBeforeSpeakingState,
     doDisplayCorrectedSentencesAfterSpeakingState,
@@ -13,6 +15,9 @@ import {
     speedState,
     voiceState,
 } from "../../state/atoms/settings";
+import { regionState, speakerState, synthTypeState } from "../../state/atoms/voices";
+import useVoices from "../../state/hooks/useVoices";
+import DropdownEntry from "../settings/DropdownEntry";
 import SliderEntry from "../settings/SliderEntry";
 import StringEntry from "../settings/StringEntry";
 import SwitchEntry from "../settings/SwitchEntry";
@@ -22,6 +27,8 @@ export default function BoardSettingsModal({
     setSettingsVisable,
     setSettings,
 }) {
+    let voiceApi = useVoices();
+
     return (
         <Modal
             animationType="slide"
@@ -52,6 +59,30 @@ export default function BoardSettingsModal({
                                 />
                             </TouchableOpacity>
                         </View>
+
+                        <DropdownEntry
+                            title="Region"
+                            atom={regionState}
+                            data={voiceApi.getAvailableRegions()}
+                        />
+                        {voiceApi.region &&
+                            <DropdownEntry
+                                title="Speaker"
+                                atom={speakerState}
+                                data={voiceApi.getAvailableSpeakers()}
+                            />
+                        }
+                        {voiceApi.speaker &&
+                            <DropdownEntry
+                                title="Synth Type"
+                                atom={synthTypeState}
+                                data={voiceApi.getAvailableSynths()}
+                            />
+                        }
+
+                        {voiceApi.synthType && <Text style={styles.key}>
+                            Selected voice: { voiceApi.getVoiceString() } 
+                        </Text>}
 
                         <SwitchEntry
                             title="Speak each word"
@@ -101,34 +132,6 @@ export default function BoardSettingsModal({
                             max={15000}
                             step={1000}
                         />
-                        <SliderEntry
-                            title="Speak Sentence Delay"
-                            atom={speakSentenceDelayState}
-                            min={1000}
-                            max={15000}
-                            step={1000}
-                        />
-                        <SliderEntry
-                            title="Speak Sentence Delay"
-                            atom={speakSentenceDelayState}
-                            min={1000}
-                            max={15000}
-                            step={1000}
-                        />
-                        <SliderEntry
-                            title="Speak Sentence Delay"
-                            atom={speakSentenceDelayState}
-                            min={1000}
-                            max={15000}
-                            step={1000}
-                        />
-                        <SliderEntry
-                            title="Speak Sentence Delay"
-                            atom={speakSentenceDelayState}
-                            min={1000}
-                            max={15000}
-                            step={1000}
-                        />
                     </ScrollView>
                 </View>
             </View>
@@ -170,4 +173,8 @@ const styles = StyleSheet.create({
         flex: 1,
         flexGrow: 1,
     },
+    key: {
+        marginLeft: "auto",
+        marginRight: "auto"
+    }
 });
