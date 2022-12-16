@@ -14,6 +14,9 @@ import { TextInput } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import TouchableIcon from "./TouchableIcon";
 import useSentence from "../../state/hooks/useSentence";
+import { useRecoilValue } from "recoil";
+import { settingsState } from "../../state/atoms/settings";
+import ImageBar from "./ImageBar";
 
 export default function BoardControls({
     boards,
@@ -22,6 +25,7 @@ export default function BoardControls({
 }) {
     const navigation = useNavigation();
     const { sentence, removeLastButtonPress, clearSentence, playNow } = useSentence();
+    const settings = useRecoilValue(settingsState);
 
     let resetFolder = () => {
         setBoards((boards) => [boards[0]]);
@@ -54,11 +58,14 @@ export default function BoardControls({
                 />
             </View>
 
-            <TextInput
-                defaultValue={sentence}
-                style={styles.sentenceContainer}
-                autoCorrect={false}
-            />
+            {settings.doShowImagesInHomeBar ?
+                <ImageBar /> :
+                <TextInput
+                    defaultValue={sentence}
+                    style={styles.sentenceContainer}
+                    autoCorrect={false}
+                />
+            }
 
             <View style={styles.settingsContainer}>
                 <TouchableIcon
