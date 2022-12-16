@@ -1,4 +1,4 @@
-import { Switch, Text, TextInput, View } from "react-native";
+import { Text, TextInput, View } from "react-native";
 import { StyleSheet } from "react-native";
 import { useRecoilState } from "recoil";
 

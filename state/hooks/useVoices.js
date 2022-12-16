@@ -1,6 +1,5 @@
 import axios from "axios";
-import { useEffect } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { regionState, speakerState, synthTypeState, voicesState } from "../atoms/voices";
 import useSettings from "./useSettings";
 

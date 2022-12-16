@@ -1,4 +1,3 @@
-import BoardButton from "../../components/boards/BoardButton";
 import { supabase } from "../supabase";
 
 let getObfBoard = async (id) => {
@@ -8,6 +7,10 @@ let getObfBoard = async (id) => {
         .select()
         .eq("obf_id", id)
         .single();
+    
+    if (error) { 
+        console.log(error);
+    }
 
     if (data.length < 1) {
         return undefined;

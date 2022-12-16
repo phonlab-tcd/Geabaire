@@ -2,8 +2,6 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { ScrollView } from "react-native";
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { Dropdown } from "react-native-element-dropdown";
-import { useRecoilSnapshot, useRecoilValue } from "recoil";
 import {
     doCorrectSentencesBeforeSpeakingState,
     doDisplayCorrectedSentencesAfterSpeakingState,

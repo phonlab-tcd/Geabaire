@@ -1,9 +1,7 @@
-import { Switch, Text, View } from "react-native";
-import { Animated } from "react-native";
+import { Text, View } from "react-native";
 import { StyleSheet } from "react-native";
 import { useRecoilState } from "recoil";
 import { Slider } from "@rneui/themed";
-import { Icon } from "@rneui/base";
 
 export default function SliderEntry({ title, atom, min, max, step }) {
     const [value, setValue] = useRecoilState(atom);

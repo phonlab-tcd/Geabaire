@@ -3,7 +3,6 @@ import { Audio } from "expo-av";
 import uuid from "react-native-uuid";
 
 import axios from "axios";
-import { getCorrectedText } from "./correctorHelper";
 
 const synthesisDirectory = FileSystem.cacheDirectory + "synthesis";
 

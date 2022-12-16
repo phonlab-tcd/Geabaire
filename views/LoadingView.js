@@ -17,7 +17,7 @@ export default function LoadingView() {
         let settings = await getUserSettings();
         setSettings(settings);
 
-        loadVoices(settings);
+        await loadVoices(settings);
         // Finished loading, go to the home screen.
         navigation.navigate("Home");
     }
