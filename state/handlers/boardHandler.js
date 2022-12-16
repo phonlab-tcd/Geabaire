@@ -12,7 +12,7 @@ let getObfBoard = async (id) => {
         console.log(error);
     }
 
-    if (data.length < 1) {
+    if (!data || data.length < 1) {
         return undefined;
     }
 
