@@ -33,7 +33,7 @@ export default function useSettings() {
     let setPitch = useSetRecoilState(pitchState);
 
     function setSettings(settings) {
-        setDoSpeakEachWord(settings.doSpeakEachWord);
+        setDoSpeakEachWord(settings.doSpeakEachWord);   
         setDoSpeakFulLSentence(settings.doSpeakFullSentence);
         setDoShowImagesInHomeBar(settings.doShowImagesInHomeBar);
         setDoCorrectSentencesBeforeSpeaking(
@@ -50,6 +50,7 @@ export default function useSettings() {
 
     return {
         setSettings,
+        setVoice,
         getSettings: () => settings,
     };
 }

@@ -25,9 +25,9 @@ export default function BoardControls({
     setSettingsVisable,
 }) {
     const navigation = useNavigation();
-    const { sentence, removeLastButtonPress, clearSentence } = useSentence();
+    const { sentence, removeLastButtonPress, clearSentence, playNow } = useSentence();
     const settings = useRecoilValue(settingsState);
-    const [speechTimer, setSpeechTimer] = useRecoilState(sentenceSpeechTimer);
+
 
     console.log(sentence);
 
@@ -58,12 +58,7 @@ export default function BoardControls({
                 <TouchableIcon
                     icon={faVolumeHigh}
                     size={45}
-                    action={() => {
-                        clearTimeout(speechTimer);
-                        setSpeechTimer(null);
-                        // TODO add corrector here
-                        play(sentence, settings);
-                    }}
+                    action={playNow}
                 />
             </View>
 
