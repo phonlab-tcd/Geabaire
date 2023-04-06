@@ -22,8 +22,6 @@ export default function BoardView({ route }) {
         setBoards((boards) => [...boards, newBoard]);
     };
 
-    let addWord = async (word) => {};
-
     let load = async () => {
         if (!boards || boards.length === 0) {
             setBoards([await getObfBoard(route.params.rootId)]);
@@ -55,7 +53,6 @@ export default function BoardView({ route }) {
                     style={styles.container}
                     board={board}
                     openFolder={openFolder}
-                    addWord={addWord}
                     settings={settings}
                 />
             )}

@@ -17,8 +17,6 @@ let updateUserSettings = async (settings) => {
         .from("user_profiles")
         .update({ settings: settings })
         .eq('uuid', user.user.id);
-
-    console.log(error);
 };
 
 export { getUserSettings, updateUserSettings };

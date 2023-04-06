@@ -37,12 +37,15 @@ export default function useSentence() {
             }
 
             // Set new timeout
-            setSpeechTimer(
-                setTimeout(() => {
-                    // TODO: add corrector step.
-                    play(sentence + " " + button.label, settings);
-                }, settings.speakSentenceDelay)
-            );
+            if (settings.doSpeakFullSentence) {
+                setSpeechTimer(
+                    setTimeout(() => {
+                        // TODO: add corrector step.
+                        play(sentence + " " + button.label, settings);
+                    }, settings.speakSentenceDelay)
+                );
+            }
+
         },
         removeLastButtonPress: () => {
             setButtonPresses((buttonPresses) => buttonPresses.slice(0, -1));
