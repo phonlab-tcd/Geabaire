@@ -14,3 +14,9 @@ web-build/
 .DS_Store
 
 obf/
+
+# Intellij DataGrip
+dataSources.xml
+*.iml
+modules.xml
+vcs.xml
