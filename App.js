@@ -1,4 +1,4 @@
-// import 'react-native-url-polyfill/auto'
+import 'react-native-url-polyfill/auto'
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as NavigationBar from "expo-navigation-bar";
 import { StatusBar } from "expo-status-bar";
