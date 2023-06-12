@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX idx_aac_board_page_unique ON aac_board_page (board_meta, name);
