@@ -12,6 +12,7 @@ import { supabase } from "./state/supabase";
 import BoardView from "./views/BoardView";
 import BoardEditor from "./views/BoardEditor.js";
 import LoadingView from "./views/LoadingView";
+import { RealmProvider } from './state/realm';
 
 const Stack = createNativeStackNavigator();
 
@@ -34,27 +35,29 @@ export default function App() {
     }, []);
 
     return (
-        <RecoilRoot>
-            <StatusBar hidden={true} />
-            {session && session.user ? (
-                <NavigationContainer>
-                    <Stack.Navigator
-                        screenOptions={{
-                            headerShown: false,
-                        }}
-                    >
-                        <Stack.Screen name="Loading" component={LoadingView} />
-                        <Stack.Screen name="Home" component={Home} />
-                        <Stack.Screen name="Board" component={BoardView} />
-                        <Stack.Screen
-                            name="BoardEditor"
-                            component={BoardEditor}
-                        />
-                    </Stack.Navigator>
-                </NavigationContainer>
-            ) : (
-                <Auth />
-            )}
-        </RecoilRoot>
+        <RealmProvider>
+            <RecoilRoot>
+                <StatusBar hidden={true} />
+                {session && session.user ? (
+                    <NavigationContainer>
+                        <Stack.Navigator
+                            screenOptions={{
+                                headerShown: false,
+                            }}
+                        >
+                            <Stack.Screen name="Loading" component={LoadingView} />
+                            <Stack.Screen name="Home" component={Home} />
+                            <Stack.Screen name="Board" component={BoardView} />
+                            <Stack.Screen
+                                name="BoardEditor"
+                                component={BoardEditor}
+                            />
+                        </Stack.Navigator>
+                    </NavigationContainer>
+                ) : (
+                    <Auth />
+                )}
+            </RecoilRoot>
+        </RealmProvider>
     );
 }
