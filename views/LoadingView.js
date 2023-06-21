@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { useEffect } from "react";
-import { View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import { StyleSheet } from "react-native";
 import { Text } from "react-native";
 import { getUserSettings } from "../state/handlers/settingsHandler";
@@ -28,7 +28,8 @@ export default function LoadingView() {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>Loading!!!!!</Text>
+            <Text style={styles.text}>Loading Boards...</Text>
+            <ActivityIndicator style={styles.indicator} size={90}/>
         </View>
     );
 }
@@ -38,9 +39,14 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
+        flexDirection: "row"
     },
     text: {
         color: "black",
         fontSize: 120,
     },
+    indicator: {
+        paddingTop: 25,
+        marginLeft: 25
+    }
 });
