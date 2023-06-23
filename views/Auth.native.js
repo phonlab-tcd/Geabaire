@@ -76,10 +76,12 @@ const styles = StyleSheet.create({
     container: {
         alignItems: "center",
         flex: 1,
+        padding: 20
     },
     logo: {
-        height: 120*0.7,
-        width: 300*0.7,
+        height: 120*0.6,
+        width: 300*0.6,
+        paddingBottom: 12
     },
     formInstruction: {
         textAlign: "center",
@@ -96,7 +98,7 @@ const styles = StyleSheet.create({
         margin: 3,
         borderColor: "#EEE",
         borderWidth: 1,
-        borderRadius: 12
+        borderRadius: 12,
     },
     fields: {
 
@@ -115,7 +117,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         paddingVertical: 12,
         borderRadius: 12,
-        widthidth: 70
+        width: 250
     },
     button: {
         margin: 6,
@@ -128,61 +130,14 @@ const styles = StyleSheet.create({
         textAlign: "center",
     },
     buttonActive: {
-
+        backgroundColor: "#03BD9D"
+    },
+    buttonActiveText: {
+        color: "white",
+        fontWeight: "bold",
+        fontSize: 18
     },
     actions: {
         alignItems: "center"
     }
-    // container: {
-    //     flex: 1,
-    //     backgroundColor: "#141414",
-    // },
-    // topBar: {
-    //     width: "100%",
-    //     flexDirection: "row",
-    //     justifyContent: "center",
-    //     alignItems: "center",
-    // },
-    // topBarText: {
-    //     color: "#CCC",
-    //     fontSize: 24,
-    //     textAlign: "center",
-    // },
-    // fields: {},
-    // field: {},
-    // fieldText: {
-    //     color: "white",
-    //     fontSize: 16,
-    //     margin: 16,
-    //     marginTop: 3,
-    //     marginBottom: 3,
-    // },
-    // fieldInput: {
-    //     color: "white",
-    //     backgroundColor: "#181818",
-    //     padding: 10,
-    //     fontSize: 14,
-    //     margin: 16,
-    //     marginTop: 3,
-    //     marginBottom: 3,
-    // },
-    // button: {
-    //     backgroundColor: "#181818",
-    //     margin: 12,
-    //     borderRadius: 12,
-    //     padding: 10,
-    //     paddingTop: 5,
-    //     paddingBottom: 5,
-    // },
-    // buttonText: {
-    //     fontSize: 10,
-    //     color: "#CCC",
-    //     textTransform: "uppercase",
-    // },
-    // buttonActive: {
-    //     backgroundColor: "#709fc5",
-    // },
-    // buttonActiveText: {
-    //     color: "black",
-    // },
 });

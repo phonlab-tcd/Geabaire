@@ -7,28 +7,24 @@ import EmptyButton from "./EmptyButton";
 export default function BoardGrid({ board, openFolder }) {
     let { addButtonPress } = useSentence();
 
-    let rows = board.board.map((row) => (
-        <Row key={JSON.stringify(row) + Math.random()} row={row}>
-            {row.map((button) => {
-                if (button) {
-                    return (
-                        <Col key={button.id}>
+    let rows = board.board.map((row, index) => (
+        <Row key={index} row={row}>
+            {row.map((button, index2) => 
+                button ? (
+                    <Col key={index2}>
                             <BoardButton
                                 item={button}
                                 images={board.images}
                                 addButtonPress={addButtonPress}
                                 openFolder={openFolder}
                             />
-                        </Col>
-                    );
-                }
-
-                return (
-                    <Col>
+                    </Col>
+                ) : (
+                    <Col key={index2}>
                         <EmptyButton />
                     </Col>
-                );
-            })}
+                )
+            )}
         </Row>
     ));
 
