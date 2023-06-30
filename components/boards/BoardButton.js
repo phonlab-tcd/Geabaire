@@ -14,8 +14,10 @@ export default function BoardButton({
     const isFolder = Boolean(item["load_board"]);
     let style = {
         height: "100%",
+        margin: 8,
+        borderRadius: 12,
         borderColor: "rgba(12, 12, 12, 0.3)",
-        borderWidth: 1,
+        borderWidth: 2,
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: item["background_color"],
@@ -57,7 +59,7 @@ export default function BoardButton({
 const styles = StyleSheet.create({
     container: {},
     labelStyle: {
-        fontSize: 16,
+        fontSize: 23,
         textAlign: "center",
     },
     imageStyle: {

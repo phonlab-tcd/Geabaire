@@ -3,18 +3,18 @@ import { useEffect, useState } from "react";
 import { getObfBoard } from "../state/handlers/boardHandler";
 import BoardSettingsModal from "../components/boards/BoardSettingsModal";
 import BoardControls from "../components/boards/BoardControls";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import BoardGrid from "../components/boards/BoardGrid";
 import { useRecoilValue } from "recoil";
 import { settingsState } from "../state/atoms/settings";
 import { updateUserSettings } from "../state/handlers/settingsHandler";
+import BoardSidebar from "../components/boards/BoardSidebar";
 
 export default function BoardView({ route }) {
-    let [boards, setBoards] = useState(null);
-    let board =
-        boards && boards.length > 0 ? boards[boards.length - 1] : undefined;
+    const [boards, setBoards] = useState(null);
+    const board = boards && boards.length > 0 ? boards[boards.length - 1] : undefined;
 
-    let [settingsVisable, setSettingsVisable] = useState(false);
+    const [settingsVisable, setSettingsVisable] = useState(false);
     const settings = useRecoilValue(settingsState);
 
     let openFolder = async (id) => {
@@ -48,6 +48,7 @@ export default function BoardView({ route }) {
                 setBoards={setBoards}
                 setSettingsVisable={setSettingsVisable}
             />
+
             {board && (
                 <BoardGrid
                     style={styles.container}
@@ -56,13 +57,17 @@ export default function BoardView({ route }) {
                     settings={settings}
                 />
             )}
+
         </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "#f2f2f2",
-        flex: 1,
-    },
+        backgroundColor: "#ECF9EE",
+        marginBottom: 16,
+        marginLeft: 8,
+        marginRight: 8,
+        flex: 1
+    }
 });

@@ -31,15 +31,17 @@ export default function ImageBar() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        height: "100%",
+        height: "75%",
         flexDirection: "row",
-        backgroundColor: "#CCC"
+        backgroundColor: "#DDD",
+        marginTop: 4,
+        marginBottom: 4
     },
     imageBarEntryContainer: {
         height: "85%",
         justifyContent: "center",
         alignItems: "center",
-        margin: 5,
+
         paddingTop: 3,
         paddingLeft: 12,
         paddingRight: 12,

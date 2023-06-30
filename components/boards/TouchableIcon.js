@@ -8,7 +8,7 @@ export default function TouchableIcon({ icon, action, size, style1, style2 }) {
             style={[style1, styles.defaultSpacing]}
             onPress={action}
         >
-            <FontAwesomeIcon style={style2} icon={icon} size={size} />
+            <FontAwesomeIcon style={style2} icon={icon} size={size} color={"white"} />
         </TouchableOpacity>
     );
 }

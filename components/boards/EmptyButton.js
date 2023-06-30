@@ -7,8 +7,6 @@ export default function EmptyButton() {
 const styles = StyleSheet.create({
     container: {
         height: "100%",
-        borderColor: "rgba(12, 12, 12, 0.3)",
-        borderWidth: 1,
         alignItems: "center",
         justifyContent: "center",
     },

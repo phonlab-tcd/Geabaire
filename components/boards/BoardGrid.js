@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Col, Grid, Row } from "react-native-easy-grid";
 import useSentence from "../../state/hooks/useSentence";
 import BoardButton from "./BoardButton";
@@ -8,7 +8,7 @@ export default function BoardGrid({ board, openFolder }) {
     let { addButtonPress } = useSentence();
 
     let rows = board.board.map((row, index) => (
-        <Row key={index} row={row}>
+        <Row key={index} row={row} style={styles.row}>
             {row.map((button, index2) => 
                 button ? (
                     <Col key={index2}>
@@ -28,11 +28,24 @@ export default function BoardGrid({ board, openFolder }) {
         </Row>
     ));
 
-    return <Grid>{rows}</Grid>;
+    return (
+        // <View>
+            <Grid>
+            {rows}
+            </Grid>
+
+    );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        margin: 8,
+        marginLeft: 16,
+        marginRight: 16
     },
+    row: {
+        marginTop: 8,
+        marginBottom: 8
+    }
 });

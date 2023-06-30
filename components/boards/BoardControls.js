@@ -7,6 +7,7 @@ import {
     faGear,
     faHouse,
     faRotateLeft,
+    faTrashCan,
     faVolumeHigh,
     faXmark,
 } from "@fortawesome/free-solid-svg-icons";
@@ -74,11 +75,11 @@ export default function BoardControls({
                     action={removeLastButtonPress}
                 />
                 <TouchableIcon
-                    icon={faXmark}
-                    size={45}
+                    icon={faTrashCan}
+                    size={30}
                     action={clearSentence}
                 />
-                <TouchableIcon icon={fa2} size={45} action={() => {}} />
+                {/* <TouchableIcon icon={fa2} size={45} action={() => {}} /> */}
                 <TouchableIcon
                     icon={faGear}
                     size={45}
@@ -94,7 +95,7 @@ const styles = StyleSheet.create({
         height: 50,
         flexDirection: "row",
         justifyContent: "space-between",
-        backgroundColor: "#edede9",
+        backgroundColor: "#6a994e",
         alignItems: "center",
         paddingLeft: 32,
         paddingRight: 32,
