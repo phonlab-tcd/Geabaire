@@ -1,6 +1,7 @@
 import { faFolder } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { StyleSheet, Text, TouchableOpacity, Image } from "react-native";
+import { getContrastingTextColor } from "../../state/handlers/accessibilityHandler";
 
 export default function BoardButton({
     item,
@@ -12,6 +13,7 @@ export default function BoardButton({
     const imageLink =
         matchingImages.length > 0 ? matchingImages[0].url : undefined;
     const isFolder = Boolean(item["load_board"]);
+
     let style = {
         height: "100%",
         margin: 8,
@@ -22,6 +24,10 @@ export default function BoardButton({
         justifyContent: "center",
         backgroundColor: item["background_color"],
         borderColor: item["border_color"],
+    };
+      
+    const labelColor = {
+        color: getContrastingTextColor(item["background_color"])
     };
 
     return (
@@ -34,7 +40,7 @@ export default function BoardButton({
                 }}
                 style={[styles.container, style]}
             >
-                <Text style={styles.labelStyle} numberOfLines={1}>
+                <Text style={[styles.labelStyle, labelColor]} numberOfLines={1}>
                     {item.label}
                 </Text>
                 {imageLink && (
@@ -60,6 +66,7 @@ const styles = StyleSheet.create({
     container: {},
     labelStyle: {
         fontSize: 23,
+        color: "black",
         textAlign: "center",
     },
     imageStyle: {
