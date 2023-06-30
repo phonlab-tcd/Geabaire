@@ -16,5 +16,7 @@ export default function TouchableIcon({ icon, action, size, style1, style2 }) {
 const styles = StyleSheet.create({
     defaultSpacing: {
         margin: 12,
+        alignItems: "center",
+        justifyContent: "center"
     },
 });

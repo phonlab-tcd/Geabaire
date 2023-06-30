@@ -22,7 +22,6 @@ import ImageBar from "./ImageBar";
 export default function BoardControls({
     boards,
     setBoards,
-    setSettingsVisable,
 }) {
     const navigation = useNavigation();
     const { sentence, removeLastButtonPress, clearSentence, playNow } = useSentence();
@@ -41,11 +40,6 @@ export default function BoardControls({
     return (
         <View style={styles.container}>
             <View style={styles.settingsContainer}>
-                <TouchableIcon
-                    icon={faArrowRightFromBracket}
-                    size={45}
-                    action={() => navigation.navigate("Home")}
-                />
                 <TouchableIcon icon={faHouse} size={45} action={resetFolder} />
                 <TouchableIcon
                     icon={faRotateLeft}
@@ -80,11 +74,6 @@ export default function BoardControls({
                     action={clearSentence}
                 />
                 {/* <TouchableIcon icon={fa2} size={45} action={() => {}} /> */}
-                <TouchableIcon
-                    icon={faGear}
-                    size={45}
-                    action={() => setSettingsVisable((prev) => !prev)}
-                />
             </View>
         </View>
     );
@@ -92,7 +81,7 @@ export default function BoardControls({
 
 const styles = StyleSheet.create({
     container: {
-        height: 50,
+        height: 70,
         flexDirection: "row",
         justifyContent: "space-between",
         backgroundColor: "#6a994e",

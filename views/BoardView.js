@@ -45,7 +45,6 @@ export default function BoardView({ route }) {
             <BoardControls
                 boards={boards}
                 setBoards={setBoards}
-                setSettingsVisable={setSettingsVisable}
             />
 
             {board && (
@@ -54,6 +53,7 @@ export default function BoardView({ route }) {
                     board={board}
                     openFolder={openFolder}
                     settings={settings}
+                    setSettingsVisable={setSettingsVisable}
                 />
             )}
 
