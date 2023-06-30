@@ -8,7 +8,6 @@ import BoardGrid from "../components/boards/BoardGrid";
 import { useRecoilValue } from "recoil";
 import { settingsState } from "../state/atoms/settings";
 import { updateUserSettings } from "../state/handlers/settingsHandler";
-import BoardSidebar from "../components/boards/BoardSidebar";
 
 export default function BoardView({ route }) {
     const [boards, setBoards] = useState(null);
