@@ -33,9 +33,9 @@ const styles = StyleSheet.create({
         flex: 1,
         height: "75%",
         flexDirection: "row",
-        backgroundColor: "#DDD",
-        marginTop: 4,
-        marginBottom: 4
+        backgroundColor: "#d8f3dc",
+        marginTop: 2,
+        marginBottom: 2
     },
     imageBarEntryContainer: {
         height: "85%",
