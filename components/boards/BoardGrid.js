@@ -1,14 +1,14 @@
-import { StyleSheet, View } from "react-native";
+import { Platform, Share, StyleSheet, View } from "react-native";
 import { Col, Grid, Row } from "react-native-easy-grid";
 import useSentence from "../../state/hooks/useSentence";
 import BoardButton from "./BoardButton";
 import EmptyButton from "./EmptyButton";
 import ControlButton from "./ControlButton";
-import { faDeleteLeft, faGear, faMagnifyingGlass, faMicrophoneLines } from "@fortawesome/free-solid-svg-icons";
+import { faDeleteLeft, faGear, faMagnifyingGlass, faMicrophoneLines, faShareFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { useNavigation } from "@react-navigation/native";
 
 export default function BoardGrid({ board, openFolder, setSettingsVisable }) {
-    const { addButtonPress } = useSentence();
+    const { addButtonPress, sentence } = useSentence();
     const navigation = useNavigation();
     const controls = createControls(navigation, setSettingsVisable);
 
@@ -62,14 +62,20 @@ const styles = StyleSheet.create({
 });
 
 function createControls(navigation, setSettingsVisable) {
-    return [
-        <EmptyButton/>,
+    const controls = [
         <EmptyButton/>,
         <EmptyButton/>,
         <ControlButton
             icon={faGear}
             label={"Settings"}
             action={() => setSettingsVisable((prev) => !prev)}
+        />,
+        <ControlButton
+            icon={faShareFromSquare}
+            label={"Share"}
+            action={async () => await Share.share({
+                message: sentence,
+              })}
         />,
         <ControlButton
             icon={faDeleteLeft}
@@ -87,4 +93,11 @@ function createControls(navigation, setSettingsVisable) {
             action={() => {}}
         />
     ]
+
+    if (!(Platform.OS === "ios" || Platform.OS === "android")) {
+        controls[3] = controls[2];
+        controls[2] = <EmptyButton/>;
+    }
+
+    return controls;
 }
