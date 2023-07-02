@@ -2,19 +2,86 @@ import { faFolder } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { StyleSheet, Text, TouchableOpacity, Image } from "react-native";
 import { getContrastingTextColor } from "../../state/handlers/accessibilityHandler";
+import { useRef, useState } from "react";
 
-export default function BoardButton({
-    item,
-    addButtonPress,
-    openFolder,
-    images,
-}) {
+function SmartText({style, text, fontSize, screenSize}) {
+    const textRef = useRef(null);
+    let modifiedText = text;
+    modifiedText = modifiedText.replace("/", "/\n");
+
+    const [dynFontSize, setDynFontSize] = useState(fontSize);
+    if (!screenSize) return <></>
+    
+    const onLayout = () => {
+        textRef.current.measure((fx, fy, width, height, px, py) => {
+            console.log(screenSize);
+            if (width > screenSize.width-2) {
+                setDynFontSize(old => {
+                    textRef.current.setNativeProps({ style: { fontSize: old - 1 } });
+                    return old - 1;
+                });
+            }
+        });
+    }
+
+    return (
+        <Text ref={textRef} style={[style, {fontSize: dynFontSize}]} onLayout={onLayout}>{modifiedText}</Text>
+    )
+}
+
+export default function BoardButton({ item, addButtonPress, openFolder, images }) {
+    const [size, setSize] = useState();
     const matchingImages = images.filter((image) => image.id == item.image_id);
-    const imageLink =
-        matchingImages.length > 0 ? matchingImages[0].url : undefined;
+    const imageLink = matchingImages.length > 0 ? matchingImages[0].url : undefined;
     const isFolder = Boolean(item["load_board"]);
 
-    let style = {
+    const computedStyle = {
+        backgroundColor: item["background_color"],
+        borderColor: item["border_color"],
+    };
+
+    const labelColor = {
+        color: getContrastingTextColor(item["background_color"])
+    };
+
+    if (!item) return <></>
+
+    const onLayout = (event) => {
+        setSize(event.nativeEvent.layout)
+    }
+
+    return (
+        <TouchableOpacity
+            onPress={() => {
+                isFolder
+                    ? openFolder(item["load_board"].id)
+                    : addButtonPress({ label: item.label, imageLink });
+            }}
+            style={[styles.container, computedStyle]}
+            onLayout={onLayout}
+        >
+            <SmartText style={[styles.labelStyle, labelColor]} text={item.label} fontSize={18} screenSize={size}/>
+
+            {imageLink && (
+                <Image
+                    source={{ uri: imageLink }}
+                    style={styles.imageStyle}
+                    resizeMode="contain"
+                />
+            )}
+            {isFolder && (
+                <FontAwesomeIcon
+                    style={styles.topRight}
+                    icon={faFolder}
+                    color="rgba(12, 12, 12, 0.3)"
+                />
+            )}
+        </TouchableOpacity>
+    )
+}
+
+const styles = StyleSheet.create({
+    container: {
         height: "100%",
         margin: 8,
         borderRadius: 12,
@@ -22,56 +89,16 @@ export default function BoardButton({
         borderWidth: 2,
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: item["background_color"],
-        borderColor: item["border_color"],
-    };
-      
-    const labelColor = {
-        color: getContrastingTextColor(item["background_color"])
-    };
-
-    return (
-        item && (
-            <TouchableOpacity
-                onPress={() => {
-                    isFolder
-                        ? openFolder(item["load_board"].id)
-                        : addButtonPress({ label: item.label, imageLink });
-                }}
-                style={[styles.container, style]}
-            >
-                <Text style={[styles.labelStyle, labelColor]} numberOfLines={1}>
-                    {item.label}
-                </Text>
-                {imageLink && (
-                    <Image
-                        source={{ uri: imageLink }}
-                        style={styles.imageStyle}
-                        resizeMode="contain"
-                    />
-                )}
-                {isFolder && (
-                    <FontAwesomeIcon
-                        style={styles.topRight}
-                        icon={faFolder}
-                        color="rgba(12, 12, 12, 0.3)"
-                    />
-                )}
-            </TouchableOpacity>
-        )
-    );
-}
-
-const styles = StyleSheet.create({
-    container: {},
+    },
     labelStyle: {
-        fontSize: 23,
+        flexShrink: 1,
+        flexWrap: "wrap",
         color: "black",
         textAlign: "center",
     },
     imageStyle: {
-        width: "45%",
-        height: "45%",
+        width: "40%",
+        height: "40%",
     },
     topRight: {
         position: "absolute",

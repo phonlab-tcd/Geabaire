@@ -13,9 +13,7 @@ export default function Home() {
 
 
     useEffect(() => {
-
-
-        // navigation.navigate("Board", { rootId: "1_2752499" });
+        navigation.navigate("Board", { rootId: "1_2752499" });
     });
 
     let boardButtons = [];
