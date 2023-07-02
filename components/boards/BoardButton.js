@@ -4,17 +4,17 @@ import { StyleSheet, Text, TouchableOpacity, Image } from "react-native";
 import { getContrastingTextColor } from "../../state/handlers/accessibilityHandler";
 import { useRef, useState } from "react";
 
-function SmartText({style, text, fontSize, screenSize}) {
+function SmartText({ style, text, fontSize, screenSize }) {
     const textRef = useRef(null);
     let modifiedText = text;
     modifiedText = modifiedText.replace("/", "/\n");
 
     const [dynFontSize, setDynFontSize] = useState(fontSize);
     if (!screenSize) return <></>
-    
+
     const onLayout = () => {
         textRef.current.measure((fx, fy, width, height, px, py) => {
-            if (width > screenSize.width-2) {
+            if (width > screenSize.width - 2) {
                 setDynFontSize(old => {
                     textRef.current.setNativeProps({ style: { fontSize: old - 1 } });
                     return old - 1;
@@ -24,7 +24,7 @@ function SmartText({style, text, fontSize, screenSize}) {
     }
 
     return (
-        <Text ref={textRef} style={[style, {fontSize: dynFontSize}]} onLayout={onLayout}>{modifiedText}</Text>
+        <Text ref={textRef} style={[style, { fontSize: dynFontSize }]} onLayout={onLayout}>{modifiedText}</Text>
     )
 }
 
@@ -59,9 +59,9 @@ export default function BoardButton({ item, addButtonPress, openFolder, images }
             style={[styles.container, computedStyle]}
             onLayout={onLayout}
         >
-            <SmartText style={[styles.labelStyle, labelColor]} text={item.label} fontSize={16} screenSize={size}/>
+            <SmartText style={[styles.labelStyle, labelColor]} text={item.label} fontSize={16} screenSize={size} />
 
-            {imageLink && (
+            {imageLink && imageLink !== null && (
                 <Image
                     source={{ uri: imageLink }}
                     style={styles.imageStyle}
@@ -90,14 +90,12 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     labelStyle: {
-        flexShrink: 1,
-        flexWrap: "wrap",
         color: "black",
         textAlign: "center",
     },
     imageStyle: {
-        width: "40%",
-        height: "40%",
+        width: 32,
+        height: 32,
     },
     topRight: {
         position: "absolute",
