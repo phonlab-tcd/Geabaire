@@ -1,4 +1,4 @@
-import { Platform, Share, StyleSheet, View } from "react-native";
+import { KeyboardAvoidingView, Platform, Share, StyleSheet, View } from "react-native";
 import { Col, Grid, Row } from "react-native-easy-grid";
 import useSentence from "../../state/hooks/useSentence";
 import BoardButton from "./BoardButton";
@@ -37,11 +37,11 @@ export default function BoardGrid({ board, openFolder, setSettingsVisable }) {
     ));
 
     return (
-        <View style={styles.container}>
+        <KeyboardAvoidingView style={styles.container}>
             <Grid>
                 {rows}
             </Grid>
-        </View>
+        </KeyboardAvoidingView>
     );
 }
 
@@ -51,9 +51,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         marginLeft: 8,
         marginRight: 8
-    },
-    sidebarContainer: {
-
     },
     row: {
         marginTop: 8,

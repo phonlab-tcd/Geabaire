@@ -40,11 +40,7 @@ const styles = StyleSheet.create({
     },
     sentenceContainer: {
         flex: 1,
-
         justifyContent: "center",
         alignItems: "center",
-
-
-
     },
 })

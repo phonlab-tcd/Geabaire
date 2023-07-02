@@ -1,20 +1,6 @@
 import { View } from "react-native";
 import { StyleSheet } from "react-native";
-import {
-    fa2,
-    faArrowRightFromBracket,
-    faDeleteLeft,
-    faFolderClosed,
-    faGear,
-    faHouse,
-    faHouseUser,
-    faRotateLeft,
-    faTrashCan,
-    faVolumeHigh,
-    faXmark,
-} from "@fortawesome/free-solid-svg-icons";
-import { TextInput } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { faDeleteLeft, faFolderClosed, faHouseUser, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import TouchableIcon from "./TouchableIcon";
 import useSentence from "../../state/hooks/useSentence";
 import { useRecoilValue } from "recoil";
@@ -22,12 +8,8 @@ import { settingsState } from "../../state/atoms/settings";
 import ImageBar from "./ImageBar";
 import TextBar from "./TextBar";
 
-export default function BoardControls({
-    boards,
-    setBoards,
-}) {
-    const navigation = useNavigation();
-    const { sentence, removeLastButtonPress, clearSentence, playNow } = useSentence();
+export default function BoardControls({ boards, setBoards }) {
+    const { removeLastButtonPress, clearSentence } = useSentence();
     const settings = useRecoilValue(settingsState);
 
     let resetFolder = () => {
@@ -51,7 +33,7 @@ export default function BoardControls({
                 />
             </View>
 
-            { settings.doShowImagesInHomeBar ? <ImageBar/> : <TextBar/> }
+            {settings.doShowImagesInHomeBar ? <ImageBar /> : <TextBar />}
 
             <View style={styles.settingsContainer}>
                 <TouchableIcon

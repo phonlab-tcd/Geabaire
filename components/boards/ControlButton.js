@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { TouchableOpacity } from "react-native";
 
 export default function ControlButton({icon, label, action}) {
-
     return (
         <TouchableOpacity style={[styles.container]} onPress={action}>
             <Text style={styles.labelStyle}>{label}</Text>
