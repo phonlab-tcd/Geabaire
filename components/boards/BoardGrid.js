@@ -10,7 +10,7 @@ import { useNavigation } from "@react-navigation/native";
 export default function BoardGrid({ board, openFolder, setSettingsVisable }) {
     const { addButtonPress, sentence } = useSentence();
     const navigation = useNavigation();
-    const controls = createControls(navigation, setSettingsVisable);
+    const controls = createControls(navigation, setSettingsVisable, sentence);
 
     let rows = board.board.map((row, index) => (
         <Row key={index} row={row} style={styles.row}>
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     }
 });
 
-function createControls(navigation, setSettingsVisable) {
+function createControls(navigation, setSettingsVisable, sentence) {
     const controls = [
         <EmptyButton/>,
         <EmptyButton/>,
