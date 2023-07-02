@@ -4,8 +4,10 @@ import {
     fa2,
     faArrowRightFromBracket,
     faDeleteLeft,
+    faFolderClosed,
     faGear,
     faHouse,
+    faHouseUser,
     faRotateLeft,
     faTrashCan,
     faVolumeHigh,
@@ -18,6 +20,7 @@ import useSentence from "../../state/hooks/useSentence";
 import { useRecoilValue } from "recoil";
 import { settingsState } from "../../state/atoms/settings";
 import ImageBar from "./ImageBar";
+import TextBar from "./TextBar";
 
 export default function BoardControls({
     boards,
@@ -40,27 +43,15 @@ export default function BoardControls({
     return (
         <View style={styles.container}>
             <View style={styles.settingsContainer}>
-                <TouchableIcon icon={faHouse} size={45} action={resetFolder} />
+                <TouchableIcon icon={faHouseUser} size={45} action={resetFolder} />
                 <TouchableIcon
-                    icon={faRotateLeft}
+                    icon={faFolderClosed}
                     size={45}
                     action={closeFolder}
                 />
-                <TouchableIcon
-                    icon={faVolumeHigh}
-                    size={45}
-                    action={playNow}
-                />
             </View>
 
-            {settings.doShowImagesInHomeBar ?
-                <ImageBar /> :
-                <TextInput
-                    defaultValue={sentence}
-                    style={styles.sentenceContainer}
-                    autoCorrect={false}
-                />
-            }
+            { settings.doShowImagesInHomeBar ? <ImageBar/> : <TextBar/> }
 
             <View style={styles.settingsContainer}>
                 <TouchableIcon
@@ -73,7 +64,6 @@ export default function BoardControls({
                     size={30}
                     action={clearSentence}
                 />
-                {/* <TouchableIcon icon={fa2} size={45} action={() => {}} /> */}
             </View>
         </View>
     );
@@ -86,17 +76,10 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         backgroundColor: "#6a994e",
         alignItems: "center",
-        paddingLeft: 32,
-        paddingRight: 32,
+        paddingLeft: 8,
+        paddingRight: 8,
     },
     settingsContainer: {
         flexDirection: "row",
-    },
-    sentenceContainer: {
-        flex: 8,
-        margin: 15,
-        backgroundColor: "#CCC",
-        height: "100%",
-        fontSize: 25,
-    },
+    }
 });

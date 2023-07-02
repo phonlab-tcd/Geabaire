@@ -53,5 +53,8 @@ export default function useSentence() {
         clearSentence: () => {
             setButtonPresses([]);
         },
+        setSentence: (text) => {
+            setButtonPresses([{label: text}])
+        }
     };
 }
