@@ -16,7 +16,7 @@ const sentenceState = selector({
             sentence += buttonPress.label + " ";
         }
 
-        return sentence;
+        return sentence.trim();
     },
 });
 
