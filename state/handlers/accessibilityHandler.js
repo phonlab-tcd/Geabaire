@@ -39,7 +39,6 @@ function rgbToHex(rgbString) {
 }
 
 function getContrastingTextColor(bgColor) {
-    console.log(typeof bgColor, bgColor)
     if (bgColor.startsWith("rgb")) {
         bgColor = rgbToHex(bgColor);
     }

@@ -79,8 +79,8 @@ const styles = StyleSheet.create({
         padding: 20
     },
     logo: {
-        height: 120*0.6,
-        width: 300*0.6,
+        height: 120 * 0.6,
+        width: 300 * 0.6,
         paddingBottom: 12
     },
     formInstruction: {
