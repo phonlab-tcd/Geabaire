@@ -5,15 +5,15 @@ import { TouchableOpacity } from "react-native";
 import { View } from "react-native";
 import useSentence from "../../state/hooks/useSentence";
 
-function ImageBarEntry({ buttonPress }) { 
+function ImageBarEntry({ buttonPress }) {
     return (
-        <View style={ styles.imageBarEntryContainer}>
+        <View style={styles.imageBarEntryContainer}>
             <Image
                 source={{ uri: buttonPress.imageLink }}
                 style={styles.imageStyle}
                 resizeMode="contain"
             />
-            <Text>{ buttonPress.label }</Text>
+            <Text>{buttonPress.label}</Text>
         </View>
     )
 }
@@ -22,8 +22,8 @@ export default function ImageBar() {
     let { buttonPresses, playNow } = useSentence();
 
     return (
-        <TouchableOpacity style={ styles.container} onPress={playNow}>
-            {buttonPresses.map(buttonPress => <ImageBarEntry key={ Math.random() } buttonPress={buttonPress}/>)}
+        <TouchableOpacity style={styles.container} onPress={playNow}>
+            {buttonPresses.map(buttonPress => <ImageBarEntry key={Math.random()} buttonPress={buttonPress} />)}
         </TouchableOpacity>
     )
 }

@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import { StyleSheet } from "react-native";
-import { faDeleteLeft, faFolderClosed, faHouseUser, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faDeleteLeft, faFolderClosed, faHamburger, faHouseUser, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import TouchableIcon from "./TouchableIcon";
 import useSentence from "../../state/hooks/useSentence";
 import { useRecoilValue } from "recoil";
@@ -45,6 +45,11 @@ export default function BoardControls({ boards, setBoards }) {
                     icon={faTrashCan}
                     size={30}
                     action={clearSentence}
+                />
+                <TouchableIcon
+                    icon={faBars}
+                    size={30}
+                    action={() => {}}
                 />
             </View>
         </View>

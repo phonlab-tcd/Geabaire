@@ -1,7 +1,7 @@
 import { Text, View } from "react-native";
 import { StyleSheet } from "react-native";
 import { useRecoilState } from "recoil";
-import { Slider } from "@rneui/themed";
+import Slider from '@react-native-community/slider';
 
 export default function SliderEntry({ title, atom, min, max, step }) {
     const [value, setValue] = useRecoilState(atom);
@@ -22,27 +22,12 @@ export default function SliderEntry({ title, atom, min, max, step }) {
         <View style={styles.container}>
             <Text style={styles.key}>{title}</Text>
             <Slider
-                style={styles.value}
-                value={value}
-                onValueChange={(newValue) => setValue(newValue)}
-                maximumValue={max}
-                minimumValue={min}
-                step={step}
-                allowTouchTrack
-                trackStyle={{ height: 5, backgroundColor: "transparent" }}
-                thumbStyle={{
-                    height: 35,
-                    width: 35,
-                    backgroundColor: "#009688",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    textAlign: "center",
-                    userSelect: "none",
-                }}
-                thumbProps={{
-                    children: <Text>{value.toFixed(1)}</Text>,
-                }}
-            />
+                style={{width: 200, height: 40}}
+                minimumValue={0}
+                maximumValue={1}
+                minimumTrackTintColor="#FFFFFF"
+                maximumTrackTintColor="#000000"
+    />
         </View>
     );
 }

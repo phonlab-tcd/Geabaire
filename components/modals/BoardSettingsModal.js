@@ -2,17 +2,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { ScrollView } from "react-native";
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import {
-    doCorrectSentencesBeforeSpeakingState,
-    doDisplayCorrectedSentencesAfterSpeakingState,
-    doShowImagesInHomeBarState,
-    doSpeakEachWordState,
-    doSpeakFullSentenceState,
-    pitchState,
-    speakSentenceDelayState,
-    speedState,
-    voiceState,
-} from "../../state/atoms/settings";
+import { doCorrectSentencesBeforeSpeakingState, doDisplayCorrectedSentencesAfterSpeakingState, doShowImagesInHomeBarState, doSpeakEachWordState, doSpeakFullSentenceState, pitchState, speakSentenceDelayState, speedState, voiceState } from "../../state/atoms/settings";
 import { regionState, speakerState, synthTypeState } from "../../state/atoms/voices";
 import useVoices from "../../state/hooks/useVoices";
 import DropdownEntry from "../settings/DropdownEntry";
@@ -20,22 +10,19 @@ import SliderEntry from "../settings/SliderEntry";
 import StringEntry from "../settings/StringEntry";
 import SwitchEntry from "../settings/SwitchEntry";
 
-export default function BoardSettingsModal({
-    settingsVisable,
-    setSettingsVisable,
-    setSettings,
-}) {
+export default function BoardSettingsModal({ settingsVisable, setSettingsVisable, setSettings }) {
     let voiceApi = useVoices();
 
     return (
         <Modal
-            animationType="slide"
-            transparent={true}
+            animationType="fade"
             visible={settingsVisable}
             onRequestClose={() => {
                 setSettingsVisable((prev) => !prev);
                 setSettings();
             }}
+            transparent
+            statusBarTranslucent
         >
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
@@ -78,12 +65,9 @@ export default function BoardSettingsModal({
                             />
                         }
 
-                        {voiceApi.synthType && <Text style={styles.key}>
-                            Selected voice: { voiceApi.getVoiceString() } 
-                        </Text>}
-
                         <SwitchEntry
                             title="Speak each word"
+                            subtitle=""
                             atom={doSpeakEachWordState}
                         />
 
@@ -107,7 +91,6 @@ export default function BoardSettingsModal({
                             atom={doDisplayCorrectedSentencesAfterSpeakingState}
                         />
 
-                        <StringEntry title="Voice" atom={voiceState} />
                         <SliderEntry
                             title="Speed"
                             atom={speedState}
@@ -130,6 +113,14 @@ export default function BoardSettingsModal({
                             max={15000}
                             step={1000}
                         />
+
+                        {
+                            voiceApi.synthType && (
+                                <Text style={styles.key}>
+                                    Selected voice: {voiceApi.getVoiceString()}
+                                </Text>
+                            )
+                        }
                     </ScrollView>
                 </View>
             </View>
@@ -142,17 +133,18 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
+        backgroundColor: "rgba(0,0,0,0.5)"
     },
     modalView: {
-        width: "40%",
-        height: "50%",
-        backgroundColor: "#fcfbfc",
+        width: 600,
+        height: 700,
+        backgroundColor: "#ECF9EE",
     },
     modalTop: {
         width: "100%",
         flexDirection: "row",
         alignItems: "center",
-        backgroundColor: "#7156fe",
+        backgroundColor: "#6a994e",
         justifyContent: "space-between",
         paddingLeft: 23,
         paddingRight: 23,
@@ -173,6 +165,7 @@ const styles = StyleSheet.create({
     },
     key: {
         marginLeft: "auto",
-        marginRight: "auto"
+        marginRight: "auto",
+        color: "#777"
     }
 });
