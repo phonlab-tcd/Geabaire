@@ -1,9 +1,9 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useEffect, useState } from "react";
 import { getObfBoard } from "../state/handlers/boardHandler";
-import BoardSettingsModal from "../components/boards/BoardSettingsModal";
+import BoardSettingsModal from "../components/modals/BoardSettingsModal";
 import BoardControls from "../components/boards/BoardControls";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import BoardGrid from "../components/boards/BoardGrid";
 import { useRecoilValue } from "recoil";
 import { settingsState } from "../state/atoms/settings";
