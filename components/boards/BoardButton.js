@@ -1,6 +1,7 @@
 import { faFolder } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { StyleSheet, Text, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { Image } from "expo-image";
 import { getContrastingTextColor } from "../../state/handlers/accessibilityHandler";
 import { useRef, useState } from "react";
 
@@ -65,7 +66,7 @@ export default function BoardButton({ item, addButtonPress, openFolder, images }
                 <Image
                     source={{ uri: imageLink }}
                     style={styles.imageStyle}
-                    resizeMode="contain"
+                    contentFit={"contain"}
                 />
             )}
             {isFolder && (
