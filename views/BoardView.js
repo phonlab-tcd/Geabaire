@@ -9,6 +9,8 @@ import { useRecoilValue } from "recoil";
 import { settingsState } from "../state/atoms/settings";
 import { updateUserSettings } from "../state/handlers/settingsHandler";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import BoardDrawer from "../components/boards/BoardDrawer";
+import SettingsView from "./SettingsView";
 
 const Drawer = createDrawerNavigator();
 
@@ -22,18 +24,18 @@ export default function BoardView({ route }) {
                     drawerActiveBackgroundColor: "#F2F2F2",
                     drawerStyle: {
                         backgroundColor: "#F2F2F2"
-                    }
+                    },
                 }}
+                drawerContent={BoardDrawer}
             >
-                <Drawer.Screen name="BoardView" component={Board} initialParams={{ params: route.params }}/>
-                <Drawer.Screen name="Article" component={Board} />
+                <Drawer.Screen name="Speak Mode" component={Board} initialParams={{ params: route.params }}/>
+                <Drawer.Screen name="Settings" component={SettingsView} />
             </Drawer.Navigator>
         </SafeAreaView>
     );
 }
 
 function Board({route, navigation}) {
-    console.log(route);
     const [boards, setBoards] = useState(null);
     const board = boards && boards.length > 0 ? boards[boards.length - 1] : undefined;
 

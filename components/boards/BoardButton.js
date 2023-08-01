@@ -15,7 +15,6 @@ function SmartText({style, text, fontSize, screenSize}) {
     
     const onLayout = () => {
         textRef.current.measure((fx, fy, width, height, px, py) => {
-            console.log(screenSize);
             if (width > screenSize.width-2) {
                 setDynFontSize(old => {
                     textRef.current.setNativeProps({ style: { fontSize: old - 1 } });
