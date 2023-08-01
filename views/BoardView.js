@@ -8,8 +8,32 @@ import BoardGrid from "../components/boards/BoardGrid";
 import { useRecoilValue } from "recoil";
 import { settingsState } from "../state/atoms/settings";
 import { updateUserSettings } from "../state/handlers/settingsHandler";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+
+const Drawer = createDrawerNavigator();
 
 export default function BoardView({ route }) {
+    return (
+        <SafeAreaView style={styles.container}>
+            <Drawer.Navigator
+                screenOptions={{
+                    headerShown: false,
+                    drawerPosition: "right",
+                    drawerActiveBackgroundColor: "#F2F2F2",
+                    drawerStyle: {
+                        backgroundColor: "#F2F2F2"
+                    }
+                }}
+            >
+                <Drawer.Screen name="BoardView" component={Board} initialParams={{ params: route.params }}/>
+                <Drawer.Screen name="Article" component={Board} />
+            </Drawer.Navigator>
+        </SafeAreaView>
+    );
+}
+
+function Board({route, navigation}) {
+    console.log(route);
     const [boards, setBoards] = useState(null);
     const board = boards && boards.length > 0 ? boards[boards.length - 1] : undefined;
 
@@ -23,7 +47,7 @@ export default function BoardView({ route }) {
 
     let load = async () => {
         if (!boards || boards.length === 0) {
-            setBoards([await getObfBoard(route.params.rootId)]);
+            setBoards([await getObfBoard(route.params.params.rootId)]);
         }
     };
 
@@ -36,7 +60,7 @@ export default function BoardView({ route }) {
     }, []);
 
     return (
-        <SafeAreaView style={styles.container}>
+        <>
             <BoardSettingsModal
                 settingsVisable={settingsVisable}
                 setSettingsVisable={setSettingsVisable}
@@ -45,6 +69,7 @@ export default function BoardView({ route }) {
             <BoardControls
                 boards={boards}
                 setBoards={setBoards}
+                navigation={navigation}
             />
 
             {board && (
@@ -56,9 +81,8 @@ export default function BoardView({ route }) {
                     setSettingsVisable={setSettingsVisable}
                 />
             )}
-
-        </SafeAreaView>
-    );
+        </>
+    )
 }
 
 const styles = StyleSheet.create({

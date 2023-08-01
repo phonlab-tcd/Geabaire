@@ -1,5 +1,6 @@
 // import { setupURLPolyfill } from 'react-native-url-polyfill';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import 'react-native-gesture-handler';
 import * as NavigationBar from "expo-navigation-bar";
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";

@@ -8,7 +8,7 @@ import { settingsState } from "../../state/atoms/settings";
 import ImageBar from "./ImageBar";
 import TextBar from "./TextBar";
 
-export default function BoardControls({ boards, setBoards }) {
+export default function BoardControls({ boards, setBoards, navigation }) {
     const { removeLastButtonPress, clearSentence } = useSentence();
     const settings = useRecoilValue(settingsState);
 
@@ -49,7 +49,7 @@ export default function BoardControls({ boards, setBoards }) {
                 <TouchableIcon
                     icon={faBars}
                     size={30}
-                    action={() => {}}
+                    action={() => {navigation.toggleDrawer()}}
                 />
             </View>
         </View>

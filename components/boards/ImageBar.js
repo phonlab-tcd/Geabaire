@@ -39,13 +39,13 @@ const styles = StyleSheet.create({
         marginTop: 2,
         marginBottom: 2,
         borderRadius: 12,
-        paddingLeft: 6
+        paddingLeft: 6,
     },
     imageBarEntryContainer: {
         height: "85%",
         justifyContent: "center",
         alignItems: "center",
-
+        margin: 2,
         paddingTop: 3,
         paddingLeft: 12,
         paddingRight: 12,
