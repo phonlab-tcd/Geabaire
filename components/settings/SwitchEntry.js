@@ -18,7 +18,6 @@ export default function SwitchEntry({ title, atom }) {
                 ios_backgroundColor="#3e3e3e"
                 onValueChange={setValue}
                 value={value}
-                disabled={true}
             />
         </View>
     );

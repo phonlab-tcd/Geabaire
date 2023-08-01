@@ -1,7 +1,6 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useEffect, useState } from "react";
 import { getObfBoard } from "../state/handlers/boardHandler";
-import BoardSettingsModal from "../components/modals/BoardSettingsModal";
 import BoardControls from "../components/boards/BoardControls";
 import { StyleSheet } from "react-native";
 import BoardGrid from "../components/boards/BoardGrid";
@@ -64,11 +63,6 @@ function Board({route, navigation}) {
 
     return (
         <>
-            <BoardSettingsModal
-                settingsVisable={settingsVisable}
-                setSettingsVisable={setSettingsVisable}
-                setSettings={setSettings}
-            />
             <BoardControls
                 boards={boards}
                 setBoards={setBoards}
