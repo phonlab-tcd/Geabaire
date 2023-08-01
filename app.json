@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "aac_viewer",
-    "slug": "aac_viewer",
+    "name": "Geabaire",
+    "slug": "Geabaire",
     "version": "1.0.0",
     "orientation": "landscape",
     "icon": "./assets/icon.png",
@@ -32,9 +32,10 @@
     },
     "extra": {
       "eas": {
-        "projectId": "e721f137-8288-46bb-b550-710379a5f6f5"
+        "projectId": "e4a198d8-b3ed-4fb0-b61d-6741a813fa09"
       }
-    }
+    },
+    "owner": "abair"
   },
   "supabase": {
     "url": "https://foaavlajuvcxjmjkjfrh.supabase.co",
