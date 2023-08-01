@@ -19,7 +19,7 @@ export default function BoardDrawer({ state, navigation, descriptors, home }) {
 
             <View style={styles.actionList}>
                 <View style={styles.actionItem}>
-                    <TouchableOpacity style={styles.button} onPress={() => {alert("Doesn't work yet")}}>
+                    <TouchableOpacity style={styles.button} onPress={() => {navigation.navigate("Home")}}>
                         <FontAwesomeIcon icon={faSignOut} style={{paddingRight: 30}} size={32}/>
                         <Text style={styles.buttonLabel}>Exit Board</Text>
                     </TouchableOpacity>
