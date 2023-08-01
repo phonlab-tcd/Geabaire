@@ -13,7 +13,7 @@ import SettingsView from "./BoardSettingsView";
 
 const Drawer = createDrawerNavigator();
 
-export default function BoardView({ route }) {
+export default function BoardView({ route, navigation }) {
     return (
         <SafeAreaView style={styles.container}>
             <Drawer.Navigator
@@ -27,9 +27,8 @@ export default function BoardView({ route }) {
                 }}
                 drawerContent={BoardDrawer}
             >
-                <Drawer.Screen name="Settings" component={SettingsView} />
                 <Drawer.Screen name="Speak Mode" component={Board} initialParams={{ params: route.params }}/>
-
+                <Drawer.Screen name="Settings" component={SettingsView} />
             </Drawer.Navigator>
         </SafeAreaView>
     );
