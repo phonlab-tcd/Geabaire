@@ -10,7 +10,7 @@ import { settingsState } from "../state/atoms/settings";
 import { updateUserSettings } from "../state/handlers/settingsHandler";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import BoardDrawer from "../components/boards/BoardDrawer";
-import SettingsView from "./SettingsView";
+import SettingsView from "./BoardSettingsView";
 
 const Drawer = createDrawerNavigator();
 
@@ -28,8 +28,9 @@ export default function BoardView({ route }) {
                 }}
                 drawerContent={BoardDrawer}
             >
-                <Drawer.Screen name="Speak Mode" component={Board} initialParams={{ params: route.params }}/>
                 <Drawer.Screen name="Settings" component={SettingsView} />
+                <Drawer.Screen name="Speak Mode" component={Board} initialParams={{ params: route.params }}/>
+
             </Drawer.Navigator>
         </SafeAreaView>
     );

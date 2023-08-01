@@ -7,7 +7,6 @@ import { regionState, speakerState, synthTypeState } from "../../state/atoms/voi
 import useVoices from "../../state/hooks/useVoices";
 import DropdownEntry from "../settings/DropdownEntry";
 import SliderEntry from "../settings/SliderEntry";
-import StringEntry from "../settings/StringEntry";
 import SwitchEntry from "../settings/SwitchEntry";
 
 export default function BoardSettingsModal({ settingsVisable, setSettingsVisable, setSettings }) {
