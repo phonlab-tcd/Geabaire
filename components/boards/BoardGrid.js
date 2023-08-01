@@ -76,22 +76,14 @@ function createControls(navigation, setSettingsVisable, sentence) {
     const controls = [
         <EmptyButton/>,
         <EmptyButton/>,
-        <ControlButton
-            icon={faGear}
-            label={"Settings"}
-            action={() => setSettingsVisable((prev) => !prev)}
-        />,
+        <EmptyButton/>,
+        <EmptyButton/>,
         <ControlButton
             icon={faShareFromSquare}
             label={"Share"}
             action={async () => await Share.share({
                 message: sentence,
               })}
-        />,
-        <ControlButton
-            icon={faDeleteLeft}
-            label={"Exit Speak"}
-            action={() => navigation.navigate("Home")}
         />,
         <ControlButton
             icon={faMicrophoneLines}

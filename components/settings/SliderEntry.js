@@ -3,31 +3,25 @@ import { StyleSheet } from "react-native";
 import { useRecoilState } from "recoil";
 import Slider from '@react-native-community/slider';
 
-export default function SliderEntry({ title, atom, min, max, step }) {
+export default function SliderEntry({ title, atom, min, max, step, unit }) {
     const [value, setValue] = useRecoilState(atom);
-
-    const interpolate = (start, end) => {
-        let k = (value - 0) / 10; // 0 =>min  && 10 => MAX
-        return Math.ceil((1 - k) * start + k * end) % 256;
-    };
-
-    const color = () => {
-        let r = interpolate(255, 0);
-        let g = interpolate(0, 255);
-        let b = interpolate(0, 0);
-        return `rgb(${r},${g},${b})`;
-    };
-
+    const unitLabel = unit ?? ""
     return (
         <View style={styles.container}>
             <Text style={styles.key}>{title}</Text>
             <Slider
-                style={{width: 200, height: 40}}
-                minimumValue={0}
-                maximumValue={1}
+                style={styles.slider}
+                minimumValue={min}
+                maximumValue={max}
                 minimumTrackTintColor="#FFFFFF"
                 maximumTrackTintColor="#000000"
-    />
+                value={value}
+                onValueChange={setValue}
+                step={step}
+            />
+            <Text style={styles.valueLabel}>
+                {value}{unitLabel}
+            </Text>
         </View>
     );
 }
@@ -41,7 +35,12 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     key: {
-        marginLeft: 35,
+        fontSize: 20,
+        fontWeight: "bold"
+    },
+    slider: {
+        maxWidth: 200,
+        marginLeft: "auto"
     },
     fill: {
         width: 50,
@@ -51,4 +50,9 @@ const styles = StyleSheet.create({
         marginLeft: "auto",
         marginRight: 35,
     },
+    valueLabel: {
+        paddingLeft: 10,
+        width: 100,
+        fontSize: 20
+    }
 });

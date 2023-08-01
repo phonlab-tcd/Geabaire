@@ -18,6 +18,7 @@ export default function SwitchEntry({ title, atom }) {
                 ios_backgroundColor="#3e3e3e"
                 onValueChange={setValue}
                 value={value}
+                disabled={true}
             />
         </View>
     );
@@ -31,7 +32,8 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     key: {
-        marginLeft: 35,
+        fontSize: 20,
+        fontWeight: "bold"
     },
     value: {
         marginLeft: "auto",
