@@ -74,38 +74,40 @@ const styles = StyleSheet.create({
 
 function createControls(navigation, setSettingsVisable, sentence) {
     const controls = [
-        <EmptyButton/>,
-        <EmptyButton/>,
-        <EmptyButton/>,
-        <EmptyButton/>,
-        <ControlButton
-            icon={faShareFromSquare}
-            label={"Share"}
-            action={async () => await Share.share({
-                message: sentence,
-              })}
-        />,
+        <EmptyButton />,
+        <EmptyButton />,
+        <EmptyButton />,
+        <EmptyButton />,
+        Platform.OS !== "web" ? (
+            <ControlButton
+                icon={faShareFromSquare}
+                label={"Share"}
+                action={async () => await Share.share({
+                    message: sentence,
+                })}
+            /> 
+        ): <EmptyButton />,
         <ControlButton
             icon={faMicrophoneLines}
             label={"Speak"}
-            action={() => {}}
+            action={() => { }}
         />,
         <ControlButton
             icon={faMagnifyingGlass}
             label={"Search"}
-            action={() => {}}
+            action={() => { }}
         />
     ]
 
     if (!(Platform.OS === "ios" || Platform.OS === "android")) {
         controls[3] = controls[2];
-        controls[2] = <EmptyButton/>;
+        controls[2] = <EmptyButton />;
     }
 
     return controls;
 }
 
-function ControlButton({icon, label, action}) {
+function ControlButton({ icon, label, action }) {
 
     return (
         <TouchableOpacity style={[styles.controlButtonContainer]} onPress={action}>
