@@ -24,8 +24,13 @@ export default function BoardView({ route, navigation }) {
                     drawerStyle: {
                         backgroundColor: "#F2F2F2"
                     },
+                    drawerType: "front",
+                    swipeEnabled: "false",
+                    swipeEdgeWidth: 0,
+                
                 }}
                 drawerContent={BoardDrawer}
+                
             >
                 <Drawer.Screen name="Speak Mode" component={Board} initialParams={{ params: route.params }}/>
                 <Drawer.Screen name="Settings" component={SettingsView} />
@@ -50,10 +55,6 @@ function Board({route, navigation}) {
         if (!boards || boards.length === 0) {
             setBoards([await getObfBoard(route.params.params.rootId)]);
         }
-    };
-
-    let setSettings = () => {
-        updateUserSettings(settings);
     };
 
     useEffect(() => {

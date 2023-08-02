@@ -6,10 +6,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import DropdownEntry from "../components/settings/DropdownEntry";
 import { regionState, speakerState, synthTypeState } from "../state/atoms/voices.js";
 import useVoices from "../state/hooks/useVoices.js";
-import useSettings from "../state/hooks/useSettings.js";
 import SliderEntry from "../components/settings/SliderEntry";
-import { doShowImagesInHomeBarState, doSpeakEachWordState, doSpeakFullSentenceState, pitchState, speakSentenceDelayState, speedState } from "../state/atoms/settings";
+import { doShowImagesInHomeBarState, doSpeakEachWordState, doSpeakFullSentenceState, pitchState, settingsState, speakSentenceDelayState, speedState } from "../state/atoms/settings";
 import SwitchEntry from "../components/settings/SwitchEntry";
+import { useFocusEffect } from "@react-navigation/native";
+import { useCallback } from "react";
+import { updateUserSettings } from "../state/handlers/settingsHandler";
+import { useRecoilValue } from "recoil";
 
 // Region
 // Speaker
@@ -24,7 +27,19 @@ import SwitchEntry from "../components/settings/SwitchEntry";
 // delay
 export default function BoardSettingsView({ navigation }) {
     const voiceApi = useVoices();
-    const { setSettings } = useSettings();
+    const settings = useRecoilValue(settingsState);
+
+    useFocusEffect(
+        useCallback(() => {
+            // Do something when the screen is focused
+            return () => {
+                // Do something when the screen is unfocused
+                // Useful for cleanup functions
+                console.log(settings);
+                updateUserSettings(settings);
+            };
+        }, [])
+    );
 
     return (
         <SafeAreaView style={styles.container}>
