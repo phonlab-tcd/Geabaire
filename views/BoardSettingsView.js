@@ -7,12 +7,12 @@ import DropdownEntry from "../components/settings/DropdownEntry";
 import { regionState, speakerState, synthTypeState } from "../state/atoms/voices.js";
 import useVoices from "../state/hooks/useVoices.js";
 import SliderEntry from "../components/settings/SliderEntry";
-import { doShowImagesInHomeBarState, doSpeakEachWordState, doSpeakFullSentenceState, pitchState, settingsState, speakSentenceDelayState, speedState } from "../state/atoms/settings";
+import { doShowImagesInHomeBarState, doSpeakEachWordState, doSpeakFullSentenceState, pitchState, settingsState, speakSentenceDelayState, speedState, voiceState } from "../state/atoms/settings";
 import SwitchEntry from "../components/settings/SwitchEntry";
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useEffect } from "react";
 import { updateUserSettings } from "../state/handlers/settingsHandler";
-import { useGetRecoilValueInfo_UNSTABLE, useRecoilValue } from "recoil";
+import { useGetRecoilValueInfo_UNSTABLE, useRecoilState, useRecoilValue } from "recoil";
 
 // Region
 // Speaker
@@ -28,10 +28,18 @@ import { useGetRecoilValueInfo_UNSTABLE, useRecoilValue } from "recoil";
 export default function BoardSettingsView({ navigation }) {
     const voiceApi = useVoices();
     const settings = useRecoilValue(settingsState);
+    const [voice, setVoice] = useRecoilState(voiceState);
+    const region = useRecoilValue(regionState);
+    const speaker = useRecoilValue(speakerState);
+    const type = useRecoilState(synthTypeState);
 
     useEffect(() => {
         updateUserSettings({...settings, voice: voiceApi.getVoiceString()});
     }, [settings])
+
+    useEffect(() => {
+        setVoice(voiceApi.getVoiceString());
+    }, [region, speaker, type])
 
     return (
         <SafeAreaView style={styles.container}>
@@ -89,6 +97,8 @@ export default function BoardSettingsView({ navigation }) {
                         max={1.5}
                         step={0.1}
                     />
+
+                    <Text>Voice: {voiceApi.getVoiceString()}</Text>
                 </View>
 
                 <View style={styles.settingsGroup}>

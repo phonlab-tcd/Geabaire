@@ -24,7 +24,7 @@ export default function BoardView({ route, navigation }) {
                         backgroundColor: "#F2F2F2"
                     },
                     drawerType: "front",
-                    swipeEnabled: "false",
+                    swipeEnabled: false,
                     swipeEdgeWidth: 0,
                 
                 }}
