@@ -10,9 +10,9 @@ import SliderEntry from "../components/settings/SliderEntry";
 import { doShowImagesInHomeBarState, doSpeakEachWordState, doSpeakFullSentenceState, pitchState, settingsState, speakSentenceDelayState, speedState } from "../state/atoms/settings";
 import SwitchEntry from "../components/settings/SwitchEntry";
 import { useFocusEffect } from "@react-navigation/native";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { updateUserSettings } from "../state/handlers/settingsHandler";
-import { useRecoilValue } from "recoil";
+import { useGetRecoilValueInfo_UNSTABLE, useRecoilValue } from "recoil";
 
 // Region
 // Speaker
@@ -29,17 +29,9 @@ export default function BoardSettingsView({ navigation }) {
     const voiceApi = useVoices();
     const settings = useRecoilValue(settingsState);
 
-    useFocusEffect(
-        useCallback(() => {
-            // Do something when the screen is focused
-            return () => {
-                // Do something when the screen is unfocused
-                // Useful for cleanup functions
-                console.log(settings);
-                updateUserSettings(settings);
-            };
-        }, [])
-    );
+    useEffect(() => {
+        updateUserSettings({...settings, voice: voiceApi.getVoiceString()});
+    }, [settings])
 
     return (
         <SafeAreaView style={styles.container}>
@@ -81,6 +73,7 @@ export default function BoardSettingsView({ navigation }) {
                             data={voiceApi.getAvailableSynths()}
                         />
                     }
+                    {<Text>{}</Text>}
                     <SliderEntry
                         title="Speed"
                         atom={speedState}

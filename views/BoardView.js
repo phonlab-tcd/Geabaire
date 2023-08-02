@@ -6,7 +6,6 @@ import { StyleSheet } from "react-native";
 import BoardGrid from "../components/boards/BoardGrid";
 import { useRecoilValue } from "recoil";
 import { settingsState } from "../state/atoms/settings";
-import { updateUserSettings } from "../state/handlers/settingsHandler";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import BoardDrawer from "../components/boards/BoardDrawer";
 import SettingsView from "./BoardSettingsView";
