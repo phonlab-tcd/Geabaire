@@ -20,13 +20,13 @@ export default function BoardDrawer({ state, navigation, descriptors, home }) {
             <View style={styles.actionList}>
                 <View style={styles.actionItem}>
                     <TouchableOpacity style={styles.button} onPress={() => {navigation.navigate("Home")}}>
-                        <FontAwesomeIcon icon={faSignOut} style={{paddingRight: 30}} size={32}/>
+                        <FontAwesomeIcon icon={faSignOut} style={{marginRight: 15}} size={32}/>
                         <Text style={styles.buttonLabel}>Exit Board</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.actionItem}>
                     <TouchableOpacity style={styles.button} onPress={() => {supabase.auth.signOut()}}>
-                        <FontAwesomeIcon icon={faDoorOpen} style={{paddingRight: 30}} size={32}/>
+                        <FontAwesomeIcon icon={faDoorOpen} style={{marginRight: 15}} size={32}/>
                         <Text style={styles.buttonLabel}>Log Out</Text>
                     </TouchableOpacity>
                 </View>
@@ -47,7 +47,8 @@ const styles = StyleSheet.create({
         flex: 2,
         marginBottom: 35,
         justifyContent: "flex-end",
-        margin: "auto"
+        marginLeft: "auto",
+        marginRight: "auto"
     },
     actionItem: {
         padding: 6
