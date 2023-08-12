@@ -7,7 +7,10 @@ let signIn = async (email, password) => {
         password,
     });
 
-    if (error) Alert.alert(error.message);
+    if (error) {
+        console.log(error);
+        Alert.alert(error.message);
+    }
 
     return error;
 };
@@ -17,8 +20,12 @@ let signUp = async (email, password) => {
         email,
         password,
     });
+    
+    if (error) {
+        console.log(error);
+        Alert.alert(error.message);
+    }
 
-    if (error) Alert.alert(error.message);
 
     return error;
 };
