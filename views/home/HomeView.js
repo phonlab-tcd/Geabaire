@@ -16,6 +16,7 @@ export default function HomeView({ navigation }) {
 
     const goToBoard = (boardId) => {
         alert("Going to board: " + boardId);
+        navigation.navigate("BoardNavigator", { boardId })
     }
 
     return (

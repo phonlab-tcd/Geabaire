@@ -3,35 +3,11 @@ import { useEffect } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { StyleSheet } from "react-native";
 import { Text } from "react-native";
-import { getUserSettings } from "../state/handlers/settingsHandler";
-import useSettings from "../state/hooks/useSettings";
-import useVoices from "../state/hooks/useVoices";
 import useProfile from "../state/hooks/useProfile";
-import useBoard from "../state/hooks/useBoard";
 
 export default function LoadingView() {
-    let navigation = useNavigation();
-
     // Loads user profile into Recoil
-    const {onOpenBoard} = useProfile();
-
-    const board = useBoard();
-
-    async function load() {
-        // if the user has an on launch board set go to that, otherwise go to the home page.
-        if (onOpenBoard) {
-            navigation.navigate("BoardView");
-        } else {
-            navigation.navigate("HomeNavigator");
-        }
-
-
-
-    }
-
-    useEffect(() => {
-        load();
-    }, []);
+    useProfileEffect();
 
     return (
         <View style={styles.container}>
@@ -40,6 +16,28 @@ export default function LoadingView() {
         </View>
     );
 }
+
+function useProfileEffect() {
+    const navigation = useNavigation();
+    const { id, onOpenBoard } = useProfile();
+  
+    useEffect(() => {
+      if (!id || !onOpenBoard) return;
+  
+      async function load() {
+        if (onOpenBoard) {
+          console.log("Opening Default Board: " + onOpenBoard);
+          navigation.navigate("BoardNavigator", { boardId: onOpenBoard });
+        } else {
+          console.log("No Default Board.")
+          navigation.navigate("HomeNavigator");
+        }
+      }
+  
+      load();
+    }, [id, navigation, onOpenBoard]);
+  }
+
 
 const styles = StyleSheet.create({
     container: {

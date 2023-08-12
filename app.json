@@ -38,7 +38,7 @@
     "owner": "abair"
   },
   "supabase": {
-    "url": "https://foaavlajuvcxjmjkjfrh.supabase.co",
-    "anon_key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZvYWF2bGFqdXZjeGptamtqZnJoIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjU2NjI2MjUsImV4cCI6MTk4MTIzODYyNX0.yzeGtv8Q9KsUzB4K9FL1dUXxt8LAmm_xAzMBMGCkqRk"
+    "url": "http://10.0.2.2:54321",
+    "anon_key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0"
   }
 }
