@@ -6,20 +6,27 @@ import { Text } from "react-native";
 import { getUserSettings } from "../state/handlers/settingsHandler";
 import useSettings from "../state/hooks/useSettings";
 import useVoices from "../state/hooks/useVoices";
+import useProfile from "../state/hooks/useProfile";
+import useBoard from "../state/hooks/useBoard";
 
 export default function LoadingView() {
     let navigation = useNavigation();
-    let { setSettings } = useSettings();
-    let { loadVoices } = useVoices(); // Loads valid voices on first run.
+
+    // Loads user profile into Recoil
+    const {onOpenBoard} = useProfile();
+
+    const board = useBoard();
 
     async function load() {
-        // Load and set settings
-        let settings = await getUserSettings();
-        setSettings(settings);
+        // if the user has an on launch board set go to that, otherwise go to the home page.
+        if (onOpenBoard) {
+            navigation.navigate("BoardView");
+        } else {
+            navigation.navigate("HomeNavigator");
+        }
 
-        await loadVoices(settings);
-        // Finished loading, go to the home screen.
-        navigation.navigate("Home");
+
+
     }
 
     useEffect(() => {
