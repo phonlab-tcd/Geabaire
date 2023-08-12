@@ -1,4 +1,3 @@
-import { SafeAreaView } from "react-native-safe-area-context";
 import { useEffect, useState } from "react";
 import { getObfBoard } from "../../state/handlers/boardHandler";
 import BoardControls from "../../components/boards/BoardControls";
@@ -6,13 +5,11 @@ import { StyleSheet } from "react-native";
 import BoardGrid from "../../components/boards/BoardGrid";
 import { useRecoilValue } from "recoil";
 import { settingsState } from "../../state/atoms/settings";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import BoardDrawer from "../../components/boards/BoardDrawer";
-import SettingsView from "./BoardSettingsView";
 import useBoard from "../../state/hooks/useBoard";
 
 export default function BoardView({route, navigation}) {
-    const {x} = useBoard("");
+    const {boardStack, loadedBoard} = useBoard(route.params.boardId);
+
     const [boards, setBoards] = useState(null);
     const board = boards && boards.length > 0 ? boards[boards.length - 1] : undefined;
 
@@ -24,14 +21,8 @@ export default function BoardView({route, navigation}) {
         setBoards((boards) => [...boards, newBoard]);
     };
 
-    let load = async () => {
-        if (!boards || boards.length === 0) {
-            setBoards([await getObfBoard(route.params.params.rootId)]);
-        }
-    };
-
     useEffect(() => {
-        load();
+        // load();
     }, []);
 
     return (
