@@ -1,23 +1,18 @@
-// import { setupURLPolyfill } from 'react-native-url-polyfill';
+import 'react-native-url-polyfill/auto';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import 'react-native-gesture-handler';
 import * as NavigationBar from "expo-navigation-bar";
+import 'react-native-gesture-handler';
+import { RecoilRoot } from "recoil";
+
+import Auth from "./views/auth/Auth";
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { RecoilRoot } from "recoil";
-
-import Home from "./views/Home";
-import Auth from "./views/Auth";
 import { supabase } from "./state/supabase";
-import BoardView from "./views/BoardView";
-import BoardEditor from "./views/BoardEditor.js";
-import LoadingView from "./views/LoadingView";
-import { Platform } from 'react-native';
-
-// if (Platform.OS === "web") {
-//     setupURLPolyfill();
-// }
+import LoadingView from './views/LoadingView';
+import HomeNavigator from './views/home/HomeNavigator';
+import BoardView from './views/board/BoardView';
+import BoardEditor from './views/editor/BoardEditor'
 
 const Stack = createNativeStackNavigator();
 
@@ -49,11 +44,11 @@ export default function App() {
                             headerShown: false,
                         }}
                     >
-                        <Stack.Screen name="Loading" component={LoadingView} />
-                        <Stack.Screen name="Home" component={Home} />
-                        <Stack.Screen name="Board" component={BoardView} />
+                        <Stack.Screen name="LoadingView" component={LoadingView} />
+                        <Stack.Screen name="HomeNavigator" component={HomeNavigator} />
+                        <Stack.Screen name="BoardView" component={BoardView} />
                         <Stack.Screen
-                            name="BoardEditor"
+                            name="BoardEditorNavigator"
                             component={BoardEditor}
                         />
                     </Stack.Navigator>
