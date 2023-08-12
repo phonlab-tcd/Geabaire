@@ -11,35 +11,7 @@ import BoardDrawer from "../../components/boards/BoardDrawer";
 import SettingsView from "./BoardSettingsView";
 import useBoard from "../../state/hooks/useBoard";
 
-const Drawer = createDrawerNavigator();
-
-export default function BoardView({ route, navigation }) {
-    return (
-        <SafeAreaView style={styles.container}>
-            <Drawer.Navigator
-                screenOptions={{
-                    headerShown: false,
-                    drawerPosition: "right",
-                    drawerActiveBackgroundColor: "#F2F2F2",
-                    drawerStyle: {
-                        backgroundColor: "#F2F2F2"
-                    },
-                    drawerType: "front",
-                    swipeEnabled: false,
-                    swipeEdgeWidth: 0,
-                
-                }}
-                drawerContent={BoardDrawer}
-                
-            >
-                <Drawer.Screen name="Speak Mode" component={Board} initialParams={{ params: route.params }}/>
-                <Drawer.Screen name="Settings" component={SettingsView} />
-            </Drawer.Navigator>
-        </SafeAreaView>
-    );
-}
-
-function Board({route, navigation}) {
+export default function BoardView({route, navigation}) {
     const {x} = useBoard("");
     const [boards, setBoards] = useState(null);
     const board = boards && boards.length > 0 ? boards[boards.length - 1] : undefined;

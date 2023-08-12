@@ -13,6 +13,7 @@ import LoadingView from './views/LoadingView';
 import HomeNavigator from './views/home/HomeNavigator';
 import BoardView from './views/board/BoardView';
 import BoardEditor from './views/editor/BoardEditor'
+import BoardNavigator from './views/board/BoardNavigator';
 
 const Stack = createNativeStackNavigator();
 
@@ -46,7 +47,7 @@ export default function App() {
                     >
                         <Stack.Screen name="LoadingView" component={LoadingView} />
                         <Stack.Screen name="HomeNavigator" component={HomeNavigator} />
-                        <Stack.Screen name="BoardView" component={BoardView} />
+                        <Stack.Screen name="BoardNavigator" component={BoardNavigator} />
                         <Stack.Screen
                             name="BoardEditorNavigator"
                             component={BoardEditor}
