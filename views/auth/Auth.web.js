@@ -18,7 +18,7 @@ export default function Auth() {
             <View style={styles.header}>
                 <Image
                     style={styles.logo}
-                    source={require('../assets/geabaire-logo.png')}
+                    source={require('../../assets/geabaire-logo.png')}
                 />
             </View>
 
