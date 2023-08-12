@@ -1,6 +1,6 @@
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import DropdownEntry from "../components/settings/DropdownEntry";
@@ -9,8 +9,7 @@ import useVoices from "../state/hooks/useVoices.js";
 import SliderEntry from "../components/settings/SliderEntry";
 import { doShowImagesInHomeBarState, doSpeakEachWordState, doSpeakFullSentenceState, pitchState, settingsState, speakSentenceDelayState, speedState, voiceState } from "../state/atoms/settings";
 import SwitchEntry from "../components/settings/SwitchEntry";
-import { useFocusEffect } from "@react-navigation/native";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { updateUserSettings } from "../state/handlers/settingsHandler";
 import { useGetRecoilValueInfo_UNSTABLE, useRecoilState, useRecoilValue } from "recoil";
 
@@ -34,7 +33,7 @@ export default function BoardSettingsView({ navigation }) {
     const type = useRecoilState(synthTypeState);
 
     useEffect(() => {
-        updateUserSettings({...settings, voice: voiceApi.getVoiceString()});
+        updateUserSettings({ ...settings, voice: voiceApi.getVoiceString() });
     }, [settings])
 
     useEffect(() => {
@@ -43,6 +42,7 @@ export default function BoardSettingsView({ navigation }) {
 
     return (
         <SafeAreaView style={styles.container}>
+
             <View style={styles.header}>
                 <Text style={styles.headerLabel}>Board Settings</Text>
                 <TouchableOpacity style={{ marginRight: 12 }} onPress={() => navigation.toggleDrawer()}>
@@ -54,7 +54,7 @@ export default function BoardSettingsView({ navigation }) {
                 </TouchableOpacity>
             </View>
 
-            <View style={styles.settingsContainer}>
+            <ScrollView style={styles.settingsContainer}>
                 <View style={styles.settingsGroup}>
                     <Text style={styles.settingsHeaderLabel}>
                         Text to Speech Settings
@@ -81,7 +81,7 @@ export default function BoardSettingsView({ navigation }) {
                             data={voiceApi.getAvailableSynths()}
                         />
                     }
-                    {<Text>{}</Text>}
+                    {<Text>{ }</Text>}
                     <SliderEntry
                         title="Speed"
                         atom={speedState}
@@ -138,20 +138,22 @@ export default function BoardSettingsView({ navigation }) {
                         Coming Soon.
                     </Text>
                 </View>
-            </View>
+            </ScrollView>
         </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "#F2F2F2"
+        backgroundColor: "#F2F2F2",
+        flex: 1
     },
     settingsContainer: {
         paddingLeft: 35,
         paddingRight: 35,
         paddingTop: 20,
-        margin: "auto"
+        marginLeft: "auto",
+        marginRight: "auto"
     },
     settingsGroup: {
         maxWidth: 500,

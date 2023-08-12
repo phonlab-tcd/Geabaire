@@ -11,11 +11,11 @@ export default function DropdownEntry({ title, atom, data }) {
     <View style={styles.container}>
       <Text style={styles.key}>{title}</Text>
       <Dropdown
-        style={[styles.value, styles.dropdown, isFocus && { borderColor: 'blue' }]}
-        placeholderStyle={styles.placeholderStyle}
-        selectedTextStyle={styles.selectedTextStyle}
-        inputSearchStyle={styles.inputSearchStyle}
-        iconStyle={styles.iconStyle}
+          style={[styles.value, styles.dropdown, isFocus && { borderColor: 'blue' }]}
+          placeholderStyle={styles.placeholderStyle}
+          selectedTextStyle={styles.selectedTextStyle}
+          inputSearchStyle={styles.inputSearchStyle}
+          iconStyle={styles.iconStyle}
         data={data}
         search
         maxHeight={300}
@@ -56,7 +56,8 @@ const styles = StyleSheet.create({
     marginRight: 35,
   },
   dropdown: {
-    height: 25,
+    width: 200,
+    height: 50,
     borderColor: 'gray',
     borderWidth: 0.5,
     borderRadius: 8,
@@ -72,13 +73,13 @@ const styles = StyleSheet.create({
     top: 8,
     zIndex: 999,
     paddingHorizontal: 8,
-    fontSize: 20,
+    fontSize: 14,
   },
   placeholderStyle: {
-    fontSize: 20,
+    fontSize: 16,
   },
   selectedTextStyle: {
-    fontSize: 20,
+    fontSize: 16,
   },
   iconStyle: {
     width: 20,

@@ -5,4 +5,9 @@ const boardStackState = atom({
     default: [],
 });
 
-export { boardStackState };
+const loadedBoardState = atom({
+    key: "loadedBoardState",
+    default: null,
+})
+
+export { boardStackState, loadedBoardState };

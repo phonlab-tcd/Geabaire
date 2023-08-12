@@ -20,7 +20,7 @@ export default function SliderEntry({ title, atom, min, max, step, unit }) {
                 step={step}
             />
             <Text style={styles.valueLabel}>
-                {value}{unitLabel}
+                {value.toFixed(1)}{unitLabel}
             </Text>
         </View>
     );
@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
     slider: {
+        width: 200,
         maxWidth: 200,
         marginLeft: "auto"
     },
