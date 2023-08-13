@@ -9,6 +9,8 @@ import {
     ScrollView
 } from "react-native";
 
+import {signIn, signUp} from "../../state/handlers/authHandler"
+
 export default function Auth() {
     const [email, setEmaiil] = useState("rian@paradaux.io");
     const [password, setPassword] = useState("test1234");
@@ -51,7 +53,7 @@ export default function Auth() {
                         <TouchableOpacity
                             style={[styles.button, styles.buttonActive]}
                             onPress={() => {
-                                // signUp(email, password);
+                                signUp(email, password);
                             }}
                         >
                             <Text style={styles.buttonActiveText}>Sign Up</Text>
@@ -59,7 +61,7 @@ export default function Auth() {
                         <TouchableOpacity
                             style={styles.button}
                             onPress={() => {
-                                // signIn(email, password);
+                                signIn(email, password);
                             }}
                         >
                             <Text style={styles.buttonText}>Sign In</Text>

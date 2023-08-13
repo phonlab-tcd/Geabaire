@@ -9,6 +9,8 @@ import {
     ScrollView
 } from "react-native";
 
+import {signIn, signUp} from "../../state/handlers/authHandler"
+
 export default function Auth() {
     const [email, setEmaiil] = useState("");
     const [password, setPassword] = useState("");
