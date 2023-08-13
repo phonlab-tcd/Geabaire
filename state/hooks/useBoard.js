@@ -54,11 +54,9 @@ export default function useBoard(boardId) {
                 alert("No response");
             }
 
-            console.log(data.board.meta);
-
+            console.log();
             setLoadedBoard(data.board);
-            // setBoardStack([data.board.boards[data.board.meta.parent]]);
-            // console.log(boardStack[0]);
+            setBoardStack([data.board.boards[data.board.meta.parent]])
         }
 
         if (!loadedBoard || (loadedBoard.meta && !loadedBoard.meta.id === boardId)) {

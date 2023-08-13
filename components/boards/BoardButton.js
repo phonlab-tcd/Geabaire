@@ -31,8 +31,8 @@ function SmartText({style, text, fontSize, screenSize}) {
 
 export default function BoardButton({ item, addButtonPress, openFolder, images }) {
     const [size, setSize] = useState();
-    const matchingImages = images.filter((image) => image.id == item.image_id);
-    const imageLink = matchingImages.length > 0 ? matchingImages[0].url : undefined;
+    //const matchingImages = images.filter((image) => image.id == item.image_id);
+    //const imageLink = matchingImages.length > 0 ? matchingImages[0].url : undefined;
     const isFolder = Boolean(item["load_board"]);
 
     const computedStyle = {
@@ -61,13 +61,13 @@ export default function BoardButton({ item, addButtonPress, openFolder, images }
             onLayout={onLayout}
         >
             <SmartText style={[styles.labelStyle, labelColor]} text={item.label} fontSize={18} screenSize={size}/>
-            {imageLink && imageLink !== null && (
+            {/* {imageLink && imageLink !== null && (
                 <Image
                     source={{ uri: imageLink }}
                     style={styles.imageStyle}
                     contentFit={"contain"}
                 />
-            )}
+            )} */}
             {isFolder && (
                 <FontAwesomeIcon
                     style={styles.topRight}

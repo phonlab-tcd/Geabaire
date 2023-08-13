@@ -8,18 +8,17 @@ import { settingsState } from "../../state/atoms/settings";
 import useBoard from "../../state/hooks/useBoard";
 
 export default function BoardView({route, navigation}) {
-    const {boardStack, loadedBoard} = useBoard(route.params.boardId);
-
-    const [boards, setBoards] = useState(null);
-    const board = boards && boards.length > 0 ? boards[boards.length - 1] : undefined;
+    const {board, boardStack, loadedBoard} = useBoard(route.params.boardId);
 
     const [settingsVisable, setSettingsVisable] = useState(false);
     const settings = useRecoilValue(settingsState);
 
     let openFolder = async (id) => {
-        let newBoard = await getObfBoard(id);
-        setBoards((boards) => [...boards, newBoard]);
+        // let newBoard = await getObfBoard(id);
+        // setBoards((boards) => [...boards, newBoard]);
     };
+
+
 
     useEffect(() => {
         // load();
@@ -27,11 +26,11 @@ export default function BoardView({route, navigation}) {
 
     return (
         <>
-            <BoardControls
+            {/* <BoardControls
                 boards={boards}
                 setBoards={setBoards}
                 navigation={navigation}
-            />
+            /> */}
 
             {board && (
                 <BoardGrid

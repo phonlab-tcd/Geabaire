@@ -11,30 +11,60 @@ export default function BoardGrid({ board, openFolder, setSettingsVisable }) {
     const { addButtonPress, sentence } = useSentence();
     const navigation = useNavigation();
     const controls = createControls(navigation, setSettingsVisable, sentence);
+    const buttons = board.buttons;
 
-    let rows = board.board.map((row, index) => (
-        <Row key={index} row={row} style={styles.row}>
-            {row.map((button, index2) =>
-                button ? (
-                    <Col key={index2}>
-                        <BoardButton
-                            item={button}
-                            images={board.images}
-                            addButtonPress={addButtonPress}
-                            openFolder={openFolder}
-                        />
-                    </Col>
-                ) : (
-                    <Col key={index2}>
-                        <EmptyButton />
-                    </Col>
-                )
-            )}
-            <Col>
-                {controls[index]}
-            </Col>
-        </Row>
-    ));
+    console.log(buttons.map(button => button.label))
+
+    const rows = [];
+
+    for (let rowIndex = 0; rowIndex < board.grid.rows; rowIndex++) {
+        const columns = [];
+
+        for (let columnIndex = 0; columnIndex < board.grid.columns; columnIndex++) {
+            const buttonIndex = (rowIndex * board.grid.rows) + columnIndex;
+
+            columns.push(
+                <Col>
+                    <BoardButton
+                        item={buttons[buttonIndex]}
+                        // images={board.images}
+                        addButtonPress={addButtonPress}
+                        openFolder={openFolder}
+                    />
+
+                </Col>
+            );
+        }
+
+        rows.push((<Row style={styles.row}>{columns}</Row>));
+    }
+
+    console.log(rows);
+
+
+    // let rows = buttons.map((row, index) => (
+    //     <Row key={index} row={row} style={styles.row}>
+    //         {row.map((button, index2) =>
+    //             button ? (
+    // <Col key={index2}>
+    //     <BoardButton
+    //         item={button}
+    //         images={board.images}
+    //         addButtonPress={addButtonPress}
+    //         openFolder={openFolder}
+    //     />
+    // </Col>
+    //             ) : (
+    //                 <Col key={index2}>
+    //                     <EmptyButton />
+    //                 </Col>
+    //             )
+    //         )}
+    //         <Col>
+    //             {controls[index]}
+    //         </Col>
+    //     </Row>
+    // ));
 
     return (
         <KeyboardAvoidingView style={styles.container}>
@@ -85,8 +115,8 @@ function createControls(navigation, setSettingsVisable, sentence) {
                 action={async () => await Share.share({
                     message: sentence,
                 })}
-            /> 
-        ): <EmptyButton />,
+            />
+        ) : <EmptyButton />,
         <ControlButton
             icon={faMicrophoneLines}
             label={"Speak"}
