@@ -21,7 +21,7 @@ export const onOpenBoardState = atom({
 });
 
 export const profileState = selector({
-    key: "sentence",
+    key: "profile",
     get: ({ get }) => {
         return {
             id: get(idState),
