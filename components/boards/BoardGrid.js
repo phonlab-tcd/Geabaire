@@ -21,7 +21,11 @@ export default function BoardGrid({ board, openFolder, setSettingsVisable }) {
         const columns = [];
 
         for (let columnIndex = 0; columnIndex < board.grid.columns; columnIndex++) {
-            const buttonIndex = (rowIndex * board.grid.rows) + columnIndex;
+            const buttonIndex = rowIndex * board.grid.columns + columnIndex;
+
+            if (buttonIndex-1 > buttons.length) {
+                break;
+            }
 
             columns.push(
                 <Col>
@@ -40,31 +44,6 @@ export default function BoardGrid({ board, openFolder, setSettingsVisable }) {
     }
 
     console.log(rows);
-
-
-    // let rows = buttons.map((row, index) => (
-    //     <Row key={index} row={row} style={styles.row}>
-    //         {row.map((button, index2) =>
-    //             button ? (
-    // <Col key={index2}>
-    //     <BoardButton
-    //         item={button}
-    //         images={board.images}
-    //         addButtonPress={addButtonPress}
-    //         openFolder={openFolder}
-    //     />
-    // </Col>
-    //             ) : (
-    //                 <Col key={index2}>
-    //                     <EmptyButton />
-    //                 </Col>
-    //             )
-    //         )}
-    //         <Col>
-    //             {controls[index]}
-    //         </Col>
-    //     </Row>
-    // ));
 
     return (
         <KeyboardAvoidingView style={styles.container}>

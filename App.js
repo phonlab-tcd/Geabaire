@@ -1,4 +1,6 @@
-import { setupURLPolyfill } from 'react-native-url-polyfill';
+import { Platform } from 'react-native';
+import 'react-native-url-polyfill/auto';
+
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as NavigationBar from "expo-navigation-bar";
 import 'react-native-gesture-handler';
@@ -13,11 +15,6 @@ import LoadingView from './views/LoadingView';
 import HomeNavigator from './views/home/HomeNavigator';
 import BoardEditor from './views/editor/BoardEditor'
 import BoardNavigator from './views/board/BoardNavigator';
-import { Platform } from 'react-native';
-
-if (Platform.OS !== "web") {
-    setupURLPolyfill();
-}
 
 const Stack = createNativeStackNavigator();
 

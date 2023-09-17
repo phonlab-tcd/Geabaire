@@ -6,7 +6,8 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "devbuild": "eas build -e development -p android --local"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
