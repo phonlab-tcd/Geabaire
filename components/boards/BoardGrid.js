@@ -3,14 +3,14 @@ import { Col, Grid, Row } from "react-native-easy-grid";
 import useSentence from "../../state/hooks/useSentence";
 import BoardButton from "./BoardButton";
 import EmptyButton from "./EmptyButton";
-import { faDeleteLeft, faGear, faMagnifyingGlass, faMicrophoneLines, faShareFromSquare } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass, faMicrophoneLines, faShareFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 
 export default function BoardGrid({ board, openFolder, setSettingsVisable }) {
     const { addButtonPress, sentence } = useSentence();
     const navigation = useNavigation();
-    const controls = createControls(navigation, setSettingsVisable, sentence);
+    const sideBarControls = createSideBarControls(navigation, setSettingsVisable, sentence);
     const buttons = board.buttons;
 
     console.log(buttons.map(button => button.label))
@@ -50,6 +50,9 @@ export default function BoardGrid({ board, openFolder, setSettingsVisable }) {
             <Grid>
                 {rows}
             </Grid>
+            <View>
+            {sideBarControls}
+            </View>
         </KeyboardAvoidingView>
     );
 }
@@ -81,7 +84,7 @@ const styles = StyleSheet.create({
     },
 });
 
-function createControls(navigation, setSettingsVisable, sentence) {
+function createSideBarControls(navigation, setSettingsVisable, sentence) {
     const controls = [
         <EmptyButton />,
         <EmptyButton />,
