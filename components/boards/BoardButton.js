@@ -60,7 +60,7 @@ export default function BoardButton({ item, addButtonPress, openFolder, boardId 
             style={[styles.container, computedStyle]}
             onLayout={onLayout}
         >
-            <SmartText style={[styles.labelStyle, labelColor]} text={item.label} fontSize={13} screenSize={size} />
+            {!item.hide_label && <SmartText style={[styles.labelStyle, labelColor]} text={item.label} fontSize={13} screenSize={size} />}
             {item.image && (
                 <Image
                     source={imageLink}
