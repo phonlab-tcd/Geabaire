@@ -10,10 +10,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 export default function BoardGrid({ board, openFolder, setSettingsVisable }) {
     const { addButtonPress, sentence } = useSentence();
     const navigation = useNavigation();
-    const sideBarControls = createSideBarControls(navigation, setSettingsVisable, sentence);
+    const sideBarControls = createSideBarControls(navigation, setSettingsVisable, sentence, board);
     const buttons = board.buttons;
-
-    console.log(buttons.map(button => button.label))
 
     const rows = [];
 
@@ -23,7 +21,7 @@ export default function BoardGrid({ board, openFolder, setSettingsVisable }) {
         for (let columnIndex = 0; columnIndex < board.grid.columns; columnIndex++) {
             const buttonIndex = rowIndex * board.grid.columns + columnIndex;
 
-            if (buttonIndex-1 > buttons.length) {
+            if (buttonIndex - 1 > buttons.length) {
                 break;
             }
 
@@ -35,7 +33,6 @@ export default function BoardGrid({ board, openFolder, setSettingsVisable }) {
                         addButtonPress={addButtonPress}
                         openFolder={openFolder}
                     />
-
                 </Col>
             );
         }
@@ -50,9 +47,7 @@ export default function BoardGrid({ board, openFolder, setSettingsVisable }) {
             <Grid>
                 {rows}
             </Grid>
-            <View>
             {sideBarControls}
-            </View>
         </KeyboardAvoidingView>
     );
 }
@@ -69,8 +64,8 @@ const styles = StyleSheet.create({
         marginBottom: 8
     },
     controlButtonContainer: {
-        height: "100%",
-        margin: 8,
+        padding: 24,
+        margin: 2,
         borderRadius: 12,
         borderColor: "rgba(12, 12, 12, 0.3)",
         borderWidth: 2,
@@ -82,15 +77,50 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         textAlign: "center",
     },
+    sidebar: {
+        backgroundColor: "#E2E2E2",
+        padding: 6,
+        justifyContent: "flex-end",
+        borderLeftColor: "#CCCCCC",
+        borderLeftWidth: 1
+    }
 });
 
-function createSideBarControls(navigation, setSettingsVisable, sentence) {
-    const controls = [
-        <EmptyButton />,
-        <EmptyButton />,
-        <EmptyButton />,
-        <EmptyButton />,
-        Platform.OS !== "web" ? (
+function createSideBarControls(navigation, setSettingsVisable, sentence, board) {
+    // const controls = [
+    //     <EmptyButton />,
+    //     <EmptyButton />,
+    //     <EmptyButton />,
+    //     <EmptyButton />,
+    //     Platform.OS !== "web" ? (
+    // <ControlButton
+    //     icon={faShareFromSquare}
+    //     label={"Share"}
+    //     action={async () => await Share.share({
+    //         message: sentence,
+    //     })}
+    // />
+    //     ) : <EmptyButton />,
+    //     <ControlButton
+    //         icon={faMicrophoneLines}
+    //         label={"Speak"}
+    //         action={() => { }}
+    //     />,
+    //     <ControlButton
+    //         icon={faMagnifyingGlass}
+    //         label={"Search"}
+    //         action={() => { }}
+    //     />
+    // ]
+
+    // if (!(Platform.OS === "ios" || Platform.OS === "android")) {
+    //     controls[3] = controls[2];
+    //     controls[2] = <EmptyButton />;
+    // }
+
+
+    return <View style={[styles.sidebar]}>
+        {Platform.OS === "web" && (
             <ControlButton
                 icon={faShareFromSquare}
                 label={"Share"}
@@ -98,25 +128,18 @@ function createSideBarControls(navigation, setSettingsVisable, sentence) {
                     message: sentence,
                 })}
             />
-        ) : <EmptyButton />,
+        )}
         <ControlButton
             icon={faMicrophoneLines}
             label={"Speak"}
             action={() => { }}
-        />,
+        />
         <ControlButton
             icon={faMagnifyingGlass}
             label={"Search"}
             action={() => { }}
         />
-    ]
-
-    if (!(Platform.OS === "ios" || Platform.OS === "android")) {
-        controls[3] = controls[2];
-        controls[2] = <EmptyButton />;
-    }
-
-    return controls;
+    </View>
 }
 
 function ControlButton({ icon, label, action }) {
