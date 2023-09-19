@@ -20,8 +20,11 @@ export default function useBoard(boardId) {
         rootId = loadedBoard.meta.parent;
     }
 
-    function push(board) {
-        
+    function push(boardId) {
+        console.log(boardId);
+        const newStack = [...boardStack, loadedBoard.boards[boardId]];
+        console.log(newStack);
+        setBoardStack(newStack);
     }
 
     function pop() {
@@ -53,7 +56,7 @@ export default function useBoard(boardId) {
             if (!data) {
                 alert("No response");
             }
-            
+
             setLoadedBoard(data.board);
             setBoardStack([data.board.boards[data.board.meta.parent]])
         }

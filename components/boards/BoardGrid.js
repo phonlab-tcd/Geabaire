@@ -27,13 +27,18 @@ export default function BoardGrid({ board, openFolder, setSettingsVisable, board
 
             columns.push(
                 <Col key={columnIndex}>
+                    {buttons[buttonIndex] ? (
                     <BoardButton
-                        item={buttons[buttonIndex]}
-                        images={board.images}
-                        addButtonPress={addButtonPress}
-                        openFolder={openFolder}
-                        boardId={boardId}
-                    />
+                    item={buttons[buttonIndex]}
+                    images={board.images}
+                    addButtonPress={addButtonPress}
+                    openFolder={openFolder}
+                    boardId={boardId}
+                />
+                    ) : (
+                        <EmptyButton/>
+                    )}
+
                 </Col>
             );
         }

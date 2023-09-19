@@ -5,17 +5,17 @@ import { Image } from "expo-image";
 import { getContrastingTextColor } from "../../state/handlers/accessibilityHandler";
 import { useRef, useState } from "react";
 
-function SmartText({style, text, fontSize, screenSize}) {
+function SmartText({ style, text, fontSize, screenSize }) {
     const textRef = useRef(null);
     let modifiedText = text;
     // modifiedText = modifiedText.replace("/", "/\n");
 
     const [dynFontSize, setDynFontSize] = useState(fontSize);
     if (!screenSize) return <></>
-    
+
     const onLayout = () => {
         textRef.current.measure((fx, fy, width, height, px, py) => {
-            if (width > screenSize.width-2) {
+            if (width > screenSize.width - 2) {
                 setDynFontSize(old => {
                     textRef.current.setNativeProps({ style: { fontSize: old - 1 } });
                     return old - 1;
@@ -25,17 +25,16 @@ function SmartText({style, text, fontSize, screenSize}) {
     }
 
     return (
-        <Text ref={textRef} style={[style, {fontSize: dynFontSize}]} onLayout={onLayout}>{modifiedText}</Text>
+        <Text ref={textRef} style={[style, { fontSize: dynFontSize }]} onLayout={onLayout}>{modifiedText}</Text>
     )
 }
 
 export default function BoardButton({ item, addButtonPress, openFolder, boardId }) {
     const [size, setSize] = useState();
-    const isFolder = Boolean(item["load_board"]);
+    const isFolder = Boolean(item["child"]);
 
     const imageLink = `${process.env.EXPO_PUBLIC_GEABAIRE_API_LINK}/images/${boardId}/${item.image}.${item.image_type}`
-    console.log(imageLink)
-    
+
     const computedStyle = {
         backgroundColor: item["background_color"],
         borderColor: item["border_color"],
@@ -55,18 +54,20 @@ export default function BoardButton({ item, addButtonPress, openFolder, boardId 
         <TouchableOpacity
             onPress={() => {
                 isFolder
-                    ? openFolder(item["load_board"].id)
+                    ? openFolder(item.child)
                     : addButtonPress({ label: item.label, imageLink });
             }}
             style={[styles.container, computedStyle]}
             onLayout={onLayout}
         >
-            <SmartText style={[styles.labelStyle, labelColor]} text={item.label} fontSize={13} screenSize={size}/>
-            <Image
+            <SmartText style={[styles.labelStyle, labelColor]} text={item.label} fontSize={13} screenSize={size} />
+            {item.image && (
+                <Image
                     source={imageLink}
                     style={styles.imageStyle}
                     contentFit={"contain"}
-            />
+                />
+            )}
             {isFolder && (
                 <FontAwesomeIcon
                     style={styles.topRight}

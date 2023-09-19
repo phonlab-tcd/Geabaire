@@ -8,17 +8,16 @@ import { settingsState } from "../../state/atoms/settings";
 import useBoard from "../../state/hooks/useBoard";
 
 export default function BoardView({route, navigation}) {
-    const {board, boardStack, loadedBoard} = useBoard(route.params.boardId);
+    const {board, boardStack, loadedBoard, push} = useBoard(route.params.boardId);
 
     const [settingsVisable, setSettingsVisable] = useState(false);
     const settings = useRecoilValue(settingsState);
 
     let openFolder = async (id) => {
+        push(id);
         // let newBoard = await getObfBoard(id);
         // setBoards((boards) => [...boards, newBoard]);
     };
-
-
 
     useEffect(() => {
         // load();
