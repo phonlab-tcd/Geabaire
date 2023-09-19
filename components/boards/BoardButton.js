@@ -29,12 +29,13 @@ function SmartText({style, text, fontSize, screenSize}) {
     )
 }
 
-export default function BoardButton({ item, addButtonPress, openFolder, images }) {
+export default function BoardButton({ item, addButtonPress, openFolder, boardId }) {
     const [size, setSize] = useState();
-    //const matchingImages = images.filter((image) => image.id == item.image_id);
-    //const imageLink = matchingImages.length > 0 ? matchingImages[0].url : undefined;
     const isFolder = Boolean(item["load_board"]);
 
+    const imageLink = `${process.env.EXPO_PUBLIC_GEABAIRE_API_LINK}/images/${boardId}/${item.image}.${item.image_type}`
+    console.log(imageLink)
+    
     const computedStyle = {
         backgroundColor: item["background_color"],
         borderColor: item["border_color"],
@@ -60,14 +61,12 @@ export default function BoardButton({ item, addButtonPress, openFolder, images }
             style={[styles.container, computedStyle]}
             onLayout={onLayout}
         >
-            <SmartText style={[styles.labelStyle, labelColor]} text={item.label} fontSize={18} screenSize={size}/>
-            {/* {imageLink && imageLink !== null && (
-                <Image
-                    source={{ uri: imageLink }}
+            <SmartText style={[styles.labelStyle, labelColor]} text={item.label} fontSize={13} screenSize={size}/>
+            <Image
+                    source={imageLink}
                     style={styles.imageStyle}
                     contentFit={"contain"}
-                />
-            )} */}
+            />
             {isFolder && (
                 <FontAwesomeIcon
                     style={styles.topRight}

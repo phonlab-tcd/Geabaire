@@ -9,5 +9,9 @@ const styles = StyleSheet.create({
         height: "100%",
         alignItems: "center",
         justifyContent: "center",
+        borderRadius: 12,
+        borderColor: "rgba(12, 12, 12, 0.3)",
+        borderWidth: 2,
+        margin: 8,
     },
 });

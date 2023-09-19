@@ -39,6 +39,7 @@ export default function BoardView({route, navigation}) {
                     openFolder={openFolder}
                     settings={settings}
                     setSettingsVisable={setSettingsVisable}
+                    boardId={loadedBoard.meta.id}
                 />
             )}
         </>

@@ -7,7 +7,7 @@ import { faMagnifyingGlass, faMicrophoneLines, faShareFromSquare } from "@fortaw
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 
-export default function BoardGrid({ board, openFolder, setSettingsVisable }) {
+export default function BoardGrid({ board, openFolder, setSettingsVisable, boardId }) {
     const { addButtonPress, sentence } = useSentence();
     const navigation = useNavigation();
     const sideBarControls = createSideBarControls(navigation, setSettingsVisable, sentence, board);
@@ -26,21 +26,20 @@ export default function BoardGrid({ board, openFolder, setSettingsVisable }) {
             }
 
             columns.push(
-                <Col>
+                <Col key={columnIndex}>
                     <BoardButton
                         item={buttons[buttonIndex]}
-                        // images={board.images}
+                        images={board.images}
                         addButtonPress={addButtonPress}
                         openFolder={openFolder}
+                        boardId={boardId}
                     />
                 </Col>
             );
         }
 
-        rows.push((<Row style={styles.row}>{columns}</Row>));
+        rows.push((<Row key={rowIndex} style={styles.row}>{columns}</Row>));
     }
-
-    console.log(rows);
 
     return (
         <KeyboardAvoidingView style={styles.container}>

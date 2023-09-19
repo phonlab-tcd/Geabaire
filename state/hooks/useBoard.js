@@ -53,8 +53,7 @@ export default function useBoard(boardId) {
             if (!data) {
                 alert("No response");
             }
-
-            console.log();
+            
             setLoadedBoard(data.board);
             setBoardStack([data.board.boards[data.board.meta.parent]])
         }
