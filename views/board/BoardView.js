@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import { getObfBoard } from "../../state/handlers/boardHandler";
 import BoardControls from "../../components/boards/BoardControls";
 import { StyleSheet } from "react-native";
 import BoardGrid from "../../components/boards/BoardGrid";
@@ -8,36 +6,21 @@ import { settingsState } from "../../state/atoms/settings";
 import useBoard from "../../state/hooks/useBoard";
 
 export default function BoardView({route, navigation}) {
-    const {board, boardStack, loadedBoard, push} = useBoard(route.params.boardId);
-
-    const [settingsVisable, setSettingsVisable] = useState(false);
+    const {board, loadedBoard, push} = useBoard(route.params.boardId);
     const settings = useRecoilValue(settingsState);
-
-    let openFolder = async (id) => {
-        push(id);
-        // let newBoard = await getObfBoard(id);
-        // setBoards((boards) => [...boards, newBoard]);
-    };
-
-    useEffect(() => {
-        // load();
-    }, []);
 
     return (
         <>
-            {/* <BoardControls
-                boards={boards}
-                setBoards={setBoards}
+            <BoardControls
                 navigation={navigation}
-            /> */}
+            />
 
             {board && (
                 <BoardGrid
                     style={styles.container}
                     board={board}
-                    openFolder={openFolder}
+                    openFolder={push}
                     settings={settings}
-                    setSettingsVisable={setSettingsVisable}
                     boardId={loadedBoard.meta.id}
                 />
             )}

@@ -1,20 +1,18 @@
 import { View } from "react-native";
 import { StyleSheet } from "react-native";
-import { faBars, faDeleteLeft, faFolderClosed, faHamburger, faHouseUser, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faBars, faDeleteLeft, faFolderClosed, faHamburger, faHouseUser, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import TouchableIcon from "./TouchableIcon";
 import useSentence from "../../state/hooks/useSentence";
 import { useRecoilValue } from "recoil";
 import { settingsState } from "../../state/atoms/settings";
 import ImageBar from "./ImageBar";
 import TextBar from "./TextBar";
+import useBoard from "../../state/hooks/useBoard";
 
 export default function BoardControls({ boards, setBoards, navigation }) {
     const { removeLastButtonPress, clearSentence } = useSentence();
+    const { popAll, pop } = useBoard();
     const settings = useRecoilValue(settingsState);
-
-    let resetFolder = () => {
-        setBoards((boards) => [boards[0]]);
-    };
 
     let closeFolder = () => {
         if (boards.length > 1) {
@@ -25,11 +23,11 @@ export default function BoardControls({ boards, setBoards, navigation }) {
     return (
         <View style={styles.container}>
             <View style={styles.settingsContainer}>
-                <TouchableIcon icon={faHouseUser} size={45} action={resetFolder} />
+                <TouchableIcon icon={faHouseUser} size={45} action={popAll} />
                 <TouchableIcon
-                    icon={faFolderClosed}
+                    icon={faArrowLeft}
                     size={45}
-                    action={closeFolder}
+                    action={pop}
                 />
             </View>
 

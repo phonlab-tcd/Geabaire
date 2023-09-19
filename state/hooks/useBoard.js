@@ -28,7 +28,9 @@ export default function useBoard(boardId) {
     }
 
     function pop() {
-
+        if (boardStack.length > 1) {
+            setBoardStack(stack => stack.slice(0, -1));
+        }
     }
 
     function peek() {
