@@ -34,7 +34,7 @@ export default function useBoard(boardId) {
     }
 
     function peek() {
-
+        return boardStack[boardStack.length - 1];
     }
 
     function popAll() {
