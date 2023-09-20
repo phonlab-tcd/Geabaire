@@ -3,9 +3,8 @@ import { Col, Grid, Row } from "react-native-easy-grid";
 import useSentence from "../../state/hooks/useSentence";
 import BoardButton from "./BoardButton";
 import EmptyButton from "./EmptyButton";
-import { faMagnifyingGlass, faMicrophoneLines, faShareFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { useNavigation } from "@react-navigation/native";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import FAIcon from 'react-native-vector-icons/FontAwesome';
 
 export default function BoardGrid({ board, openFolder, setSettingsVisable, boardId }) {
     const { addButtonPress, sentence } = useSentence();
@@ -28,15 +27,14 @@ export default function BoardGrid({ board, openFolder, setSettingsVisable, board
             columns.push(
                 <Col key={columnIndex}>
                     {buttons[buttonIndex] ? (
-                    <BoardButton
-                    item={buttons[buttonIndex]}
-                    images={board.images}
-                    addButtonPress={addButtonPress}
-                    openFolder={openFolder}
-                    boardId={boardId}
-                />
+                        <BoardButton
+                            item={buttons[buttonIndex]}
+                            addButtonPress={addButtonPress}
+                            openFolder={openFolder}
+                            boardId={boardId}
+                        />
                     ) : (
-                        <EmptyButton/>
+                        <EmptyButton />
                     )}
 
                 </Col>
@@ -126,7 +124,7 @@ function createSideBarControls(navigation, setSettingsVisable, sentence, board) 
     return <View style={[styles.sidebar]}>
         {Platform.OS === "web" && (
             <ControlButton
-                icon={faShareFromSquare}
+                icon="share-alt"
                 label={"Share"}
                 action={async () => await Share.share({
                     message: sentence,
@@ -134,12 +132,12 @@ function createSideBarControls(navigation, setSettingsVisable, sentence, board) 
             />
         )}
         <ControlButton
-            icon={faMicrophoneLines}
+            icon={"microphone-lines"}
             label={"Speak"}
             action={() => { }}
         />
         <ControlButton
-            icon={faMagnifyingGlass}
+            icon={"magnifying-glass"}
             label={"Search"}
             action={() => { }}
         />
@@ -147,11 +145,10 @@ function createSideBarControls(navigation, setSettingsVisable, sentence, board) 
 }
 
 function ControlButton({ icon, label, action }) {
-
     return (
         <TouchableOpacity style={[styles.controlButtonContainer]} onPress={action}>
             <Text style={styles.cblabelStyle}>{label}</Text>
-            <FontAwesomeIcon icon={icon} size={32} color={"black"} />
+            <FAIcon icon={icon} size={32} color={"black"} />
         </TouchableOpacity>
     )
 }

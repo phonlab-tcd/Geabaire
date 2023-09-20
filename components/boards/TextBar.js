@@ -1,6 +1,5 @@
 import { StyleSheet, TextInput, View } from "react-native";
 import TouchableIcon from "./TouchableIcon";
-import { faVolumeHigh } from "@fortawesome/free-solid-svg-icons";
 import useSentence from "../../state/hooks/useSentence";
 
 export default function TextBar() {
@@ -9,7 +8,8 @@ export default function TextBar() {
     return (
         <View style={styles.container}>
             <TouchableIcon
-                icon={faVolumeHigh}
+                type="fontawesome"
+                icon="volume-high"
                 size={45}
                 action={playNow}
                 color={"#6a994e"}

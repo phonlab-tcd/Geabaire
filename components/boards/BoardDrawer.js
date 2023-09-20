@@ -1,5 +1,4 @@
-import { faDoorOpen, faSignOut } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import FAIcon from 'react-native-vector-icons/FontAwesome';
 import { DrawerContentScrollView, DrawerItemList } from "@react-navigation/drawer";
 import { StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -20,13 +19,13 @@ export default function BoardDrawer({ state, navigation, descriptors, home }) {
             <View style={styles.actionList}>
                 <View style={styles.actionItem}>
                     <TouchableOpacity style={styles.button} onPress={() => {navigation.navigate("Home")}}>
-                        <FontAwesomeIcon icon={faSignOut} style={{marginRight: 15}} size={32}/>
+                        <FAIcon icon="sign-out" style={{marginRight: 15}} size={32}/>
                         <Text style={styles.buttonLabel}>Exit Board</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.actionItem}>
                     <TouchableOpacity style={styles.button} onPress={() => {supabase.auth.signOut()}}>
-                        <FontAwesomeIcon icon={faDoorOpen} style={{marginRight: 15}} size={32}/>
+                        <FAIcon icon={"door-open"} style={{marginRight: 15}} size={32}/>
                         <Text style={styles.buttonLabel}>Log Out</Text>
                     </TouchableOpacity>
                 </View>

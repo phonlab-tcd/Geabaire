@@ -1,5 +1,4 @@
-import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import FAIcon from 'react-native-vector-icons/FontAwesome';
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -11,7 +10,7 @@ import { doShowImagesInHomeBarState, doSpeakEachWordState, doSpeakFullSentenceSt
 import SwitchEntry from "../../components/settings/SwitchEntry";
 import { useEffect } from "react";
 import { updateUserSettings } from "../../state/handlers/settingsHandler";
-import { useGetRecoilValueInfo_UNSTABLE, useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 // Region
 // Speaker
@@ -46,8 +45,8 @@ export default function BoardSettingsView({ navigation }) {
             <View style={styles.header}>
                 <Text style={styles.headerLabel}>Board Settings</Text>
                 <TouchableOpacity style={{ marginRight: 12 }} onPress={() => navigation.toggleDrawer()}>
-                    <FontAwesomeIcon
-                        icon={faBars}
+                    <FAIcon
+                        icon="bars"
                         size={30}
                         color="#F2F2F2"
                     />

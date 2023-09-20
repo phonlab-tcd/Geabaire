@@ -1,6 +1,5 @@
 import { View } from "react-native";
 import { StyleSheet } from "react-native";
-import { faArrowLeft, faBars, faDeleteLeft, faFolderClosed, faHamburger, faHouseUser, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import TouchableIcon from "./TouchableIcon";
 import useSentence from "../../state/hooks/useSentence";
 import { useRecoilValue } from "recoil";
@@ -23,9 +22,15 @@ export default function BoardControls({ boards, setBoards, navigation }) {
     return (
         <View style={styles.container}>
             <View style={styles.settingsContainer}>
-                <TouchableIcon icon={faHouseUser} size={45} action={popAll} />
+                <TouchableIcon 
+                    type="fontawesome"
+                    icon={"house-user"} 
+                    size={45} 
+                    action={popAll} 
+                />
                 <TouchableIcon
-                    icon={faArrowLeft}
+                    type="fontawesome"
+                    icon={"arrow-left"}
                     size={45}
                     action={pop}
                 />
@@ -35,17 +40,20 @@ export default function BoardControls({ boards, setBoards, navigation }) {
 
             <View style={styles.settingsContainer}>
                 <TouchableIcon
-                    icon={faDeleteLeft}
+                    type="fontawesome"
+                    icon="delete-left"
                     size={45}
                     action={removeLastButtonPress}
                 />
                 <TouchableIcon
-                    icon={faTrashCan}
+                    type="fontawesome"
+                    icon="trash-can"
                     size={30}
                     action={clearSentence}
                 />
                 <TouchableIcon
-                    icon={faBars}
+                    type="fontawesome"
+                    icon="bars"
                     size={30}
                     action={() => {navigation.toggleDrawer()}}
                 />

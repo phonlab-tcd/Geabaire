@@ -1,9 +1,8 @@
-import { faFolder } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { Image } from "expo-image";
 import { getContrastingTextColor } from "../../state/handlers/accessibilityHandler";
 import { useRef, useState } from "react";
+import FAIcon from 'react-native-vector-icons/FontAwesome';
 
 function SmartText({ style, text, fontSize, screenSize }) {
     const textRef = useRef(null);
@@ -69,9 +68,10 @@ export default function BoardButton({ item, addButtonPress, openFolder, boardId 
                 />
             )}
             {isFolder && (
-                <FontAwesomeIcon
+                <FAIcon
+                    type="fontawesome"
+                    icon="folder"
                     style={styles.topRight}
-                    icon={faFolder}
                     color="rgba(12, 12, 12, 0.3)"
                 />
             )}

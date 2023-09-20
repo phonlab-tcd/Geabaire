@@ -1,5 +1,4 @@
-import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import FAIcon from 'react-native-vector-icons/FontAwesome';
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { format } from "date-fns";
 import useProfile from "../../state/hooks/useProfile";
@@ -24,8 +23,8 @@ export default function HomeView({ navigation }) {
             <View style={styles.header}>
                 <Text style={styles.headerLabel}>Geabaire: AAC don Gaeilge</Text>
                 <TouchableOpacity style={{ marginRight: 12 }} onPress={() => navigation.toggleDrawer()}>
-                    <FontAwesomeIcon
-                        icon={faBars}
+                    <FAIcon
+                        icon="bars"
                         size={30}
                         color="#F2F2F2"
                     />
