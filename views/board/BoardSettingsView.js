@@ -46,7 +46,7 @@ export default function BoardSettingsView({ navigation }) {
                 <Text style={styles.headerLabel}>Board Settings</Text>
                 <TouchableOpacity style={{ marginRight: 12 }} onPress={() => navigation.toggleDrawer()}>
                     <FAIcon
-                        icon="bars"
+                        name="bars"
                         size={30}
                         color="#F2F2F2"
                     />

@@ -19,13 +19,13 @@ export default function BoardDrawer({ state, navigation, descriptors, home }) {
             <View style={styles.actionList}>
                 <View style={styles.actionItem}>
                     <TouchableOpacity style={styles.button} onPress={() => {navigation.navigate("Home")}}>
-                        <FAIcon icon="sign-out" style={{marginRight: 15}} size={32}/>
+                        <FAIcon name="sign-out" style={{marginRight: 15}} size={32}/>
                         <Text style={styles.buttonLabel}>Exit Board</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.actionItem}>
                     <TouchableOpacity style={styles.button} onPress={() => {supabase.auth.signOut()}}>
-                        <FAIcon icon={"door-open"} style={{marginRight: 15}} size={32}/>
+                        <FAIcon name={"door-open"} style={{marginRight: 15}} size={32}/>
                         <Text style={styles.buttonLabel}>Log Out</Text>
                     </TouchableOpacity>
                 </View>

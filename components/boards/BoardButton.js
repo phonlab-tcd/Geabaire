@@ -70,7 +70,7 @@ export default function BoardButton({ item, addButtonPress, openFolder, boardId 
             {isFolder && (
                 <FAIcon
                     type="fontawesome"
-                    icon="folder"
+                    name="folder"
                     style={styles.topRight}
                     color="rgba(12, 12, 12, 0.3)"
                 />

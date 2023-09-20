@@ -148,7 +148,7 @@ function ControlButton({ icon, label, action }) {
     return (
         <TouchableOpacity style={[styles.controlButtonContainer]} onPress={action}>
             <Text style={styles.cblabelStyle}>{label}</Text>
-            <FAIcon icon={icon} size={32} color={"black"} />
+            <FAIcon name={icon} size={32} color={"black"} />
         </TouchableOpacity>
     )
 }

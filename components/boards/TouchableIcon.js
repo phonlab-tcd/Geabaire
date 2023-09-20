@@ -9,7 +9,7 @@ export default function TouchableIcon({ type, icon, action, size, style1, style2
             onPress={action}
         >
             {type === "fontawesome" && (
-                <FAIcon style={style2} icon={icon} size={size} color={color ?? "white"} />
+                <FAIcon style={style2} name={icon} size={size} color={color ?? "white"} />
             )}
         </TouchableOpacity>
     );

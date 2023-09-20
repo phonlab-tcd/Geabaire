@@ -19,7 +19,7 @@ export default function HomeDrawer({state, navigation, descriptors}) {
             <View style={styles.actionList}>
                 <View style={styles.actionItem}>
                     <TouchableOpacity style={styles.button} onPress={() => {supabase.auth.signOut()}}>
-                        <FAIcon icon="door-open" style={{marginRight: 15}} size={32}/>
+                        <FAIcon name="door-open" style={{marginRight: 15}} size={32}/>
                         <Text style={styles.buttonLabel}>Log Out</Text>
                     </TouchableOpacity>
                 </View>
