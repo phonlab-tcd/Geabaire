@@ -9,8 +9,8 @@ export default function TextBar() {
         <View style={styles.container}>
             <TouchableIcon
                 type="fontawesome"
-                icon="volume-high"
-                size={45}
+                icon="volume-up"
+                size={30}
                 action={playNow}
                 color={"#6a994e"}
             />

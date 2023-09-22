@@ -23,14 +23,14 @@ export default function BoardControls({ boards, setBoards, navigation }) {
         <View style={styles.container}>
             <View style={styles.settingsContainer}>
                 <TouchableIcon 
-                    type="fontawesome"
-                    icon={"house-user"} 
+                    type="material-community"
+                    icon="folder-home" 
                     size={45} 
                     action={popAll} 
                 />
                 <TouchableIcon
                     type="fontawesome"
-                    icon={"arrow-left"}
+                    icon="arrow-left"
                     size={45}
                     action={pop}
                 />
@@ -40,21 +40,21 @@ export default function BoardControls({ boards, setBoards, navigation }) {
 
             <View style={styles.settingsContainer}>
                 <TouchableIcon
-                    type="fontawesome"
-                    icon="delete-left"
+                    type="material-community"
+                    icon="arrow-left-bold-box-outline"
                     size={45}
                     action={removeLastButtonPress}
                 />
                 <TouchableIcon
-                    type="fontawesome"
+                    type="material-community"
                     icon="trash-can"
-                    size={30}
+                    size={45}
                     action={clearSentence}
                 />
                 <TouchableIcon
                     type="fontawesome"
                     icon="bars"
-                    size={30}
+                    size={40}
                     action={() => {navigation.toggleDrawer()}}
                 />
             </View>
