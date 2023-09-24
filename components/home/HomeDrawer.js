@@ -1,4 +1,6 @@
 import FAIcon from 'react-native-vector-icons/FontAwesome';
+import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import { DrawerContentScrollView, DrawerItemList } from "@react-navigation/drawer";
 import { StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -19,7 +21,7 @@ export default function HomeDrawer({state, navigation, descriptors}) {
             <View style={styles.actionList}>
                 <View style={styles.actionItem}>
                     <TouchableOpacity style={styles.button} onPress={() => {supabase.auth.signOut()}}>
-                        <FAIcon name="door-open" style={{marginRight: 15}} size={32}/>
+                        <MCIcon name="door-open" style={{marginRight: 15}} size={32}/>
                         <Text style={styles.buttonLabel}>Log Out</Text>
                     </TouchableOpacity>
                 </View>

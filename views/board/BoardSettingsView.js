@@ -37,11 +37,10 @@ export default function BoardSettingsView({ navigation }) {
 
     useEffect(() => {
         setVoice(voiceApi.getVoiceString());
-    }, [region, speaker, type])
+    }, [region, speaker, type, voice])
 
     return (
         <SafeAreaView style={styles.container}>
-
             <View style={styles.header}>
                 <Text style={styles.headerLabel}>Board Settings</Text>
                 <TouchableOpacity style={{ marginRight: 12 }} onPress={() => navigation.toggleDrawer()}>
