@@ -4,6 +4,7 @@ import BoardView from "./BoardView";
 import BoardSettingsView from "./BoardSettingsView"
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import BoardLoadingView from "./BoardLoadingView";
+import BoardFinder from "./BoardFinder";
 
 const Drawer = createDrawerNavigator();
 
@@ -31,6 +32,7 @@ export default function BoardNavigator({ route, navigation }) {
                 <Drawer.Screen name="BoardLoading" component={BoardLoadingView} initialParams={{ boardId }} options={{drawerItemStyle: { height: 0 }}}/>
                 <Drawer.Screen name="Speak Mode" component={BoardView} initialParams={{ boardId }}/>
                 <Drawer.Screen name="Board Settings" component={BoardSettingsView} initialParams={{ boardId }}/>
+                <Drawer.Screen name="Board Finder" component={BoardFinder} initialParams={{ boardId }}/>
             </Drawer.Navigator>
         </SafeAreaView>
     );

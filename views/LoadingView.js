@@ -38,7 +38,6 @@ function useProfileEffect() {
     }, [id, navigation, onOpenBoard]);
   }
 
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
