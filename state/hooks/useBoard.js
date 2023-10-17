@@ -2,6 +2,7 @@ import { useRecoilState } from "recoil"
 import { boardStackState, loadedBoardState } from "../atoms/boards"
 import { useEffect } from "react";
 import { supabase } from "../supabase";
+import useSettings from "./useSettings";
 
 // Represents a board in memory and provides helper functions
 // for performing actions on a board
@@ -13,17 +14,16 @@ export default function useBoard(boardId) {
     // The entire board json object from aac_complete_boards
     const [loadedBoard, setLoadedBoard] = useRecoilState(loadedBoardState);
 
-    let settings = null, rootId = null;
+    const settings = useSettings(loadedBoard);
+
+    let rootId;
 
     if (loadedBoard && loadedBoard.meta) {
-        settings = loadedBoard.meta.settings;
         rootId = loadedBoard.meta.parent;
     }
 
     function push(boardId) {
-        console.log(boardId);
         const newStack = [...boardStack, loadedBoard.boards[boardId]];
-        console.log(newStack);
         setBoardStack(newStack);
     }
 
@@ -70,6 +70,7 @@ export default function useBoard(boardId) {
 
     return {
         board: boardStack[boardStack.length - 1],
-        boardStack, loadedBoard, push, pop, peek, popAll
+        boardStack, loadedBoard, push, pop, peek, popAll,
+        settings
     }
 }
