@@ -13,7 +13,7 @@ export default function BoardLoadingView({route, navigation}) {
         }
     
         if (loadedBoard && loadedBoard.meta.id) {
-            navigation.navigate("Speak Mode", { boardId: route.params.boardId })
+            navigation.navigate("Board Settings", { boardId: route.params.boardId })
         }
     }, [loadedBoard])
 

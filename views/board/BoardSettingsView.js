@@ -3,41 +3,27 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import DropdownEntry from "../../components/settings/DropdownEntry";
-import { regionState, speakerState, synthTypeState } from "../../state/atoms/voices.js";
-import useVoices from "../../state/hooks/useVoices.js";
+import { regionState, speakerState } from "../../state/atoms/voices.js";
 import SliderEntry from "../../components/settings/SliderEntry";
-import { doShowImagesInHomeBarState, doSpeakEachWordState, doSpeakFullSentenceState, pitchState, settingsState, speakSentenceDelayState, speedState, voiceState } from "../../state/atoms/settings";
+import { doShowImagesInHomeBarState, doSpeakEachWordState, doSpeakFullSentenceState, pitchState, speakSentenceDelayState, speedState, voiceState } from "../../state/atoms/settings";
 import SwitchEntry from "../../components/settings/SwitchEntry";
-import { useEffect } from "react";
-import { updateUserSettings } from "../../state/handlers/settingsHandler";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
+import useSettings from '../../state/hooks/useSettings';
+import useSynthesis from '../../state/hooks/useSynthesis';
 
-// Region
-// Speaker
-// Synth Type
-// Speak eeach word
-// Speak full sentence
-// show images 
-// correct sentences
-// display corrected sentence
-// speed
-// pitch
-// delay
 export default function BoardSettingsView({ navigation }) {
-    const voiceApi = useVoices();
-    const settings = useRecoilValue(settingsState);
-    const [voice, setVoice] = useRecoilState(voiceState);
+    const { settings } = useSettings();
     const region = useRecoilValue(regionState);
     const speaker = useRecoilValue(speakerState);
-    const type = useRecoilState(synthTypeState);
+    const voice = useRecoilValue(voiceState);
 
-    useEffect(() => {
-        updateUserSettings({ ...settings, voice: voiceApi.getVoiceString() });
-    }, [settings])
+    const synthApi = useSynthesis();
 
-    useEffect(() => {
-        setVoice(voiceApi.getVoiceString());
-    }, [region, speaker, type, voice])
+    let synthTypes; 
+
+    if (speaker) {
+        synthTypes = Object.entries(synthApi.speaker(speaker).codes).map(([label, value]) => ({ label, value }));
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -63,23 +49,23 @@ export default function BoardSettingsView({ navigation }) {
                     <DropdownEntry
                         title="Region"
                         atom={regionState}
-                        data={voiceApi.getAvailableRegions()}
+                        data={synthApi.regions_en}
                     />
-                    {voiceApi.region &&
+                    {region &&
                         <DropdownEntry
                             title="Speaker"
                             atom={speakerState}
-                            data={voiceApi.getAvailableSpeakers()}
+                            data={synthApi.speakerOptions(region)}
                         />
                     }
-                    {voiceApi.speaker &&
+                    {speaker &&
                         <DropdownEntry
                             title="Type"
-                            atom={synthTypeState}
-                            data={voiceApi.getAvailableSynths()}
+                            atom={voiceState}
+                            data={synthTypes}
                         />
                     }
-                    {<Text>{ }</Text>}
+
                     <SliderEntry
                         title="Speed"
                         atom={speedState}
@@ -96,7 +82,7 @@ export default function BoardSettingsView({ navigation }) {
                         step={0.1}
                     />
 
-                    <Text>Voice: {voiceApi.getVoiceString()}</Text>
+                    <Text>Voice: {voice}</Text>
                 </View>
 
                 <View style={styles.settingsGroup}>
