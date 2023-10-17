@@ -14,6 +14,7 @@ import { settingsState } from "../atoms/settings";
 import { useEffect } from "react";
 import { regionState, speakerState } from "../atoms/voices";
 import { getSpeakerAndRegion } from "./useSynthesis";
+import { supabase } from "../supabase";
 
 export default function useSettings(loadedBoard) {
     // Settings state
@@ -24,7 +25,6 @@ export default function useSettings(loadedBoard) {
     }
 
     let settings = useRecoilValue(settingsState);
-
     let setDoSpeakEachWord = useSetRecoilState(doSpeakEachWordState);
     let setDoSpeakFulLSentence = useSetRecoilState(doSpeakFullSentenceState);
     let setDoShowImagesInHomeBar = useSetRecoilState(
@@ -75,6 +75,28 @@ export default function useSettings(loadedBoard) {
         setSettings(initialSettings);
     }, [loadedBoard])
 
+    useEffect(() => {
+        if (!loadedBoard) return;
+
+        async function updateSettings() {
+            console.log("settings changed");
+            // update the settings 
+            let board = loadedBoard;
+            board.meta.settings = settings;
+            console.log(settings);
+
+            const {error} = await supabase.from("aac_complete_boards")
+                .update({board})
+                .eq("id", board.meta.id);
+
+            if (error) {
+                console.log(error);
+            } else {
+                console.log("Updated settings sucessfully")
+            }
+        }
+        updateSettings();
+    }, [settings])
 
     return {
         setSettings,
