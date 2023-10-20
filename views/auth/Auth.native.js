@@ -12,7 +12,7 @@ import {
 import {signIn, signUp} from "../../state/handlers/authHandler"
 
 export default function Auth() {
-    const [email, setEmaiil] = useState("rian@paradaux.io");
+    const [email, setEmaiil] = useState("geabaire@abair.ie");
     const [password, setPassword] = useState("test1234");
 
     return (

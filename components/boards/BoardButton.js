@@ -3,6 +3,7 @@ import { Image } from "expo-image";
 import { getContrastingTextColor } from "../../state/handlers/accessibilityHandler";
 import { useRef, useState } from "react";
 import FAIcon from 'react-native-vector-icons/FontAwesome';
+import EmptyButton from "./EmptyButton";
 
 function SmartText({ style, text, fontSize, screenSize }) {
     const textRef = useRef(null);
@@ -29,11 +30,15 @@ function SmartText({ style, text, fontSize, screenSize }) {
 }
 
 export default function BoardButton({ item, addButtonPress, openFolder, boardId }) {
+    if (item == null) {
+        return <EmptyButton/>;
+    }
+
     const [size, setSize] = useState();
     const isFolder = Boolean(item["child"]);
 
     const imageLink = `${process.env.EXPO_PUBLIC_GEABAIRE_API_LINK}/images/${boardId}/${item.image}.${item.image_type}`
-
+    const blurhash = '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
     const computedStyle = {
         backgroundColor: item["background_color"],
         borderColor: item["border_color"],
@@ -64,7 +69,9 @@ export default function BoardButton({ item, addButtonPress, openFolder, boardId 
                 <Image
                     source={imageLink}
                     style={styles.imageStyle}
+                    placeholder={blurhash}
                     contentFit={"contain"}
+                    cachePolicy={"memory-disk"}
                 />
             )}
             {isFolder && (
@@ -81,8 +88,8 @@ export default function BoardButton({ item, addButtonPress, openFolder, boardId 
 
 const styles = StyleSheet.create({
     container: {
-        height: "100%",
         margin: 8,
+        height: "100%",
         borderRadius: 12,
         borderColor: "rgba(12, 12, 12, 0.3)",
         borderWidth: 2,

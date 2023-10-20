@@ -1,57 +1,44 @@
-import { KeyboardAvoidingView, Platform, Share, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { Col, Grid, Row } from "react-native-easy-grid";
+import { Platform, Share, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import useSentence from "../../state/hooks/useSentence";
 import BoardButton from "./BoardButton";
-import EmptyButton from "./EmptyButton";
 import { useNavigation } from "@react-navigation/native";
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons'
+import FlatGrid from "../FlatGrid";
+import { useMemo } from "react";
 
 export default function BoardGrid({ board, openFolder, setSettingsVisable, boardId }) {
     const { addButtonPress, sentence } = useSentence();
     const navigation = useNavigation();
     const sideBarControls = createSideBarControls(navigation, setSettingsVisable, sentence, board);
-    const buttons = board.buttons;
 
-    const rows = [];
+    const boardComponent = useMemo(() => (
+        <FlatGrid
+            data={board.buttons}
+            numColumns={board.grid.columns}
+            numRows={board.grid.rows}
+            rowStyle={styles.row}
+            columnStyle={styles.column}
+            renderItem={({ item }) => {
+                return (
+                    <BoardButton
+                        item={item}
+                        addButtonPress={addButtonPress}
+                        openFolder={openFolder}
+                        boardId={boardId}
+                    />
+                )
+            }}
+        />
+    ), [board])
 
-    for (let rowIndex = 0; rowIndex < board.grid.rows; rowIndex++) {
-        const columns = [];
 
-        for (let columnIndex = 0; columnIndex < board.grid.columns; columnIndex++) {
-            const buttonIndex = rowIndex * board.grid.columns + columnIndex;
-
-            if (buttonIndex - 1 > buttons.length) {
-                break;
-            }
-
-            columns.push(
-                <Col key={columnIndex}>
-                    {buttons[buttonIndex] ? (
-                        <BoardButton
-                            item={buttons[buttonIndex]}
-                            addButtonPress={addButtonPress}
-                            openFolder={openFolder}
-                            boardId={boardId}
-                        />
-                    ) : (
-                        <EmptyButton />
-                    )}
-
-                </Col>
-            );
-        }
-
-        rows.push((<Row key={rowIndex} style={styles.row}>{columns}</Row>));
-    }
 
     return (
-        <KeyboardAvoidingView style={styles.container}>
-            <Grid>
-                {rows}
-            </Grid>
+        <View style={styles.container}>
+            {boardComponent}
             {sideBarControls}
-        </KeyboardAvoidingView>
+        </View>
     );
 }
 
@@ -66,6 +53,10 @@ const styles = StyleSheet.create({
         marginTop: 8,
         marginBottom: 8
     },
+    // column: {
+    //     marginLeft: 4,
+    //     marginRight: 4
+    // },
     controlButtonContainer: {
         padding: 24,
         margin: 2,

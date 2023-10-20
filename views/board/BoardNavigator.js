@@ -5,6 +5,7 @@ import BoardSettingsView from "./BoardSettingsView"
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import BoardLoadingView from "./BoardLoadingView";
 import BoardFinder from "./BoardFinder";
+import TestPage from "./TestPage";
 
 const Drawer = createDrawerNavigator();
 
