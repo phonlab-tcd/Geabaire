@@ -3,6 +3,7 @@ import { buttonPressesState, sentenceState } from "../atoms/sentence";
 import { settingsState } from "../atoms/settings";
 import { sentenceSpeechTimer } from "../atoms/timers";
 import { play } from "../handlers/synthesisHelper";
+import {mp3} from "./useSynthesis";
 
 export default function useSentence() {
     let sentence = useRecoilValue(sentenceState);
@@ -21,7 +22,8 @@ export default function useSentence() {
                 setSpeechTimer(null);
             }
 
-            play(sentence, settings);
+            mp3(sentence, settings.voice, settings.speed, settings.pitch);
+            // play(sentence, settings);
         },
         addButtonPress: (button) => {
             setButtonPresses((buttonPresses) => [...buttonPresses, button]);

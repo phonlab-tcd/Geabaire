@@ -37,7 +37,8 @@ export default function BoardButton({ item, addButtonPress, openFolder, boardId 
     const [size, setSize] = useState();
     const isFolder = Boolean(item["child"]);
 
-    const imageLink = `${process.env.EXPO_PUBLIC_GEABAIRE_API_LINK}/images/${boardId}/${item.image}.${item.image_type}`
+    const imageLink = `${process.env.EXPO_PUBLIC_GEABAIRE_API_LINK}/images/${boardId}/${item.image}.webp`
+
     const blurhash = '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
     const computedStyle = {
         backgroundColor: item["background_color"],

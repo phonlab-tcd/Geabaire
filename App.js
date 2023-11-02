@@ -20,7 +20,6 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
     const [session, setSession] = useState(null);
-    NavigationBar.setVisibilityAsync("hidden");
 
     async function authHandler() {
         supabase.auth.getSession().then(({ data: { session } }) => {
