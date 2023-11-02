@@ -44,7 +44,7 @@ let getSynthesisUrl = (input, settings) => {
     let speed = encodeURI(settings.speed);
     let pitch = encodeURI(settings.pitch);
 
-    return `https://abair.ie/api2/synthesise?input=${string}&voice=${voice}&audioEncoding=MP3&outputType=AUDIO&speed=${speed}&pitch=${pitch}&normalise=true`;
+    return `https://synthesis.abair.ie/nemo/synthesise?input=${string}&voice=snc.nemo&audioEncoding=MP3&outputType=AUDIO&speed=${speed}&pitch=${pitch}&normalise=true`;
 };
 
 let getSynthesisBytes = async (string) => {
