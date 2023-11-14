@@ -16,7 +16,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.rian.errity.GeabaireRewrite"
+      "bundleIdentifier": "ie.abair.Geabaire"
     },
     "android": {
       "adaptiveIcon": {
