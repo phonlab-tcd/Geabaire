@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native"
 import useBoard from "../../state/hooks/useBoard"
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { doShowImagesInHomeBarState, settingsState } from "../../state/atoms/settings";
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import BoardControls from "../../components/board/BoardControls";
 import useSentence from "../../state/hooks/useSentence";
 import FlatGrid from "../../components/structures/FlatGrid";
@@ -11,6 +11,7 @@ import BoardSideControls from "../../components/board/BoardSideControls";
 import { View } from "react-native";
 import BoardButtonEmpty from "../../components/board/BoardButtonEmpty";
 import BoardUtilityButton from "../../components/board/BoardUtilityButton";
+import { getPluralOf } from "../../partials/plurals";
 
 export default function BoardScreen({ navigation, route: { params: { boardId } } }) {
     const { board, loadedBoard, push } = useBoard(boardId);
@@ -35,6 +36,7 @@ export default function BoardScreen({ navigation, route: { params: { boardId } }
                     <BoardUtilityButton
                         item={item}
                         onKeyboardPress={onKeyboardPress}
+                        onPluralPress={onPluralPress}
                         boardId={boardId}
                     />
                 )
@@ -49,22 +51,38 @@ export default function BoardScreen({ navigation, route: { params: { boardId } }
                 )
             }}
         />
-    }, [board]);
+    }, [board, sentence]);
+
+    async function test() {
+        getPluralOf("fear")
+    }
+
+    useEffect(() => {test()}, [])
 
     function onKeyboardPress() {
-        console.log("test")
-
         // Switch to text bar in settings if not already
         if (settings.doShowImagesInHomeBar) {
-            console.log("a")
             setShowImagesInHomebar(false);
         }
+
         // Focus text bar input
         if (textBarInputRef.current) {
             textBarInputRef.current.focus();
         }
     }
 
+    async function onPluralPress() {
+        console.log(sentence)
+        const words = sentence.split(" ");
+
+        if (words.length === 0) return;
+        const lastWord = words[words.length - 1];
+        console.log(lastWord)
+
+        const plural = await getPluralOf(lastWord);
+        console.log(plural)
+
+    }
 
     return (
         <>

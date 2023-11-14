@@ -4,10 +4,8 @@ import FAIcon from 'react-native-vector-icons/FontAwesome';
 import { Image } from "expo-image";
 
 
-export default function BoardUtilityButton({ item, onKeyboardPress, boardId }) {
+export default function BoardUtilityButton({ item, onKeyboardPress, onPluralPress, boardId }) {
     const code = item.label.trim()
-
-
 
     switch (code) {
         case "<% KEYBOARD>": {
@@ -26,7 +24,7 @@ export default function BoardUtilityButton({ item, onKeyboardPress, boardId }) {
         case "<% PLURAL>": {
             return (
                 <UtilityButton
-                    onPress={() => {}}
+                    onPress={onPluralPress}
                     boardId={boardId}
                     label={item.hide_label ? null : "iolra"}
                     image={item.image}
