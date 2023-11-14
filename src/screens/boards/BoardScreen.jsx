@@ -9,6 +9,8 @@ import FlatGrid from "../../components/structures/FlatGrid";
 import BoardButton from "../../components/board/BoardButton";
 import BoardSideControls from "../../components/board/BoardSideControls";
 import { View } from "react-native";
+import BoardButtonEmpty from "../../components/board/BoardButtonEmpty";
+import BoardUtilityButton from "../../components/board/BoardUtilityButton";
 
 export default function BoardScreen({ navigation, route: { params: { boardId } } }) {
     const { board, loadedBoard, push } = useBoard(boardId);
@@ -26,6 +28,9 @@ export default function BoardScreen({ navigation, route: { params: { boardId } }
             rowStyle={styles.row}
             columnStyle={styles.column}
             renderItem={({ item }) => {
+                if (item === null) return <BoardButtonEmpty/>
+                if (item.label.startsWith("<%")) return <BoardUtilityButton/>
+
                 return (
                     <BoardButton
                         item={item}
