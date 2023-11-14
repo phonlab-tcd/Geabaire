@@ -29,7 +29,12 @@ export default function BoardScreen({ navigation, route: { params: { boardId } }
             columnStyle={styles.column}
             renderItem={({ item }) => {
                 if (item === null) return <BoardButtonEmpty/>
-                if (item.label.startsWith("<%")) return <BoardUtilityButton/>
+                if (item.label.startsWith("<%")) return (
+                    <BoardUtilityButton
+                        item={item}
+                        onKeyboardPress={function(){}}
+                    />
+                )
 
                 return (
                     <BoardButton

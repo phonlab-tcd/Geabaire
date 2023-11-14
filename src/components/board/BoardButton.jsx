@@ -5,29 +5,6 @@ import FAIcon from 'react-native-vector-icons/FontAwesome';
 import { getContrastingFolderColor, getContrastingTextColor } from "../../partials/accessibility";
 import BoardButtonEmpty from "./BoardButtonEmpty";
 
-// function SmartText({ style, text, fontSize, screenSize }) {
-//     const textRef = useRef(null);
-//     let modifiedText = text;
-
-//     const [dynFontSize, setDynFontSize] = useState(fontSize);
-//     if (!screenSize) return <></>
-
-//     const onLayout = () => {
-//         textRef.current.measure((fx, fy, width, height, px, py) => {
-//             if (width > screenSize.width - 2) {
-//                 setDynFontSize(old => {
-//                     textRef.current.setNativeProps({ style: { fontSize: old - 1 } });
-//                     return old - 1;
-//                 });
-//             }
-//         });
-//     }
-
-//     return (
-//         <Text ref={textRef} style={[style, { fontSize: dynFontSize }]} onLayout={onLayout}>{modifiedText}</Text>
-//     )
-// }
-
 export default function BoardButton({ item, addButtonPress, openFolder, boardId }) {
     if (item == null) {
         return <BoardButtonEmpty/>;
