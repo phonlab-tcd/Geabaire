@@ -1,0 +1,22 @@
+{
+    "voices": {
+        "regions": [
+            {
+                "label_en": "Connemara",
+                "label_ga": "Conamara",
+                "province": "connacht",
+                "speakers": [
+                    {
+                        "label_en": "Sibeal",
+                        "label_ga": "Sibéal",
+                        "shortcode": "snc",
+                        "sex": "female",
+                        "codes": {
+                            "NEMO": "ga_CO_snc_nemo"
+                        }                          
+                    }
+                ]
+            }
+        ]
+    }
+}
