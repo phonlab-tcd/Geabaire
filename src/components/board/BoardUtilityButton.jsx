@@ -4,10 +4,10 @@ import FAIcon from 'react-native-vector-icons/FontAwesome';
 import { Image } from "expo-image";
 
 
-export default function BoardUtilityButton({item, onKeyboardPress, boardId}) {
+export default function BoardUtilityButton({ item, onKeyboardPress, boardId }) {
     const code = item.label.trim()
 
-    
+
 
     switch (code) {
         case "<% KEYBOARD>": {
@@ -15,7 +15,20 @@ export default function BoardUtilityButton({item, onKeyboardPress, boardId}) {
                 <UtilityButton
                     onPress={onKeyboardPress}
                     boardId={boardId}
-                    label={item.hide_label ? null : "Méarchlár"}
+                    label={item.hide_label ? null : "méarchlár"}
+                    image={item.image}
+                    borderColor={item["border_color"]}
+                    backgroundColor={item["background_color"]}
+                />
+            )
+        }
+
+        case "<% PLURAL>": {
+            return (
+                <UtilityButton
+                    onPress={() => {}}
+                    boardId={boardId}
+                    label={item.hide_label ? null : "iolra"}
                     image={item.image}
                     borderColor={item["border_color"]}
                     backgroundColor={item["background_color"]}
@@ -23,11 +36,11 @@ export default function BoardUtilityButton({item, onKeyboardPress, boardId}) {
             )
         }
     }
-    
+
 }
 
-function UtilityButton({onPress, boardId, label, image, borderColor, backgroundColor}) {
-    const API_LINK = process.env.EXPO_PUBLIC_GEABAIRE_API_LINK?? "https://api.geabaire.abair.ie/v1/"
+function UtilityButton({ onPress, boardId, label, image, borderColor, backgroundColor }) {
+    const API_LINK = process.env.EXPO_PUBLIC_GEABAIRE_API_LINK ?? "https://api.geabaire.abair.ie/v1/"
 
     const imageLink = `${API_LINK}/images/${boardId}/${image}.webp`
     //console.log(imageLink)
@@ -45,28 +58,28 @@ function UtilityButton({onPress, boardId, label, image, borderColor, backgroundC
         <TouchableOpacity
             onPress={onPress}
             style={[styles.container, computedStyle]}
-    >  
-        {label && (
-            <Text style={[styles.labelStyle, labelColor]} fontSize={11} >{label}</Text>
-        )}
-        {image && (
-            <Image
-                source={imageLink}
-                style={styles.imageStyle}
-                placeholder={blurhash}
-                contentFit={"contain"}
-                cachePolicy={"memory-disk"}
-            />
-        )}
-        
-        <FAIcon
-            type="fontawesome"
-            name="cogs"
-            style={styles.topRight}
-            color={getContrastingFolderColor(backgroundColor)}
-        />
+        >
+            {label && (
+                <Text style={[styles.labelStyle, labelColor]} fontSize={11} >{label}</Text>
+            )}
+            {image && (
+                <Image
+                    source={imageLink}
+                    style={styles.imageStyle}
+                    placeholder={blurhash}
+                    contentFit={"contain"}
+                    cachePolicy={"memory-disk"}
+                />
+            )}
 
-    </TouchableOpacity>
+            <FAIcon
+                type="fontawesome"
+                name="cogs"
+                style={styles.topRight}
+                color={getContrastingFolderColor(backgroundColor)}
+            />
+
+        </TouchableOpacity>
     )
 }
 
@@ -87,6 +100,7 @@ const styles = StyleSheet.create({
     labelStyle: {
         color: "black",
         textAlign: "center",
+        fontSize: 11
     },
     imageStyle: {
         width: 32,
