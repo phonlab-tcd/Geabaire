@@ -8,7 +8,7 @@ import BoardImageBar from "./BoardImageBar";
 import BoardTextBar from "./BoardTextBar";
 import TouchableIcon from "../ui/TouchableIcon";
 
-export default function BoardControls({ navigation }) {
+export default function BoardControls({ navigation, textBarInputRef }) {
     const { removeLastButtonPress, clearSentence } = useSentence();
     const { popAll, pop } = useBoard();
     const settings = useRecoilValue(settingsState);
@@ -30,7 +30,7 @@ export default function BoardControls({ navigation }) {
                 />
             </View>
 
-            {settings.doShowImagesInHomeBar ? <BoardImageBar /> : <BoardTextBar />}
+            {settings.doShowImagesInHomeBar ? <BoardImageBar /> : <BoardTextBar textBarInputRef={textBarInputRef}/>}
 
             <View style={styles.settingsContainer}>
                 <TouchableIcon

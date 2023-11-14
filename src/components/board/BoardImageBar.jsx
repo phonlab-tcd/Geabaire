@@ -1,6 +1,6 @@
 import { Text } from "react-native";
 import { StyleSheet } from "react-native";
-import { Image } from "react-native";
+import { Image } from "expo-image";
 import { TouchableOpacity } from "react-native";
 import { View } from "react-native";
 import useSentence from "../../state/hooks/useSentence";
@@ -11,7 +11,8 @@ function ImageBarEntry({ buttonPress }) {
             <Image
                 source={{ uri: buttonPress.imageLink }}
                 style={styles.imageStyle}
-                resizeMode="contain"
+                contentFit={"contain"}
+                cachePolicy={"memory-disk"}
             />
             <Text>{buttonPress.label}</Text>
         </View>

@@ -2,7 +2,7 @@ import { StyleSheet, TextInput, View } from "react-native";
 import useSentence from "../../state/hooks/useSentence";
 import TouchableIcon from "../ui/TouchableIcon";
 
-export default function BoardTextBar() {
+export default function BoardTextBar({textBarInputRef}) {
     const {sentence, playNow, setSentence} = useSentence();
 
     return (
@@ -15,6 +15,7 @@ export default function BoardTextBar() {
                 color={"#6a994e"}
             />
             <TextInput
+                ref={textBarInputRef}
                 defaultValue={sentence}
                 style={styles.sentenceContainer}
                 autoCorrect={false}

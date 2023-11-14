@@ -42,7 +42,7 @@ export default function BoardButton({ item, addButtonPress, openFolder, boardId 
             style={[styles.container, computedStyle]}
             onLayout={onLayout}
         >
-            {!item.hide_label && <Text style={[styles.labelStyle, labelColor]} fontSize={13} screenSize={size} >{item.label}</Text>}
+            {!item.hide_label && <Text style={[styles.labelStyle, labelColor]} fontSize={11} screenSize={size} >{item.label}</Text>}
             {item.image && (
                 <Image
                     source={imageLink}
@@ -66,6 +66,7 @@ export default function BoardButton({ item, addButtonPress, openFolder, boardId 
 
 const styles = StyleSheet.create({
     container: {
+        backgroundColor: "red",
         margin: 8,
         height: "100%",
         borderRadius: 12,

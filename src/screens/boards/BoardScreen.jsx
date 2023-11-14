@@ -1,8 +1,8 @@
 import { StyleSheet } from "react-native"
 import useBoard from "../../state/hooks/useBoard"
-import { useRecoilValue } from "recoil";
-import { settingsState } from "../../state/atoms/settings";
-import { useMemo } from "react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { doShowImagesInHomeBarState, settingsState } from "../../state/atoms/settings";
+import { useMemo, useRef } from "react";
 import BoardControls from "../../components/board/BoardControls";
 import useSentence from "../../state/hooks/useSentence";
 import FlatGrid from "../../components/structures/FlatGrid";
@@ -16,8 +16,10 @@ export default function BoardScreen({ navigation, route: { params: { boardId } }
     const { board, loadedBoard, push } = useBoard(boardId);
     const { addButtonPress, sentence } = useSentence();
     const settings = useRecoilValue(settingsState);
+    const setShowImagesInHomebar = useSetRecoilState(doShowImagesInHomeBarState);
+    const textBarInputRef = useRef(null);
 
-    const boardControls = useMemo(() => <BoardControls navigation={navigation} />, [navigation]);
+    const boardControls = useMemo(() => <BoardControls navigation={navigation} textBarInputRef={textBarInputRef}/>, [navigation]);
     const boardSideControls = useMemo(() => <BoardSideControls style={styles.sidebar} sentence={sentence} navigation={navigation}/>, [sentence, navigation]);
     const boardGrid = useMemo(() => {
         if (!board || !board.buttons) return;
@@ -32,7 +34,8 @@ export default function BoardScreen({ navigation, route: { params: { boardId } }
                 if (item.label.startsWith("<%")) return (
                     <BoardUtilityButton
                         item={item}
-                        onKeyboardPress={function(){}}
+                        onKeyboardPress={onKeyboardPress}
+                        boardId={boardId}
                     />
                 )
 
@@ -47,6 +50,21 @@ export default function BoardScreen({ navigation, route: { params: { boardId } }
             }}
         />
     }, [board]);
+
+    function onKeyboardPress() {
+        console.log("test")
+
+        // Switch to text bar in settings if not already
+        if (settings.doShowImagesInHomeBar) {
+            console.log("a")
+            setShowImagesInHomebar(false);
+        }
+        // Focus text bar input
+        if (textBarInputRef.current) {
+            textBarInputRef.current.focus();
+        }
+    }
+
 
     return (
         <>
