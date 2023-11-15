@@ -80,11 +80,10 @@ export default function BoardScreen({ navigation, route: { params: { boardId } }
         console.log(lastWord)
 
         const plural = await getPluralOf(lastWord);
-        console.log(plural)
+        if (plural == null) return;
 
         const {imageLink, label} = cutOffLastWord();
-
-        addButtonPress({imageLink, label: await getPluralOf(label)});
+        addButtonPress({imageLink, label: plural});
 
     }
 
