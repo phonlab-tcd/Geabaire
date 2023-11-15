@@ -11,6 +11,12 @@ export default function useSentence() {
     const [buttonPresses, setButtonPresses] = useRecoilState(buttonPressesState);
     const [speechTimer, setSpeechTimer] = useRecoilState(sentenceSpeechTimer);
 
+    function getLastWord() {
+        if (buttonPresses.length == 0) return null;
+        const words = buttonPresses[buttonPresses.length-1].label.split(" ");
+        return words[words.length - 1];
+    }
+
     return {
         sentence,
         buttonPresses,
@@ -55,6 +61,24 @@ export default function useSentence() {
         },
         setSentence: (text) => {
             setButtonPresses([{label: text}])
+        },
+        lastWord: getLastWord(),
+        cutOffLastWord: () => {
+            let lastButtonPress = buttonPresses[buttonPresses.length - 1];
+            let newButtonPresses = buttonPresses.slice(0, -1);
+            const words = buttonPresses[buttonPresses.length-1].label.split(" ");
+
+            if (words.length <= 1) {
+                setButtonPresses((buttonPresses) => buttonPresses.slice(0, -1));
+                return ({imageLink: lastButtonPress.imageLink, label: words[words.length - 1]})
+            }
+
+            const oldWords = words.slice(0, -1);
+            const oldLabel = oldWords.join(" ").trim();
+            console.log("old ", oldLabel);
+            newButtonPresses.push({imageLink: lastButtonPress.imageLink, label: oldLabel})
+            setButtonPresses(newButtonPresses)
+            return ({imageLink: lastButtonPress.imageLink, label: words[words.length - 1]})
         }
     };
 }

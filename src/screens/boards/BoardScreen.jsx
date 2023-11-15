@@ -15,7 +15,7 @@ import { getPluralOf } from "../../partials/plurals";
 
 export default function BoardScreen({ navigation, route: { params: { boardId } } }) {
     const { board, loadedBoard, push } = useBoard(boardId);
-    const { addButtonPress, sentence } = useSentence();
+    const { addButtonPress, sentence, lastWord, cutOffLastWord } = useSentence();
     const settings = useRecoilValue(settingsState);
     const setShowImagesInHomebar = useSetRecoilState(doShowImagesInHomeBarState);
     const textBarInputRef = useRef(null);
@@ -72,15 +72,19 @@ export default function BoardScreen({ navigation, route: { params: { boardId } }
     }
 
     async function onPluralPress() {
-        console.log(sentence)
-        const words = sentence.split(" ");
+        // console.log(sentence)
+        // const words = sentence.split(" ");
 
-        if (words.length === 0) return;
-        const lastWord = words[words.length - 1];
+        // if (words.length === 0) return;
+        // const lastWord = words[words.length - 1];
         console.log(lastWord)
 
         const plural = await getPluralOf(lastWord);
         console.log(plural)
+
+        const {imageLink, label} = cutOffLastWord();
+
+        addButtonPress({imageLink, label: await getPluralOf(label)});
 
     }
 
