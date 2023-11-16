@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Geabaire-Rewrite",
-    "slug": "Geabaire-Rewrite",
+    "name": "Geabaire",
+    "slug": "geabaire",
     "version": "1.0.0",
     "orientation": "landscape",
     "icon": "./src/assets/icon.png",
@@ -16,7 +16,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "ie.abair.Geabaire"
+      "bundleIdentifier": "ie.abair.geabaire"
     },
     "android": {
       "adaptiveIcon": {
@@ -29,8 +29,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "edccf3a6-bd11-4021-bb4e-b0ba6aced8e7"
+        "projectId": "9ce6fd24-e8d3-49cd-81d7-47c8320cf6dc"
       }
-    }
+    },
+    "owner": "abair"
   }
 }
