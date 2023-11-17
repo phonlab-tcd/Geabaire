@@ -5,11 +5,12 @@ import {
     TextInput,
     TouchableOpacity,
     View,
-    Image,
-    ScrollView
+    Image
 } from "react-native";
 
+
 import {signIn, signUp} from "../partials/auth"
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function Auth() {
     const [email, setEmaiil] = useState("novdemo@abair.ie");
@@ -78,13 +79,13 @@ const styles = StyleSheet.create({
     container: {
         alignItems: "center",
         flex: 1,
-        padding: 20
+        padding: 15
     },
     logo: {
         // height: 120 * 0.6,
         // width: 300 * 0.6,
         // paddingBottom: 12
-        marginTop: 40,
+        marginTop: 20,
         fontSize: 40,
         paddingBottom: 50,
         color: "#03BD9D",

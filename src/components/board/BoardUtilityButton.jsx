@@ -2,14 +2,18 @@ import { StyleSheet, View, TouchableOpacity, Text } from "react-native"
 import { getContrastingFolderColor, getContrastingTextColor } from "../../partials/accessibility"
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import { Image } from "expo-image";
+import { Platform } from "react-native";
 
 
 export default function BoardUtilityButton({ item, onKeyboardPress, onPluralPress, boardId }) {
     const code = item.label.trim()
 
+    const isWeb = Platform.OS === "web";
+
     switch (code) {
         case "<% KEYBOARD>": {
             return (
+                !isWeb ?
                 <UtilityButton
                     onPress={onKeyboardPress}
                     boardId={boardId}
@@ -17,6 +21,14 @@ export default function BoardUtilityButton({ item, onKeyboardPress, onPluralPres
                     image={item.image}
                     borderColor={item["border_color"]}
                     backgroundColor={item["background_color"]}
+                /> :
+                <UtilityButton
+                    onPress={() => { /* Todo: add toast? */}}
+                    boardId={boardId}
+                    label={item.hide_label ? null : "méarchlár (ar fáil)"}
+                    image={item.image}
+                    borderColor={"#D8DAE0"}
+                    backgroundColor={"#E0DED8"}
                 />
             )
         }

@@ -5,12 +5,12 @@ import { sentenceSpeechTimer } from "../atoms/timers";
 import { synthesize } from "../../partials/synthesis";
 
 export default function useSentence() {
-    let sentence = useRecoilValue(sentenceState);
-    let settings = useRecoilValue(settingsState);
+    const sentence = useRecoilValue(sentenceState);
+    const settings = useRecoilValue(settingsState);
 
     const [buttonPresses, setButtonPresses] = useRecoilState(buttonPressesState);
     const [speechTimer, setSpeechTimer] = useRecoilState(sentenceSpeechTimer);
-
+    
     function getLastWord() {
         if (buttonPresses.length == 0) return null;
         const words = buttonPresses[buttonPresses.length-1].label.split(" ");
