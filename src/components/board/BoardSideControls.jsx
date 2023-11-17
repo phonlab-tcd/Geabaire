@@ -8,7 +8,7 @@ export default function BoardSideControls({sentence, navigation}) {
             <ControlButton
                 type="material-community"
                 icon="share-variant-outline"
-                label={"Comhroinn é"}
+                label={"Seol"}
                 action={async () => await Share.share({
                     message: sentence,
                 })}
