@@ -50,7 +50,7 @@ export default function WordFinderScreen({navigation}) {
             </View>
 
             <View style={styles.finderContainer}>
-                <Text style={styles.finderHeader}>Search for a Word:</Text>
+                <Text style={styles.finderHeader}>Aimsigh an Focal:</Text>
                 <TextInput 
                     value={searchInput} 
                     onChangeText={setSearchInput}
