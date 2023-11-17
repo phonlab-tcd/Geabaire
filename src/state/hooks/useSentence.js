@@ -10,7 +10,7 @@ export default function useSentence() {
 
     const [buttonPresses, setButtonPresses] = useRecoilState(buttonPressesState);
     const [speechTimer, setSpeechTimer] = useRecoilState(sentenceSpeechTimer);
-    
+
     function getLastWord() {
         if (buttonPresses.length == 0) return null;
         const words = buttonPresses[buttonPresses.length-1].label.split(" ");
@@ -75,7 +75,6 @@ export default function useSentence() {
 
             const oldWords = words.slice(0, -1);
             const oldLabel = oldWords.join(" ").trim();
-            console.log("old ", oldLabel);
             newButtonPresses.push({imageLink: lastButtonPress.imageLink, label: oldLabel})
             setButtonPresses(newButtonPresses)
             return ({imageLink: lastButtonPress.imageLink, label: words[words.length - 1]})

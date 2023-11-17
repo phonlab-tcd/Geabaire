@@ -20,7 +20,6 @@ export default function BoardSettingsScreen({ navigation, route: { params: { boa
 
     const {initialSettings} = useSettings(boardId);
 
-    console.log(region, speaker, voice);
     let synthTypes = [];
 
     if (speaker) {

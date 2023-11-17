@@ -19,7 +19,6 @@ export const synthesize = async (input, voice, speed, pitch) => {
 }
 
 export const speakerOptions = (regionName) => {
-    console.log("regio;", regionName);
     return meta.voices.regions.filter(region => region.label_en === regionName)[0].speakers.map(speaker => ({
         label: speaker.label_ga,
         value: speaker.shortcode

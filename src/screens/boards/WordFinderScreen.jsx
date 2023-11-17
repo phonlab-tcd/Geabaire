@@ -39,7 +39,7 @@ export default function WordFinderScreen({navigation}) {
     return (
         <SafeAreaView>
             <View style={styles.header}>
-                <Text style={styles.headerLabel}>Board Settings</Text>
+                <Text style={styles.headerLabel}>Cuardaigh an Focal</Text>
                 <TouchableOpacity style={{ marginRight: 12 }} onPress={() => navigation.toggleDrawer()}>
                     <FAIcon
                         name="bars"
@@ -50,7 +50,7 @@ export default function WordFinderScreen({navigation}) {
             </View>
 
             <View style={styles.finderContainer}>
-                <Text style={styles.finderHeader}>Aimsigh an Focal:</Text>
+                <Text style={styles.finderHeader}>Cuardaigh an Focal</Text>
                 <TextInput 
                     value={searchInput} 
                     onChangeText={setSearchInput}

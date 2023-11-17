@@ -17,7 +17,7 @@ export default function BoardSideControls({sentence, navigation}) {
         <ControlButton
             type="material-community"
             icon="magnify"
-            label={"Aimsigh an Focal"}
+            label={"Cuardaigh an Focal"}
             action={async () => navigation.navigate("Board Finder")}
         />
     </View>
