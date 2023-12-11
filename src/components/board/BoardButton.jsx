@@ -28,10 +28,6 @@ export default function BoardButton({ item, addButtonPress, openFolder, boardId 
 
     if (!item) return <></>
 
-    const onLayout = (event) => {
-        setSize(event.nativeEvent.layout)
-    }
-
     return (
         <TouchableOpacity
             onPress={() => {
@@ -40,7 +36,6 @@ export default function BoardButton({ item, addButtonPress, openFolder, boardId 
                     : addButtonPress({ label: item.label, imageLink });
             }}
             style={[styles.container, computedStyle]}
-            onLayout={onLayout}
         >
             {!item.hide_label && <Text style={[styles.labelStyle, labelColor]} fontSize={9} screenSize={size} >{item.label}</Text>}
             {item.image && (
