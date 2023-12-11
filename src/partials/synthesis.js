@@ -2,8 +2,8 @@
 import { Audio } from "expo-av";
 import meta from "../assets/voices-meta.json"
 
-// const synthesisApi = "https://abair.ie/api2/"
-const synthesisApi = "https://synthesis.abair.ie/nemo/"
+const synthesisApi = "https://abair.ie/api2/"
+// const synthesisApi = "https://synthesis.abair.ie/nemo/"
 const synthesisEndpoint = "synthesise"
 const synthesisQuery = "?input=%input%&voice=%voice%&audioEncoding=MP3&outputType=AUDIO&speed=%speed%&pitch=%pitch%&normalise=true"
 
@@ -32,7 +32,8 @@ export const speakerProfiles = (code) => {
 export const getSynthesisUrl = (input, voice, speed, pitch, encoding, outputType, normalise) => {
     if (!input) throw Error("Invalid input");
 
-    voice = "snc.nemo";
+    // voice = "snc.nemo";
+    voice = "ga_CO_snc_nemo"
     speed ??= 1;
     pitch ??= 1;
     encoding ??= "MP3";
