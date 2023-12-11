@@ -24,7 +24,9 @@ export default function WordFinderScreen({navigation}) {
         setSearchResults(filtered);
       }, [searchInput]);
 
-    const paths = loadedBoard.paths;
+    let paths = loadedBoard.paths;
+    // Remove control codes. 
+    paths = paths.filter((item) => !item.label.startsWith("<%"));
 
     function toPathString(path) {
         let s = "";
