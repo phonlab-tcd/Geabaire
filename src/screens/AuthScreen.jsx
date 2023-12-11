@@ -13,8 +13,8 @@ import {signIn, signUp} from "../partials/auth"
 import { ScrollView } from "react-native-gesture-handler";
 
 export default function Auth() {
-    const [email, setEmaiil] = useState("novdemo@abair.ie");
-    const [password, setPassword] = useState("test1234");
+    const [email, setEmaiil] = useState("");
+    const [password, setPassword] = useState("");
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
