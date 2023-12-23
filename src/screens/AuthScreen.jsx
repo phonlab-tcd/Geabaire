@@ -1,151 +1,134 @@
+import { Image, ImageBackground } from "expo-image";
 import { useState } from "react";
-import {
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
-    Image
-} from "react-native";
-
-
-import {signIn, signUp} from "../partials/auth"
+import { Linking } from "react-native";
+import { StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
+import LogIn from "../components/auth/LogIn";
+import SignUp from "../components/auth/SignUp";
 import { ScrollView } from "react-native-gesture-handler";
+import { signIn } from "../partials/auth";
 
-export default function Auth() {
-    const [email, setEmaiil] = useState("");
+const backgroundImage = require("../assets/auth-bg.png")
+const abairLogo = require("../assets/abair.ie_logo.png")
+
+const openLink = (link) => () => Linking.openURL(link)
+
+export default function AuthScreen() {
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [isLogin, setIsLogin] = useState(false);
+
+    const submit = () => {
+        if (isLogin) {
+            signIn(email, password);
+            return;
+        }
+    }
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <View style={styles.header}>
-                {/* <Image
-                    style={styles.logo}
-                    source={require('../../assets/geabaire-logo.png')}
-                /> */}
-                <Text style={styles.logo}>Geabaire</Text>
-            </View>
-
-            <View style={styles.formContainer}>
-                <Text style={styles.formInstruction}>
-                    Login or Sign Up to continue.
-                </Text>
-                <View style={styles.fields}>
-                    <View style={styles.field}>
-                        <Text style={styles.fieldLabel}>Email</Text>
-                        <TextInput
-                            placeholder="Email"
-                            style={styles.fieldInput}
-                            value={email}
-                            onChangeText={setEmaiil}
-                        />
-                    </View>
-                    <View style={styles.field}>
-                        <Text style={styles.fieldLabel}>Password</Text>
-                        <TextInput
-                            placeholder="Password"
-                            style={styles.fieldInput}
-                            secureTextEntry={true}
-                            value={password}
-                            onChangeText={setPassword}
-                        />
+        <View style={styles.container}>
+            <ImageBackground source={backgroundImage} style={styles.bgImage} resizeMethod="resize">
+                <ScrollView style={styles.loginCard}>
+                    <View>
+                        <Text style={styles.title}>Geabaire</Text>
+                        <Text style={styles.subtitle}>Voice as a vehicle for change.</Text>
                     </View>
 
-                    <View style={styles.actions}>
-                        <TouchableOpacity
-                            style={[styles.button, styles.buttonActive]}
-                            onPress={() => {
-                                signUp(email, password);
-                            }}
-                        >
-                            <Text style={styles.buttonActiveText}>Sign Up</Text>
+                    {isLogin ? (
+                        <LogIn
+                            email={email}
+                            password={password}
+                            setEmail={setEmail}
+                            setPassword={setPassword}
+                            change={() => setIsLogin(prev => !prev)}
+                            submit={submit}
+                        /> 
+                    ) : (
+                        <SignUp
+                            email={email}
+                            password={password}
+                            setEmail={setEmail}
+                            setPassword={setPassword}
+                            change={() => setIsLogin(prev => !prev)}
+                            submit={() => {}}
+                        />
+                    )}
+
+                    <View style={styles.footer}>
+                        <TouchableOpacity onPress={openLink("https://abair.ie")}>
+                            <Image source={abairLogo} style={{width: 102, height: 79}} resizeMethod="resize"/>
                         </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.button}
-                            onPress={() => {
-                                signIn(email, password);
-                            }}
-                        >
-                            <Text style={styles.buttonText}>Sign In</Text>
-                        </TouchableOpacity>
+                        <Text style={styles.bottomInfo}>Geabaire is an Augmentative and Alternative Communication Tool for the Irish language.</Text>
+                        <Text style={styles.legal}>
+                            <TextAnchor text="Privacy Policy" link="https://abair.ie/en/geabaire/privacy"/> {"        "}
+                            <TextAnchor text="Support" link="https://abair.ie/en/geabaire/support"/>
+                        </Text>
                     </View>
-                </View>
-            </View>
-        </ScrollView>
-    );
+                </ScrollView>
+            </ImageBackground>
+        </View>
+    )
 }
+
+const TextAnchor = ({text, link}) => (
+    <TouchableOpacity onPress={openLink(link)}>
+        <Text style={styles.legalLink}>{text}</Text>
+    </TouchableOpacity>
+)
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: "center",
         flex: 1,
-        padding: 15
     },
-    logo: {
-        // height: 120 * 0.6,
-        // width: 300 * 0.6,
-        // paddingBottom: 12
-        marginTop: 20,
-        fontSize: 40,
-        paddingBottom: 50,
-        color: "#03BD9D",
-        fontWeight: "bold"
-    },
-    formInstruction: {
-        textAlign: "center",
-        fontSize: 18,
-        paddingBottom: 2
-    },
-    formContainer: {
+    bgImage: {
+        flex: 1,
+        flexGrow: 1,
         alignItems: "center",
-        justifyContent: "center",
-        paddingTop: 12,
-        paddingLeft: 30,
-        paddingRight: 30,
-        paddingBottom: 12,
-        margin: 3,
-        borderColor: "#EEE",
-        borderWidth: 1,
+    },
+    card: {
+        marginLeft: "10%",
+        marginRight: "10%",
+        backgroundColor: "#FFFFFF77",
+        flex: 1,
+        borderRadius: 12
+    },
+    loginCard: {
+        marginTop: 80,
+        marginBottom: 80,
+        marginLeft: 60,
+        marginRight: 60,
+        backgroundColor: "#F9F6EE",
         borderRadius: 12,
+        flex: 1,
+        flexGrow: 1,
+        width: "50%"
     },
-    fields: {
-
-    },
-    field: {
-        flexDirection: "row",
-        padding: 6,
-        alignItems: "center"
-    },
-    fieldLabel: {
-        minWidth: 130
-    },
-    fieldInput: {
-        borderColor: "#EEE",
-        borderWidth: 1,
-        paddingHorizontal: 12,
-        paddingVertical: 12,
-        borderRadius: 12,
-        width: 250
-    },
-    button: {
-        margin: 6,
-        padding: 12,
-        borderColor: "#EFEFEF",
-        borderWidth: 1,
-        borderRadius: 6,
-        width: 200,
-        maxWidth: 200,
+    title: {
+        paddingTop: 20,
         textAlign: "center",
-    },
-    buttonActive: {
-        backgroundColor: "#03BD9D"
-    },
-    buttonActiveText: {
-        color: "white",
+        fontSize: 30,
         fontWeight: "bold",
-        fontSize: 18
+        color: "#03BD9D"
     },
-    actions: {
+    subtitle: {
+        textAlign: "center",
+        fontSize: 17
+    },
+    footer: {
+        marginTop: "auto",
+        paddingBottom: 20,
         alignItems: "center"
+    },
+    bottomInfo: {
+        fontSize: 18,
+        textAlign: "center"
+    },
+    legal: {
+        paddingTop: 5,
+        alignItems: "center"
+    },
+    legalLink: {
+        fontSize: 16,
+        color: "blue",
+        textDecorationLine: "underline"
     }
 });
