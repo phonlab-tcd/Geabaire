@@ -17,7 +17,7 @@ let signIn = async (email, password) => {
     return error;
 };
 
-let signUp = async (email, password, code, can_contact, name, guardian) => {
+let signUp = async (email, password, code, can_contact, name, guardian, change) => {
     const response = await fetch(API_LINK + "/account/signup", {
         method: "POST",
         body: JSON.stringify({
@@ -32,13 +32,23 @@ let signUp = async (email, password, code, can_contact, name, guardian) => {
             }
         }),
         headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${access_token}`
+            "Content-Type": "application/json"
         }
     })
+    let body;
+    if (response.status !== 200) {
+        try {
+            body = await response.json();
+            Alert.alert("An error occured", `Status: ${response.status} Error: ` + body.message);
+        } catch (e) {
+            Alert.alert("An error occured", `Status: ${response.status}. We have no further information`);
+        }
+        return;
+    }
 
-    const body = response.json();
-    console.log(body);
+    body = await response.json();
+    Alert.alert("Sucess!", body.message);
+    change();
 };
 
 export { signIn, signUp };

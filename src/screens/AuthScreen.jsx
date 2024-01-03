@@ -35,9 +35,7 @@ export default function AuthScreen() {
 
         // Sign up case
         const {inviteCode, can_contact, name, guardian} = props;
-        console.log(email, password, inviteCode, can_contact, name, guardian)
-        await signUp(email, password, inviteCode, can_contact, name, guardian)
-
+        await signUp(email, password, inviteCode, can_contact, name, guardian, () => setIsLogin(prev => !prev))
 
         console.log("sign up")
     }
