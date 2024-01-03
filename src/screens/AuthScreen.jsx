@@ -13,7 +13,7 @@ const abairLogo = require("../assets/abair.ie_logo.png")
 const openLink = (link) => () => Linking.openURL(link)
 
 export default function AuthScreen() {
-    const [isLogin, setIsLogin] = useState(false);
+    const [isLogin, setIsLogin] = useState(true);
     const [notice, setNotice] = useState("");
     const [noticeColor, setNoticeColor] = useState("red");
 
