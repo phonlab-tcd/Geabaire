@@ -4,7 +4,13 @@ import { StyleSheet, Text, View } from "react-native";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import InformationSheet from "./InformationSheet";
 
-export default function SignUp({ email, password, setEmail, setPassword, inviteCode, setInviteCode, submit, change }) {
+export default function SignUp({ submit, change }) {
+    const [name, setName] = useState("");
+    const [guardian, setGuardian] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [inviteCode, setInviteCode] = useState("");
+
     const [selectedIndex, setSelectedIndex] = useState(-1);
     const [is1Checked, set1Checked] = useState(false);
     const [is2Checked, set2Checked] = useState(false);
@@ -14,7 +20,7 @@ export default function SignUp({ email, password, setEmail, setPassword, inviteC
     const [is6Checked, set6Checked] = useState(false);
     const [is7Checked, set7Checked] = useState(false);
 
-
+    // Makes sure they have checked all the required check boxes.
     const canSignUp = is1Checked && is2Checked && is3Checked && is4Checked && is5Checked && is6Checked;
 
     return (
@@ -41,15 +47,39 @@ export default function SignUp({ email, password, setEmail, setPassword, inviteC
                 <View style={styles.signUpCard}>
                     <InformationSheet type={selectedIndex === 0 ? "user" : "parent"} />
                     <View style={styles.form}>
-                        <Text style={styles.formLabel}>Email Address</Text>
+                        <Text style={styles.formLabel}>Name</Text>
                         <TextInput
                             style={styles.formInput}
-                            placeholder="user@abair.ie"
+                            placeholder="Jane Doe"
+                            onChangeText={setName}
+                            value={name}
+                            autoCapitalize="none"
+                        />
+                    </View>
+
+                    <View style={styles.form}>
+                        <Text style={styles.formLabel}>{selectedIndex === 1 ? "User's " : ""}Email Address</Text>
+                        <TextInput
+                            style={styles.formInput}
+                            placeholder="jane.doe@example.com"
                             onChangeText={setEmail}
                             value={email}
                             autoCapitalize="none"
                         />
                     </View>
+
+                    {selectedIndex === 1 && (
+                        <View style={styles.form}>
+                            <Text style={styles.formLabel}>Guardian's Email Address</Text>
+                            <TextInput
+                                style={styles.formInput}
+                                placeholder="john.doe@example.com"
+                                onChangeText={setGuardian}
+                                value={guardian}
+                                autoCapitalize="none"
+                            />
+                        </View>
+                    )}
 
                     <View style={styles.form}>
                         <Text style={styles.formLabel}>Password</Text>
@@ -69,45 +99,45 @@ export default function SignUp({ email, password, setEmail, setPassword, inviteC
                         <TextInput
                             style={styles.formInput}
                             placeholder="XXXX-XXXX-XXXX"
-                            onChangeText={setPassword}
-                            value={password}
+                            onChangeText={setInviteCode}
+                            value={inviteCode}
                             autoCapitalize="none"
                         />
                     </View>
 
 
                     <View>
-                        <CheckBox 
-                            title="I confirm that I have read and understood the Information Leaflet. (Required)" 
+                        <CheckBox
+                            title="I confirm that I have read and understood the Information Leaflet. (Required)"
                             checked={is1Checked}
                             onPress={() => set1Checked(prev => !prev)}
                         />
-                        <CheckBox 
-                            title="I understand that joining ABAIR and using the platform is entirely voluntary. I understand that not taking part will have no negative impact on me. (Required)" 
+                        <CheckBox
+                            title="I understand that joining ABAIR and using the platform is entirely voluntary. I understand that not taking part will have no negative impact on me. (Required)"
                             checked={is2Checked}
                             onPress={() => set2Checked(prev => !prev)}
                         />
-                        <CheckBox 
-                            title="I understand that I can stop using the platform and close my account at any time without giving a reason. I understand that doing so will not affect me in any negative manner. (Required)" 
+                        <CheckBox
+                            title="I understand that I can stop using the platform and close my account at any time without giving a reason. I understand that doing so will not affect me in any negative manner. (Required)"
                             checked={is3Checked}
                             onPress={() => set3Checked(prev => !prev)}
                         />
-                        <CheckBox 
-                            title="I know how to contact the research team if I need to. (Required)" 
+                        <CheckBox
+                            title="I know how to contact the research team if I need to. (Required)"
                             checked={is4Checked}
                             onPress={() => set4Checked(prev => !prev)}
                         />
-                        <CheckBox 
-                            title="I agree to take part in this research study, having been fully informed of the risks and benefits in the Information Sheet. (Required)" 
+                        <CheckBox
+                            title="I agree to take part in this research study, having been fully informed of the risks and benefits in the Information Sheet. (Required)"
                             checked={is5Checked}
                             onPress={() => set5Checked(prev => !prev)}
                         />
-                        <CheckBox 
+                        <CheckBox
                             title="I agree to the use of data collected from my use of ABAIR, including voice recordings (from use of speech recognition), and basic demographic information about me (e.g. sex, birth year, linguistic background) being used by the research team for this research project as described in the Information Sheet. (Required)"
                             checked={is6Checked}
                             onPress={() => set6Checked(prev => !prev)}
                         />
-                        <CheckBox 
+                        <CheckBox
                             title="I wish to be added to a mailing list to hear about Geabaire and Abair developments. (Optional)"
                             checked={is7Checked}
                             onPress={() => set7Checked(prev => !prev)}
@@ -115,7 +145,7 @@ export default function SignUp({ email, password, setEmail, setPassword, inviteC
                     </View>
 
                     <View>
-                        <TouchableOpacity style={[styles.button, { backgroundColor: canSignUp ? "#03BD9D" : "#CCCCCC"}]} onPress={canSignUp ? submit(is7Checked) : () => {}} disabled={false}>
+                        <TouchableOpacity style={[styles.button, { backgroundColor: canSignUp ? "#03BD9D" : "#CCCCCC" }]} onPress={canSignUp ? () => submit({email, password, inviteCode, can_contact: is7Checked, name, guardian: selectedIndex === 1 ? guardian : null}) : () => { }} disabled={false}>
                             <Text style={styles.buttonLabel}>Sign Up</Text>
                         </TouchableOpacity>
 

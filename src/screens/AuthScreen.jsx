@@ -5,7 +5,7 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-nativ
 import LogIn from "../components/auth/LogIn";
 import SignUp from "../components/auth/SignUp";
 import { ScrollView } from "react-native-gesture-handler";
-import { signIn } from "../partials/auth";
+import { signIn, signUp } from "../partials/auth";
 
 const backgroundImage = require("../assets/auth-bg.png")
 const abairLogo = require("../assets/abair.ie_logo.png")
@@ -13,7 +13,7 @@ const abairLogo = require("../assets/abair.ie_logo.png")
 const openLink = (link) => () => Linking.openURL(link)
 
 export default function AuthScreen() {
-    const [isLogin, setIsLogin] = useState(true);
+    const [isLogin, setIsLogin] = useState(false);
     const [notice, setNotice] = useState("");
     const [noticeColor, setNoticeColor] = useState("red");
 
@@ -34,8 +34,9 @@ export default function AuthScreen() {
         }
 
         // Sign up case
-        const {inviteCode} = props;
-        
+        const {inviteCode, can_contact, name, guardian} = props;
+        console.log(email, password, inviteCode, can_contact, name, guardian)
+        await signUp(email, password, inviteCode, can_contact, name, guardian)
 
 
         console.log("sign up")
