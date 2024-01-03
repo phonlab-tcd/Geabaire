@@ -5,6 +5,8 @@ import { supabase } from "../../state/supabase.js"
 import { useNavigation } from "@react-navigation/native";
 import TouchableIcon from "../../components/ui/TouchableIcon.jsx";
 
+const API_LINK = process.env.EXPO_PUBLIC_GEABAIRE_API_LINK;
+
 export default function HomeSettingsScreen() {
     const [boards, setBoards] = useState([]);
     const navigation = useNavigation();
@@ -12,15 +14,34 @@ export default function HomeSettingsScreen() {
     async function beginClosure() {
         Alert.alert('Close your account.', 'This action cannot be reverted. If you close your account it is immediately deleted. There is no way to bring it back.', [
             {
-              text: 'Cancel',
-              style: 'cancel',
+                text: 'Cancel',
+                style: 'cancel',
             },
-            {text: 'Close my account, I understand it will delete all boards, images, etc.', onPress: closeAccount},
-          ]);
+            { text: 'Close my account, I understand it will delete all boards, images, etc.', onPress: closeAccount },
+        ]);
     }
 
     async function closeAccount() {
-        console.log("Closing account...")
+        const { data: { session: { access_token, user } } } = await supabase.auth.getSession();
+
+        const response = await fetch(API_LINK + "/account/close", {
+            method: "POST",
+            body: JSON.stringify({
+                "email": user.email,
+                "id": user.id,
+                "confirm": true
+            }),
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${access_token}`
+            }
+        })
+
+        console.log(user.id)
+        console.log(await response.text());
+
+        await supabase.auth.signOut();
+        await AsyncStorage.clear()
     }
 
     console.log(boards);
@@ -86,9 +107,9 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     title: {
-        alignSelf: "center", 
-        textAlign: "center", 
-        fontSize: 24, 
+        alignSelf: "center",
+        textAlign: "center",
+        fontSize: 24,
         color: "white",
         fontWeight: "bold"
     },

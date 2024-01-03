@@ -3,6 +3,7 @@ import { ActivityIndicator, View } from "react-native";
 import { StyleSheet, Text } from "react-native";
 import useProfile from "../state/hooks/useProfile";
 import { useEffect } from "react";
+import { supabase } from "../state/supabase";
 
 export default function LoadingUserScreen() {
     const navigation = useNavigation();
