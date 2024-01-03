@@ -11,7 +11,6 @@ export const regions_en = meta.voices.regions.map((region) => ({label: region.la
 export const speakers = meta.voices.regions.map(region => region.speakers).flat();
 
 export const synthesize = async (input, voice, speed, pitch) => {
-    console.log(getSynthesisUrl(input, voice, speed, pitch));
     await Audio.Sound.createAsync(
         { uri: getSynthesisUrl(input, voice, speed, pitch) },
         { shouldPlay: true, progressUpdateIntervalMillis: 800 }
@@ -33,7 +32,7 @@ export const getSynthesisUrl = (input, voice, speed, pitch, encoding, outputType
     if (!input) throw Error("Invalid input");
 
     // voice = "snc.nemo";
-    voice = "ga_CO_snc_nemo"
+    voice ??= "ga_CO_snc_nemo"
     speed ??= 1;
     pitch ??= 1;
     encoding ??= "MP3";

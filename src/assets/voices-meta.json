@@ -16,6 +16,22 @@
                         }                          
                     }
                 ]
+            },
+            {
+                "label_en": "Gweedore",
+                "label_ga": "Gaoth Dobhair",
+                "province": "Ulster",
+                "speakers": [
+                    {
+                        "label_en": "Aine",
+                        "label_ga": "Áine",
+                        "shortcode": "anb",
+                        "sex": "female",
+                        "codes": {
+                            "NEMO": "ga_UL_anb_nemo"
+                        }                          
+                    }
+                ]
             }
         ]
     }
