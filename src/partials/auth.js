@@ -9,7 +9,7 @@ let signIn = async (email, password) => {
 
     if (error) {
         console.log("[auth.js] ", error);
-        Alert.alert("[auth.js] ", error.message);
+        Alert.alert("Authentication Failed [auth.js]", error.message);
     }
 
     return error;
