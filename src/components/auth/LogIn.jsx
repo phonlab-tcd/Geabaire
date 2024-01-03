@@ -1,10 +1,19 @@
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
+import { RaisedButton } from "../../partials/theme";
+import { useState } from "react";
 
-export default function LogIn({ email, password, setEmail, setPassword, submit, change }) {
+export default function LogIn({ submit, change }) {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
     return (
         <View style={styles.container}>
-            <Text style={styles.header}>Login</Text>
+            <View style={styles.logo}>
+                <Text style={styles.header}>Login</Text>
+                <Text style={styles.subheader}>Enter your email address below to log into your account.</Text>
+            </View>
+
 
             <View style={styles.form}>
                 <Text style={styles.formLabel}>Email Address</Text>
@@ -21,7 +30,6 @@ export default function LogIn({ email, password, setEmail, setPassword, submit, 
                 <Text style={styles.formLabel}>Password</Text>
                 <TextInput 
                     style={styles.formInput}
-                    placeholder="gggggggggg"
                     secureTextEntry={true}
                     onChangeText={setPassword}
                     value={password}
@@ -29,13 +37,13 @@ export default function LogIn({ email, password, setEmail, setPassword, submit, 
                 />
             </View>
 
-            <View>
-                <TouchableOpacity style={styles.button} onPress={submit}>
+            <View style={styles.actions}>
+                <TouchableOpacity style={styles.button} onPress={() => submit({email, password})}>
                     <Text style={styles.buttonLabel}>Login</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={[styles.button, {backgroundColor: "#03BD9D"}]} onPress={change}>
-                    <Text style={styles.buttonLabel}>Sign Up</Text>
+                    <Text style={[styles.buttonLabel, {color: "white"}]}>Sign Up</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -47,43 +55,57 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 15 
     },
+    logo: {
+        paddingBottom: 5
+    },
     header: {
         fontSize: 24,
         textAlign: "center",
         fontWeight: "bold",
-        paddingBottom: 20
+
+    },
+    subheader: {
+        textAlign: "center",
+        fontSize: 18
     },
     form: {
         paddingTop: 15,
         paddingLeft: 15
     },
     formLabel: {
-        fontSize: 22,
+        fontSize: 15,
         paddingBottom: 5,
         fontWeight: 700
     },
     formInput: {
-        paddingTop: 15,
-        paddingBottom: 15,
-        fontSize: 20,
+        marginTop: 4,
+        marginBottom: 8,
+        padding: 8,
+        // paddingTop: 15,
+        // paddingBottom: 15,
+        fontSize: 17,
         paddingLeft: 5,
-        borderRadius: 6,
+        borderRadius: 3,
         borderWidth: 1,
         borderColor: "#AAAAAA"
     },
+    actions: {
+        marginTop: 30
+    },
     button: {
         alignSelf: "center",
-        width: 300,
-        paddingTop: 15,
-        paddingBottom: 15,
+        width: 250,
+        paddingTop: 9,
+        paddingBottom: 9,
         borderWidth: 1,
-        margin: 10,
+        margin: 5,
+        marginTop: 8,
         borderRadius: 12,
         borderColor: "#AAAAAA"
     },
     buttonLabel: {
         textAlign: "center",
-        fontSize: 15,
+        fontSize: 18,
         fontWeight: "bold"
     }
 

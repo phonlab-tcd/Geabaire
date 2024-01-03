@@ -30,6 +30,11 @@ const speakSentenceDelayState = atom({
     default: 0,
 });
 
+const internalSettingsState = atom({
+    key: "internalSettingsState",
+    default: {}
+})
+
 const voiceState = atom({
     key: "voiceState",
     default: "",
@@ -62,6 +67,7 @@ const settingsState = selector({
             voice: get(voiceState),
             speed: get(speedState),
             pitch: get(pitchState),
+            internalSettings: get(internalSettingsState)
         };
     },
 });
@@ -77,4 +83,5 @@ export {
     speedState,
     pitchState,
     settingsState,
+    internalSettingsState
 };

@@ -10,13 +10,13 @@ export default function BoardButton({ item, addButtonPress, openFolder, boardId 
         return <BoardButtonEmpty/>;
     }
 
-    const [size, setSize] = useState();
     const isFolder = Boolean(item["child"]);
 
-    const API_LINK = process.env.EXPO_PUBLIC_GEABAIRE_API_LINK?? "https://api.geabaire.abair.ie/v1/"
+    const API_LINK = process.env.EXPO_PUBLIC_GEABAIRE_API_LINK ?? "https://api.geabaire.abair.ie/v1"
     const imageLink = `${API_LINK}/images/${boardId}/${item.image}.webp`
     //console.log(imageLink)
     const blurhash = '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
+    
     const computedStyle = {
         backgroundColor: item["background_color"],
         borderColor: item["border_color"],
@@ -37,12 +37,12 @@ export default function BoardButton({ item, addButtonPress, openFolder, boardId 
             }}
             style={[styles.container, computedStyle]}
         >
-            {!item.hide_label && <Text style={[styles.labelStyle, labelColor]} fontSize={9} screenSize={size} >{item.label}</Text>}
+            {!item.hide_label && <Text style={[styles.labelStyle, labelColor]} fontSize={9}>{item.label}</Text>}
             {item.image && (
                 <Image
                     source={imageLink}
                     style={styles.imageStyle}
-                    placeholder={blurhash}
+                    // placeholder={blurhash}
                     contentFit={"contain"}
                     cachePolicy={"memory-disk"}
                 />

@@ -22,6 +22,9 @@ export default function BoardScreen({ navigation, route: { params: { boardId } }
 
     const boardControls = useMemo(() => <BoardControls navigation={navigation} textBarInputRef={textBarInputRef}/>, [navigation]);
     const boardSideControls = useMemo(() => <BoardSideControls style={styles.sidebar} sentence={sentence} navigation={navigation}/>, [sentence, navigation]);
+
+    const otherImageId = settings.internalSettings?.imagesid;
+
     const boardGrid = useMemo(() => {
         if (!board || !board.buttons) return;
         return <FlatGrid
@@ -37,7 +40,7 @@ export default function BoardScreen({ navigation, route: { params: { boardId } }
                         item={item}
                         onKeyboardPress={onKeyboardPress}
                         onPluralPress={onPluralPress}
-                        boardId={boardId}
+                        boardId={otherImageId ?? boardId}
                     />
                 )
 
@@ -46,7 +49,7 @@ export default function BoardScreen({ navigation, route: { params: { boardId } }
                         item={item}
                         addButtonPress={addButtonPress}
                         openFolder={push}
-                        boardId={boardId}
+                        boardId={otherImageId ?? boardId}
                     />
                 )
             }}

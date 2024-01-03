@@ -19,7 +19,7 @@ export default function BoardDrawer({ state, navigation, descriptors, home }) {
 
             <View style={styles.actionList}>
                 <View style={styles.actionItem}>
-                    <TouchableOpacity style={styles.button} onPress={() => {navigation.navigate("HomeNavigator")}}>
+                    <TouchableOpacity style={styles.button} onPress={() => {navigation.navigate("HomeRouter")}}>
                         <FAIcon name="sign-out" style={{marginRight: 15}} size={32}/>
                         <Text style={styles.buttonLabel}>Exit Board</Text>
                     </TouchableOpacity>

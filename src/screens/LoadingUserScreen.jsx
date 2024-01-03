@@ -9,7 +9,7 @@ export default function LoadingUserScreen() {
     const { id, onOpenBoard } = useProfile();
   
     useEffect(() => {
-      if (!id || !onOpenBoard) return;
+      if (!id) return;
   
       async function load() {
         console.log("[LoadingUserScreen] Loaded Profile.")

@@ -4,6 +4,7 @@ import {
     doShowImagesInHomeBarState,
     doSpeakEachWordState,
     doSpeakFullSentenceState,
+    internalSettingsState,
     pitchState,
     speakSentenceDelayState,
     speedState,
@@ -44,6 +45,8 @@ export default function useSettings(loadedSettings) {
     let setRegion = useSetRecoilState(regionState);
     let setSpeaker = useSetRecoilState(speakerState);
 
+    let setInternalSettings = useSetRecoilState(internalSettingsState);
+
     function setSettings(settings) {
         setDoSpeakEachWord(settings.doSpeakEachWord);   
         setDoSpeakFulLSentence(settings.doSpeakFullSentence);
@@ -61,6 +64,7 @@ export default function useSettings(loadedSettings) {
         const {speakerName, regionName} = getSpeakerAndRegion(settings.voice);
         setRegion(regionName);
         setSpeaker(speakerName);
+        setInternalSettings(settings.internal)
     }
 
     useEffect(() => {
@@ -77,29 +81,6 @@ export default function useSettings(loadedSettings) {
 
         setSettings(initialSettings);
     }, [loadedSettings])
-
-    useEffect(() => {
-        if (!loadedSettings) return;
-
-        // async function updateSettings() {
-        //     console.log("settings changed");
-        //     // update the settings 
-        //     let board = loadedBoard;
-        //     board.meta.settings = settings;
-        //     console.log(settings);
-
-        //     const {error} = await supabase.from("aac_complete_boards")
-        //         .update({board})
-        //         .eq("id", board.meta.id);
-
-        //     if (error) {
-        //         console.log(error);
-        //     } else {
-        //         console.log("Updated settings sucessfully")
-        //     }
-        // }
-        // updateSettings();
-    }, [settings])
 
     return {
         setSettings,

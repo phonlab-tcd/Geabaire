@@ -15,19 +15,8 @@ let signIn = async (email, password) => {
     return error;
 };
 
-let signUp = async (email, password) => {
-    const { error } = await supabase.auth.signUp({
-        email,
-        password,
-    });
+let signUp = async (email, password, invite, con_contact, name, guardian) => {
     
-    if (error) {
-        console.log("[auth.js] ", error);
-        Alert.alert(error.message);
-    }
-
-
-    return error;
 };
 
 export { signIn, signUp };
