@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { supabase } from "../../state/supabase.js"
 import { useNavigation } from "@react-navigation/native";
 import TouchableIcon from "../../components/ui/TouchableIcon.jsx";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const API_LINK = process.env.EXPO_PUBLIC_GEABAIRE_API_LINK;
 
@@ -37,11 +38,9 @@ export default function HomeSettingsScreen() {
             }
         })
 
-        console.log(user.id)
-        console.log(await response.text());
-
         await supabase.auth.signOut();
-        await AsyncStorage.clear()
+        // await AsyncStorage.clear(); // Hard removes the session from the local cache.
+        Alert.alert("Successful", "Your account has been deleted successfully.")
     }
 
     console.log(boards);
