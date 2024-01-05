@@ -1,0 +1,38 @@
+{
+    "voices": {
+        "regions": [
+            {
+                "label_en": "Connemara",
+                "label_ga": "Conamara",
+                "province": "connacht",
+                "speakers": [
+                    {
+                        "label_en": "Sibeal",
+                        "label_ga": "Sibéal",
+                        "shortcode": "snc",
+                        "sex": "female",
+                        "codes": {
+                            "NEMO": "ga_CO_snc_nemo"
+                        }                          
+                    }
+                ]
+            },
+            {
+                "label_en": "Gweedore",
+                "label_ga": "Gaoth Dobhair",
+                "province": "Ulster",
+                "speakers": [
+                    {
+                        "label_en": "Aine",
+                        "label_ga": "Áine",
+                        "shortcode": "anb",
+                        "sex": "female",
+                        "codes": {
+                            "NEMO": "ga_UL_anb_nemo"
+                        }                          
+                    }
+                ]
+            }
+        ]
+    }
+}

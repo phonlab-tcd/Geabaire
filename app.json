@@ -1,37 +1,37 @@
 {
   "expo": {
     "name": "Geabaire",
-    "slug": "Geabaire",
+    "slug": "geabaire",
     "version": "1.0.0",
     "orientation": "landscape",
-    "icon": "./assets/icon.png",
+    "icon": "./src/assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./src/assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
+      "isTabletOnly": true,
       "supportsTablet": true,
-      "bundleIdentifier": "ie.abair.geabaire"
+      "bundleIdentifier": "ie.abair.geabaire",
+      "buildNumber": "1.0.1"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      },
-      "package": "ie.abair.geabaire"
+        "foregroundImage": "./src/assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
     },
     "web": {
-      "favicon": "./assets/favicon.png",
-      "bundler": "metro"
+      "favicon": "./src/assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "e4a198d8-b3ed-4fb0-b61d-6741a813fa09"
+        "projectId": "9ce6fd24-e8d3-49cd-81d7-47c8320cf6dc"
       }
     },
     "owner": "abair"
