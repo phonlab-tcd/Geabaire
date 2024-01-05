@@ -15,8 +15,10 @@
       "**/*"
     ],
     "ios": {
+      "isTabletOnly": true,
       "supportsTablet": true,
-      "bundleIdentifier": "ie.abair.geabaire"
+      "bundleIdentifier": "ie.abair.geabaire",
+      "buildNumber": "1.0.1"
     },
     "android": {
       "adaptiveIcon": {
