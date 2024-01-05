@@ -7,6 +7,9 @@ import { Image } from "expo-image";
 import { useNavigation } from "@react-navigation/native";
 import TouchableIcon from "../../components/ui/TouchableIcon.jsx";
 
+import appjson from "../../../app.json"
+
+const versionString = `Geabaire v${appjson.expo.version} (Apple Build: ${appjson.expo.ios.buildNumber})`
 
 export default function HomeScreen() {
     const [boards, setBoards] = useState([]);
@@ -65,12 +68,14 @@ export default function HomeScreen() {
                     </TouchableOpacity>
                 )}
             />
+            <Text style={styles.footer}>{versionString}</Text>
         </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         backgroundColor: "#F3F4F6",
     },
     topBar: {
@@ -116,5 +121,11 @@ const styles = StyleSheet.create({
     boardButtonLabel: {
         textAlign: "center",
         fontSize: 24
+    },
+    footer: {
+        marginTop: "auto",
+        textAlign: "center",
+        marginBottom: 5,
+        fontSize: 16
     }
 })

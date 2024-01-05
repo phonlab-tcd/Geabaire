@@ -30,7 +30,8 @@ export default function BoardSettingsScreen({ navigation, route: { params: { boa
     useFocusEffect(
         useCallback(() => {
           return () => {
-            // On unload
+            // On unload: update settings
+            console.log("Left settings screen")
           };
         }, [])
       );
