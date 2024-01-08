@@ -56,15 +56,36 @@ export const getSpeakerAndRegion = (code) => {
     for (const region of meta.voices.regions) {
         // Iterate through the speakers in the region
         for (const speaker of region.speakers) {
-            // Check if the code matches
-            if (speaker.codes.DNN === code || speaker.codes.HTS === code || speaker.codes.NEMO === code) {
-                return {
-                    speakerName: speaker.shortcode,
-                    regionName: region.label_en
-                };
+            // Check if the code matches for each model type
+            for (const [modelType, modelCode] of Object.entries(speaker.codes)) {
+                if (modelCode === code) {
+                    return {
+                        speakerName: speaker.shortcode,
+                        regionName: region.label_en,
+                        type: modelType // Include the model type in the response
+                    };
+                }
             }
-
         }
     }
     return null;
-}
+};
+
+
+export const getCodeByRegionSpeakerAndModel = (region, speaker, modelType) => {
+    const regions = meta.voices.regions;
+    for (let i = 0; i < regions.length; i++) {
+      const currentRegion = regions[i];
+      if (currentRegion.label_en === region || currentRegion.label_ga === region) {
+        const speakers = currentRegion.speakers;
+        for (let j = 0; j < speakers.length; j++) {
+          const currentSpeaker = speakers[j];
+          if (currentSpeaker.label_en === speaker || currentSpeaker.label_ga === speaker) {
+            const codes = currentSpeaker.codes;
+            return codes[modelType.toUpperCase()] || null;
+          }
+        }
+      }
+    }
+    return null;
+  }
