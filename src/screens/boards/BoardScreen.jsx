@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native"
 import useBoard from "../../state/hooks/useBoard"
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { doShowImagesInHomeBarState, settingsState } from "../../state/atoms/settings";
+import { useRecoilValue } from "recoil";
+import { settingsState } from "../../state/atoms/settings";
 import { useEffect, useMemo, useRef } from "react";
 import BoardControls from "../../components/board/BoardControls";
 import useSentence from "../../state/hooks/useSentence";
@@ -14,16 +14,16 @@ import BoardUtilityButton from "../../components/board/BoardUtilityButton";
 import { getPluralOf } from "../../partials/plurals";
 
 export default function BoardScreen({ navigation, route: { params: { boardId } } }) {
-    const { board, loadedBoard, push } = useBoard(boardId);
+    const { board, push } = useBoard(boardId);
     const { addButtonPress, sentence, lastWord, cutOffLastWord } = useSentence();
     const settings = useRecoilValue(settingsState);
-    const setShowImagesInHomebar = useSetRecoilState(doShowImagesInHomeBarState);
+    const setShowImagesInHomebar = (value) => settings.updateSetting("doShowImagesInHomeBar", value);
     const textBarInputRef = useRef(null);
 
     const boardControls = useMemo(() => <BoardControls navigation={navigation} textBarInputRef={textBarInputRef}/>, [navigation]);
     const boardSideControls = useMemo(() => <BoardSideControls style={styles.sidebar} sentence={sentence} navigation={navigation}/>, [sentence, navigation]);
 
-    const otherImageId = settings.internalSettings?.imagesid;
+    const otherImageId = settings.internal?.imagesid;
 
     const boardGrid = useMemo(() => {
         if (!board || !board.buttons) return;

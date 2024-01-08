@@ -2,36 +2,58 @@ import FAIcon from 'react-native-vector-icons/FontAwesome';
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { regionState, speakerState } from "../../state/atoms/voices.js";
-import { doShowImagesInHomeBarState, doSpeakEachWordState, doSpeakFullSentenceState, pitchState, speakSentenceDelayState, speedState, voiceState } from "../../state/atoms/settings";
-import { useRecoilValue } from "recoil";
-import { regions_en, speakerProfiles, speakerOptions } from '../../partials/synthesis';
+import { regions_en, speakerProfiles, speakerOptions, getSpeakerAndRegion, getCodeByRegionSpeakerAndModel } from '../../partials/synthesis';
 import DropdownEntry from '../../components/settings/DropdownEntry';
 import SliderEntry from '../../components/settings/SliderEntry.jsx';
 import SwitchEntry from '../../components/settings/SwitchEntry.jsx';
 import { useFocusEffect } from '@react-navigation/native';
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import useSettings from '../../state/hooks/useSettings.js';
 
 export default function BoardSettingsScreen({ navigation, route: { params: { boardId } } }) {
-    const region = useRecoilValue(regionState);
-    const speaker = useRecoilValue(speakerState);
-    const voice = useRecoilValue(voiceState);
+    const [region, setRegion] = useState();
+    const [speaker, setSpeaker] = useState();
+    const [type, setType] = useState();
 
-    const {initialSettings} = useSettings(boardId);
-
+    const {settings, initialSettings, updateSetting} = useSettings();
     let synthTypes = [];
 
     if (speaker) {
         synthTypes = Object.entries(speakerProfiles(speaker).codes).map(([label, value]) => ({ label, value }));
     }
 
+    // Sets the initial value of the speaker/region
+    useEffect(() => {
+        if (settings && (!region || !speaker)) {
+            const {speakerName, regionName, type: modelType} = getSpeakerAndRegion(settings.voice);
+            console.log(speakerName, regionName, modelType);
+            setSpeaker(speakerName);
+            setRegion(regionName);
+            setType(modelType);
+        }
+    }, [])
+
+    // Updates the code 
+    useEffect(() => {
+        // If they are all defined
+        if (region && speaker && type) {
+            const code = getCodeByRegionSpeakerAndModel(region, speaker, type);
+            if (code != null) {
+                console.log("[useSettings] Updating voice.")
+                updateSetting("voice", code);
+            }
+        }
+    }, [region, speaker, type])
 
     useFocusEffect(
         useCallback(() => {
           return () => {
             // On unload: update settings
-            console.log("Left settings screen")
+            if (JSON.stringify(settings) !== JSON.stringify(initialSettings)) {
+                console.log("[useSettings] Left settings screen, updating changes in database.")
+                console.log(initialSettings, settings)
+
+            }
           };
         }, [])
       );
@@ -59,27 +81,31 @@ export default function BoardSettingsScreen({ navigation, route: { params: { boa
                     </Text>
                     <DropdownEntry
                         title="Region"
-                        atom={regionState}
+                        value={region}
+                        setValue={setRegion}
                         data={regions_en}
                     />
                     {region &&
                         <DropdownEntry
                             title="Speaker"
-                            atom={speakerState}
+                            value={speaker}
+                            setValue={setSpeaker}
                             data={speakerOptions(region)}
                         />
                     }
                     {speaker &&
                         <DropdownEntry
                             title="Type"
-                            atom={voiceState}
+                            value={type}
+                            setValue={setType}
                             data={synthTypes}
                         />
                     }
 
                     <SliderEntry
                         title="Speed"
-                        atom={speedState}
+                        value={settings.speed}
+                        setValue={(value) => updateSetting("speed", value)}
                         min={0.1}
                         max={1.5}
                         step={0.1}
@@ -87,13 +113,14 @@ export default function BoardSettingsScreen({ navigation, route: { params: { boa
 
                     <SliderEntry
                         title="Pitch"
-                        atom={pitchState}
+                        value={settings.pitch}
+                        setValue={(value) => updateSetting("pitch", value)}
                         min={0.1}
                         max={1.5}
                         step={0.1}
                     />
 
-                    <Text>Voice: {voice}</Text>
+                    <Text>Voice: {settings.voice}</Text>
                 </View>
 
                 <View style={styles.settingsGroup}>
@@ -105,19 +132,23 @@ export default function BoardSettingsScreen({ navigation, route: { params: { boa
                     </Text>
                     <SwitchEntry
                         title="Say each pressed button"
-                        atom={doSpeakEachWordState}
+                        value={settings.doSpeakEachWord}
+                        setValue={(value) => updateSetting("doSpeakEachWord", value)}
                     />
                     <SwitchEntry
                         title="Speak full sentences after delay"
-                        atom={doSpeakFullSentenceState}
+                        value={settings.doSpeakFullSentence}
+                        setValue={(value) => updateSetting("doSpeakFullSentence", value)}
                     />
                     <SwitchEntry
                         title="Show images in home bar"
-                        atom={doShowImagesInHomeBarState}
+                        value={settings.doShowImagesInHomeBar}
+                        setValue={(value) => updateSetting("doShowImagesInHomeBar", value)}
                     />
                     <SliderEntry
                         title="Sentence Delay"
-                        atom={speakSentenceDelayState}
+                        value={settings.speakSentenceDelay}
+                        setValue={(value) => updateSetting("speakSentenceDelay", value)}
                         min={1000}
                         max={15000}
                         step={1000}

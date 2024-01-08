@@ -2,9 +2,7 @@ import { Switch, Text, View } from "react-native";
 import { StyleSheet } from "react-native";
 import { useRecoilState } from "recoil";
 
-export default function SwitchEntry({ title, atom }) {
-    const [value, setValue] = useRecoilState(atom);
-
+export default function SwitchEntry({ title, value, setValue }) {
     return (
         <View style={styles.container}>
             <Text style={styles.key}>{title}</Text>

@@ -3,11 +3,10 @@ import { StyleSheet } from "react-native";
 import { useRecoilState } from "recoil";
 import Slider from '@react-native-community/slider';
 
-export default function SliderEntry({ title, atom, min, max, step, unit }) {
-    const [value, setValue] = useRecoilState(atom);
-    const unitLabel = unit ?? ""
+export default function SliderEntry({ title, value, setValue, min, max, step, unit }) {
+    const unitLabel = unit ?? "";
 
-    if (!value) return;
+    const onedp = (value ?? 0).toFixed(1);
 
     return (
         <View style={styles.container}>
@@ -23,7 +22,7 @@ export default function SliderEntry({ title, atom, min, max, step, unit }) {
                 step={step}
             />
             <Text style={styles.valueLabel}>
-                {value.toFixed(1)}{unitLabel}
+                {onedp}{unitLabel}
             </Text>
         </View>
     );
@@ -50,7 +49,7 @@ const styles = StyleSheet.create({
         width: 50,
     },
     value: {
-        width: 150,
+        width: 170,
         marginLeft: "auto",
         marginRight: 35,
     },
