@@ -22,7 +22,6 @@ export default function HomeScreen() {
     useEffect(() => {
         async function load() {
             const { data, error } = await supabase.from("aac_complete_boards").select();
-            console.log("data: ", data);
 
             if (data) {
                 setBoards(data.map(item => ({ id: item.id, name: item.name, icon: item.icon })))
