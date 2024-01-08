@@ -10,6 +10,10 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { ThemeProvider } from '@react-navigation/native';
 import { theme } from './src/partials/theme';
 
+import * as ScreenOrientation from 'expo-screen-orientation';
+ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_LEFT);
+
+
 export default function App() {
   return (
     <>
