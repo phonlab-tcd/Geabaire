@@ -13,7 +13,7 @@ export default function LoadingBoardScreen({route, navigation}) {
         }
     
         if (loadedBoard && loadedBoard.meta.id) {
-            navigation.navigate("Board Settings", { boardId: route.params.boardId })
+            navigation.navigate("Board", { boardId: route.params.boardId })
         }
     }, [loadedBoard])
 
