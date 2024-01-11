@@ -107,6 +107,7 @@ const styles = StyleSheet.create({
     },
 
     boardButton: {
+        margin: 12,
         padding: 12,
         borderRadius: 6,
         width: 500,
