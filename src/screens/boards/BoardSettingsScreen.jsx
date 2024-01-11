@@ -73,6 +73,7 @@ export default function BoardSettingsScreen({ navigation, route: { params: { boa
 
             <ScrollView style={styles.settingsContainer}>
                 <View style={styles.settingsGroup}>
+                <Text style={styles.warning}>Note: The settings menu is currently non-operational. This will be addressed in an update later in January.</Text>
                     <Text style={styles.settingsHeaderLabel}>
                         Text to Speech Settings
                     </Text>
@@ -211,5 +212,10 @@ const styles = StyleSheet.create({
     settingsExplaination: {
         fontSize: 18,
         paddingBottom: 6
+    },
+    warning: {
+        fontSize: 15,
+        color: "red",
+        textAlign: "center"
     }
 })
