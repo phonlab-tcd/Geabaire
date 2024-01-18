@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { settingsState } from '../atoms/settings';
+import { initialSettingsState, settingsState } from '../atoms/settings';
 
 export default function useSettings(newSettings) {
-  const [initialSettings, setInitialSettings] = useState();
+  const [initialSettings, setInitialSettings] = useRecoilState(initialSettingsState);
   const [settings, setSettings] = useRecoilState(settingsState);
+
+  useEffect(() => console.log("new:" + JSON.stringify(settings)), [settings])
 
   useEffect(() => {
     if (!newSettings) {
@@ -18,6 +20,7 @@ export default function useSettings(newSettings) {
 
   // Provide a way to update individual settings if needed
   const updateSetting = (key, value) => {
+    console.log(key, value);
     setSettings((currentSettings) => ({
       ...currentSettings,
       [key]: value,

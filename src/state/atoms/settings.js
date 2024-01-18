@@ -16,6 +16,11 @@ const settingsState = atom({
     },
 });
 
+const initialSettingsState = atom({
+    key: "initialSettings",
+    default: undefined
+});
+
 export {
-    settingsState
+    settingsState, initialSettingsState
 };
