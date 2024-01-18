@@ -1,20 +1,27 @@
 // To be replaced with a /meta endpoint
 import { Audio } from "expo-av";
 import meta from "../assets/voices-meta.json"
+import { Alert } from "react-native";
 
 const synthesisApi = "https://abair.ie/api2/"
 // const synthesisApi = "https://synthesis.abair.ie/nemo/"
 const synthesisEndpoint = "synthesise"
 const synthesisQuery = "?input=%input%&voice=%voice%&audioEncoding=MP3&outputType=AUDIO&speed=%speed%&pitch=%pitch%&normalise=true"
 
-export const regions_en = meta.voices.regions.map((region) => ({label: region.label_en, value: region.label_en}));
+export const regions_en = meta.voices.regions.map((region) => ({ label: region.label_en, value: region.label_en }));
 export const speakers = meta.voices.regions.map(region => region.speakers).flat();
 
 export const synthesize = async (input, voice, speed, pitch) => {
-    await Audio.Sound.createAsync(
-        { uri: getSynthesisUrl(input, voice, speed, pitch) },
-        { shouldPlay: true, progressUpdateIntervalMillis: 800 }
-    );
+    try {
+        const sound = new Audio.Sound();
+        await sound.loadAsync({
+            uri: getSynthesisUrl(input, voice, speed, pitch)
+        });
+        await sound.playAsync();
+      } catch (error) {
+        Alert.alert("Error", "An error occurred while trying to play the sound: " + error.message);
+        console.trace(error);
+      }
 }
 
 export const speakerOptions = (regionName) => {
@@ -42,7 +49,7 @@ export const getSynthesisUrl = (input, voice, speed, pitch, encoding, outputType
     return synthesisApi
         + synthesisEndpoint
         + synthesisQuery
-            .replace("%input%",encodeURIComponent(input))
+            .replace("%input%", encodeURIComponent(input))
             .replace("%voice%", voice)
             .replace("%speed%", speed)
             .replace("%pitch%", pitch)
@@ -73,19 +80,29 @@ export const getSpeakerAndRegion = (code) => {
 
 
 export const getCodeByRegionSpeakerAndModel = (region, speaker, modelType) => {
-    const regions = meta.voices.regions;
-    for (let i = 0; i < regions.length; i++) {
-      const currentRegion = regions[i];
-      if (currentRegion.label_en === region || currentRegion.label_ga === region) {
-        const speakers = currentRegion.speakers;
-        for (let j = 0; j < speakers.length; j++) {
-          const currentSpeaker = speakers[j];
-          if (currentSpeaker.label_en === speaker || currentSpeaker.label_ga === speaker) {
-            const codes = currentSpeaker.codes;
-            return codes[modelType.toUpperCase()] || null;
-          }
-        }
-      }
+    // Find the region object that matches the provided region label
+    const regionObj = meta.voices.regions.find(r => r.label_en === region);
+  
+    if (!regionObj) {
+        return null;
+    //   throw new Error(`Region not found: ${region}`);
     }
-    return null;
-  }
+  
+    // Find the speaker object within the region that matches the provided speaker label
+    const speakerObj = regionObj.speakers.find(s => s.shortcode === speaker);
+  
+    if (!speakerObj) {
+        return null;
+    //   throw new Error(`Speaker not found: ${speaker}`);
+    }
+  
+    // Find the code corresponding to the provided modelType within the speaker object
+    const code = speakerObj.codes[modelType];
+  
+    if (!code) {
+        return null;
+    //   throw new Error(`Model type not found: ${modelType}`);
+    }
+  
+    return code;
+  };
