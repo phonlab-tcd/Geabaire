@@ -9,37 +9,46 @@ import SwitchEntry from '../../components/settings/SwitchEntry.jsx';
 import { useFocusEffect } from '@react-navigation/native';
 import { useCallback, useEffect, useState } from 'react';
 import useSettings from '../../state/hooks/useSettings.js';
+import { isDeepEqual } from '../../partials/objects.js';
+import { supabase } from '../../state/supabase.js';
 
 export default function BoardSettingsScreen({ navigation, route: { params: { boardId } } }) {
     const [region, setRegion] = useState();
     const [speaker, setSpeaker] = useState();
     const [type, setType] = useState();
 
-    const {settings, initialSettings, updateSetting} = useSettings();
+    const { settings, initialSettings, updateSetting } = useSettings();
+
     let synthTypes = [];
 
     if (speaker) {
-        synthTypes = Object.entries(speakerProfiles(speaker).codes).map(([label, value]) => ({ label, value }));
+        synthTypes = Object.entries(speakerProfiles(speaker).codes).map(([key, value]) => ({ label: key, value: key }))
     }
 
     // Sets the initial value of the speaker/region
     useEffect(() => {
         if (settings && (!region || !speaker)) {
-            const {speakerName, regionName, type: modelType} = getSpeakerAndRegion(settings.voice);
+            console.log("initials")
+            const { speakerName, regionName, type: modelType } = getSpeakerAndRegion(settings.voice);
             console.log(speakerName, regionName, modelType);
             setSpeaker(speakerName);
             setRegion(regionName);
             setType(modelType);
+            console.log("type:", modelType)
+            console.log("synthtypes:", synthTypes)
         }
     }, [])
 
     // Updates the code 
     useEffect(() => {
+        console.log("[useSettings] Voice parameter changed.")
         // If they are all defined
         if (region && speaker && type) {
+            console.log("[useSettings] All three voice parameters set.")
             const code = getCodeByRegionSpeakerAndModel(region, speaker, type);
+            console.log("[useSettings] Code: ", code);
             if (code != null) {
-                console.log("[useSettings] Updating voice.")
+                console.log("[useSettings] Updating voice to: " + code);
                 updateSetting("voice", code);
             }
         }
@@ -47,16 +56,27 @@ export default function BoardSettingsScreen({ navigation, route: { params: { boa
 
     useFocusEffect(
         useCallback(() => {
-          return () => {
-            // On unload: update settings
-            if (JSON.stringify(settings) !== JSON.stringify(initialSettings)) {
-                console.log("[useSettings] Left settings screen, updating changes in database.")
-                console.log(initialSettings, settings)
+            return () => {
+                // On unload: update settings
+                if (!isDeepEqual(settings, initialSettings)) {
+                    console.log("is: ", initialSettings)
+                    console.log("[useSettings] Left settings screen, updating changes in database.")
 
-            }
-          };
+                    const updateSettings = async () => {
+                        const { error } = await supabase.from("aac_complete_boards")
+                            .update({settings})
+                            .eq("id", boardId);
+
+                        console.log("new:", settings);
+
+                        if (error) console.error(error)
+                    };
+                    updateSettings();
+                    console.log(initialSettings, settings)
+                }
+            };
         }, [])
-      );
+    );
 
     return (
         <SafeAreaView style={styles.container}>
@@ -73,7 +93,6 @@ export default function BoardSettingsScreen({ navigation, route: { params: { boa
 
             <ScrollView style={styles.settingsContainer}>
                 <View style={styles.settingsGroup}>
-                <Text style={styles.warning}>Note: The settings menu is currently non-operational. This will be addressed in an update later in January.</Text>
                     <Text style={styles.settingsHeaderLabel}>
                         Text to Speech Settings
                     </Text>

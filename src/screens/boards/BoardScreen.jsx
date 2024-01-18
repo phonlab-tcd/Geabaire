@@ -12,12 +12,13 @@ import { View } from "react-native";
 import BoardButtonEmpty from "../../components/board/BoardButtonEmpty";
 import BoardUtilityButton from "../../components/board/BoardUtilityButton";
 import { getPluralOf } from "../../partials/plurals";
+import useSettings from "../../state/hooks/useSettings";
 
 export default function BoardScreen({ navigation, route: { params: { boardId } } }) {
     const { board, push } = useBoard(boardId);
     const { addButtonPress, sentence, lastWord, cutOffLastWord } = useSentence();
-    const settings = useRecoilValue(settingsState);
-    const setShowImagesInHomebar = (value) => settings.updateSetting("doShowImagesInHomeBar", value);
+    const {settings, updateSetting} = useSettings();
+    const setShowImagesInHomebar = (value) => updateSetting("doShowImagesInHomeBar", value);
     const textBarInputRef = useRef(null);
 
     const boardControls = useMemo(() => <BoardControls navigation={navigation} textBarInputRef={textBarInputRef}/>, [navigation]);
