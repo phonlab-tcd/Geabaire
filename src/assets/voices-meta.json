@@ -12,7 +12,7 @@
                         "shortcode": "snc",
                         "sex": "female",
                         "codes": {
-                            "PIPER": "snc.piper"
+                            "PIPER": "snc22_no0.piper"
                         }
                     }
                 ]
@@ -29,22 +29,6 @@
                         "sex": "female",
                         "codes": {
                             "PIPER": "anb.piper"
-                        }
-                    }
-                ]
-            },
-            {
-                "label_en": "Munster",
-                "label_ga": "Mumhan",
-                "province": "Munster",
-                "speakers": [
-                    {
-                        "label_en": "Neasa",
-                        "label_ga": "Neasa",
-                        "shortcode": "nnc",
-                        "sex": "female",
-                        "codes": {
-                            "PIPER": "nnc.piper"
                         }
                     }
                 ]
