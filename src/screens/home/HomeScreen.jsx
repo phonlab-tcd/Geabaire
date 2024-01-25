@@ -15,6 +15,8 @@ export default function HomeScreen() {
     const [boards, setBoards] = useState([]);
     const navigation = useNavigation();
 
+    const [user, setUser] = useState();
+
     const goToBoard = (boardId) => {
         navigation.navigate("BoardRouter", { boardId });
     }
@@ -30,6 +32,18 @@ export default function HomeScreen() {
             if (error) {
                 console.error(error);
             }
+
+            const {data: d2, error: e2} = await supabase.auth.getUser();
+
+            if (d2) {
+                setUser(d2.user);
+                console.log(d2.user);
+            }
+
+            if (e2) {
+                console.error(e2);
+            }
+
         }
 
         if (boards.length == 0) {
@@ -51,7 +65,7 @@ export default function HomeScreen() {
             </View>
 
             <View>
-                <Text style={styles.header}>Welcome to <Text style={styles.bold}>Geabaire</Text></Text>
+                <Text style={styles.header}>Welcome to Ge<Text style={styles.bold}>abair</Text>e</Text>
                 <Text style={styles.subheader}>Choose a board to begin, or modify your settings using the drawer to your right.</Text>
             </View>
             <FlatList
@@ -67,7 +81,7 @@ export default function HomeScreen() {
                     </TouchableOpacity>
                 )}
             />
-            <Text style={styles.footer}>{versionString}</Text>
+            <Text style={styles.footer}>{versionString} Logged in as: {user?.user_metadata?.name ?? "Unknown"} ({user?.email ?? "Unknown"}) ({user?.id ?? "Unknown"})</Text>
         </SafeAreaView>
     )
 }
