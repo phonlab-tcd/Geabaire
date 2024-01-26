@@ -16,10 +16,16 @@ module.exports = async function configureWebpack(
       .filter(([key]) => key.startsWith("EXPO_PUBLIC_"))
       .map(([key, value]) => [key, JSON.stringify(value)]),
   );
-  const configDefinePlugin = config.plugins?.[4];
-  if (!(configDefinePlugin instanceof DefinePlugin)) {
-    throw new Error("unexpected config plugins array order");
+
+  const configDefinePlugin = config.plugins.find(
+    (plugin) => plugin instanceof DefinePlugin
+  );
+  
+  // If DefinePlugin is not found, throw an error or handle it appropriately
+  if (!configDefinePlugin) {
+    throw new Error("DefinePlugin not found in webpack config plugins array");
   }
+  
   const configDefinePluginEnv = /** @type {{}} */ (
     // NOTE: the last key is actually the string "process.env", so to access without lodash
     // (less type-safe) you would need to do configDefinePlugin.definitions["process.env"]
