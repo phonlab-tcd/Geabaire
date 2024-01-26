@@ -1,0 +1,18 @@
+[
+    {
+        "label_en": "Munster",
+        "label_ga": "Mumhan",
+        "province": "Munster",
+        "speakers": [
+            {
+                "label_en": "Neasa",
+                "label_ga": "Neasa",
+                "shortcode": "nnc",
+                "sex": "female",
+                "codes": {
+                    "PIPER": "nnc.piper"
+                }
+            }
+        ]
+    }
+]

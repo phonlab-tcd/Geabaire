@@ -12,8 +12,8 @@
                         "shortcode": "snc",
                         "sex": "female",
                         "codes": {
-                            "NEMO": "ga_CO_snc_nemo"
-                        }                          
+                            "PIPER": "snc22_no0.piper"
+                        }
                     }
                 ]
             },
@@ -28,8 +28,24 @@
                         "shortcode": "anb",
                         "sex": "female",
                         "codes": {
-                            "NEMO": "ga_UL_anb_nemo"
-                        }                          
+                            "PIPER": "anb.piper"
+                        }
+                    }
+                ]
+            },
+            {
+                "label_en": "Munster",
+                "label_ga": "Mumhan",
+                "province": "Munster",
+                "speakers": [
+                    {
+                        "label_en": "Danny",
+                        "label_ga": "Danny",
+                        "shortcode": "dms",
+                        "sex": "male",
+                        "codes": {
+                            "PIPER": "dms.piper"
+                        }
                     }
                 ]
             }

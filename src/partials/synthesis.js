@@ -1,20 +1,33 @@
 // To be replaced with a /meta endpoint
 import { Audio } from "expo-av";
 import meta from "../assets/voices-meta.json"
+import { Alert } from "react-native";
 
-const synthesisApi = "https://abair.ie/api2/"
+// const synthesisApi = "https://abair.ie/api2/"
 // const synthesisApi = "https://synthesis.abair.ie/nemo/"
+const synthesisApi = "https://synthesis.abair.ie/piper/";
 const synthesisEndpoint = "synthesise"
-const synthesisQuery = "?input=%input%&voice=%voice%&audioEncoding=MP3&outputType=AUDIO&speed=%speed%&pitch=%pitch%&normalise=true"
+const synthesisQuery = "?voice=%voice%&input=%input%&outputType=AUDIO&audioEncoding=MP3&cutSilence=true&speed=%speed%&ps=0.0&pa=%pitch%"
+//const synthesisQuery = "?input=%input%&voice=%voice%&audioEncoding=MP3&outputType=AUDIO&speed=%speed%&pitch=%pitch%&normalise=true"
 
-export const regions_en = meta.voices.regions.map((region) => ({label: region.label_en, value: region.label_en}));
+export const regions_en = meta.voices.regions.map((region) => ({ label: region.label_en, value: region.label_en }));
 export const speakers = meta.voices.regions.map(region => region.speakers).flat();
 
 export const synthesize = async (input, voice, speed, pitch) => {
+    // console.log(getSynthesisUrl(input, voice, speed, pitch))
     await Audio.Sound.createAsync(
         { uri: getSynthesisUrl(input, voice, speed, pitch) },
-        { shouldPlay: true, progressUpdateIntervalMillis: 800 }
-    );
+        { shouldPlay: true });
+    // try {
+    //     const sound = new Audio.Sound();
+    //     await sound.loadAsync({
+    //         uri: getSynthesisUrl(input, voice, speed, pitch)
+    //     });
+    //     await sound.playAsync();
+    //   } catch (error) {
+    //     Alert.alert("Error", "An error occurred while trying to play the sound: " + error.message);
+    //     console.trace(error);
+    //   }
 }
 
 export const speakerOptions = (regionName) => {
@@ -42,7 +55,7 @@ export const getSynthesisUrl = (input, voice, speed, pitch, encoding, outputType
     return synthesisApi
         + synthesisEndpoint
         + synthesisQuery
-            .replace("%input%",encodeURIComponent(input))
+            .replace("%input%", encodeURIComponent(input))
             .replace("%voice%", voice)
             .replace("%speed%", speed)
             .replace("%pitch%", pitch)
@@ -56,15 +69,46 @@ export const getSpeakerAndRegion = (code) => {
     for (const region of meta.voices.regions) {
         // Iterate through the speakers in the region
         for (const speaker of region.speakers) {
-            // Check if the code matches
-            if (speaker.codes.DNN === code || speaker.codes.HTS === code || speaker.codes.NEMO === code) {
-                return {
-                    speakerName: speaker.shortcode,
-                    regionName: region.label_en
-                };
+            // Check if the code matches for each model type
+            for (const [modelType, modelCode] of Object.entries(speaker.codes)) {
+                if (modelCode === code) {
+                    return {
+                        speakerName: speaker.shortcode,
+                        regionName: region.label_en,
+                        type: modelType // Include the model type in the response
+                    };
+                }
             }
-
         }
     }
     return null;
-}
+};
+
+
+export const getCodeByRegionSpeakerAndModel = (region, speaker, modelType) => {
+    // Find the region object that matches the provided region label
+    const regionObj = meta.voices.regions.find(r => r.label_en === region);
+  
+    if (!regionObj) {
+        return null;
+    //   throw new Error(`Region not found: ${region}`);
+    }
+  
+    // Find the speaker object within the region that matches the provided speaker label
+    const speakerObj = regionObj.speakers.find(s => s.shortcode === speaker);
+  
+    if (!speakerObj) {
+        return null;
+    //   throw new Error(`Speaker not found: ${speaker}`);
+    }
+  
+    // Find the code corresponding to the provided modelType within the speaker object
+    const code = speakerObj.codes[modelType];
+  
+    if (!code) {
+        return null;
+    //   throw new Error(`Model type not found: ${modelType}`);
+    }
+  
+    return code;
+  };

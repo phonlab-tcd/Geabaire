@@ -2,7 +2,7 @@
   "expo": {
     "name": "Geabaire",
     "slug": "geabaire",
-    "version": "1.0.0",
+    "version": "1.1.1",
     "orientation": "landscape",
     "icon": "./src/assets/icon.png",
     "userInterfaceStyle": "light",
@@ -18,7 +18,7 @@
       "isTabletOnly": true,
       "supportsTablet": true,
       "bundleIdentifier": "ie.abair.geabaire",
-      "buildNumber": "1.0.1"
+      "buildNumber": "1.1.1"
     },
     "android": {
       "adaptiveIcon": {

@@ -24,7 +24,7 @@ let signUp = async (email, password, code, can_contact, name, guardian, change) 
             email,
             password,
             code,
-            "template": "geabaire_29_12_23",
+            "template": "geabaire_11_1_24",
             "meta": {
                 guardian,
                 name,

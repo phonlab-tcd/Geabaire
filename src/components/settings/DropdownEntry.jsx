@@ -3,8 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import { useRecoilState } from "recoil";
 
-export default function DropdownEntry({ title, atom, data }) {
-  const [value, setValue] = useRecoilState(atom);
+export default function DropdownEntry({ title, data, value, setValue }) {
   const [isFocus, setIsFocus] = useState(false);
 
   return (

@@ -7,10 +7,15 @@ import { Image } from "expo-image";
 import { useNavigation } from "@react-navigation/native";
 import TouchableIcon from "../../components/ui/TouchableIcon.jsx";
 
+import appjson from "../../../app.json"
+
+const versionString = `Geabaire v${appjson.expo.version} (Apple Build: ${appjson.expo.ios.buildNumber})`
 
 export default function HomeScreen() {
     const [boards, setBoards] = useState([]);
     const navigation = useNavigation();
+
+    const [user, setUser] = useState();
 
     const goToBoard = (boardId) => {
         navigation.navigate("BoardRouter", { boardId });
@@ -19,7 +24,6 @@ export default function HomeScreen() {
     useEffect(() => {
         async function load() {
             const { data, error } = await supabase.from("aac_complete_boards").select();
-            console.log("data: ", data);
 
             if (data) {
                 setBoards(data.map(item => ({ id: item.id, name: item.name, icon: item.icon })))
@@ -28,6 +32,18 @@ export default function HomeScreen() {
             if (error) {
                 console.error(error);
             }
+
+            const {data: d2, error: e2} = await supabase.auth.getUser();
+
+            if (d2) {
+                setUser(d2.user);
+                console.log(d2.user);
+            }
+
+            if (e2) {
+                console.error(e2);
+            }
+
         }
 
         if (boards.length == 0) {
@@ -49,7 +65,7 @@ export default function HomeScreen() {
             </View>
 
             <View>
-                <Text style={styles.header}>Welcome to <Text style={styles.bold}>Geabaire</Text></Text>
+                <Text style={styles.header}>Welcome to Ge<Text style={styles.bold}>abair</Text>e</Text>
                 <Text style={styles.subheader}>Choose a board to begin, or modify your settings using the drawer to your right.</Text>
             </View>
             <FlatList
@@ -65,12 +81,14 @@ export default function HomeScreen() {
                     </TouchableOpacity>
                 )}
             />
+            <Text style={styles.footer}>{versionString} Logged in as: {user?.user_metadata?.name ?? "Unknown"} ({user?.email ?? "Unknown"}) ({user?.id ?? "Unknown"})</Text>
         </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         backgroundColor: "#F3F4F6",
     },
     topBar: {
@@ -103,6 +121,7 @@ const styles = StyleSheet.create({
     },
 
     boardButton: {
+        margin: 12,
         padding: 12,
         borderRadius: 6,
         width: 500,
@@ -116,5 +135,11 @@ const styles = StyleSheet.create({
     boardButtonLabel: {
         textAlign: "center",
         fontSize: 24
+    },
+    footer: {
+        marginTop: "auto",
+        textAlign: "center",
+        marginBottom: 5,
+        fontSize: 16
     }
 })
