@@ -8,8 +8,26 @@ import { useNavigation } from "@react-navigation/native";
 import TouchableIcon from "../../components/ui/TouchableIcon.jsx";
 
 import appjson from "../../../app.json"
+import { Platform } from "react-native";
 
-const versionString = `Geabaire v${appjson.expo.version} (Apple Build: ${appjson.expo.ios.buildNumber})`
+let platformString; 
+
+switch (Platform.OS) {
+    case "ios":
+        platformString = `${appjson.expo.ios.buildNumber}-ios`
+        break;
+    case "android":
+        platformString = `${appjson.expo.android.versionCode}-android`
+        break;
+    case "web":
+        platformString = `react-web`;
+        break;
+    default: 
+        platformString = "Unknown Platform.";
+        break;
+}
+
+const versionString = `Geabaire v${appjson.expo.version} (${platformString})`
 
 export default function HomeScreen() {
     const [boards, setBoards] = useState([]);
@@ -19,6 +37,12 @@ export default function HomeScreen() {
 
     const goToBoard = (boardId) => {
         navigation.navigate("BoardRouter", { boardId });
+    }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const boardParam = urlParams.get("board");
+    if (boardParam) {
+        goToBoard(boardParam);
     }
 
     useEffect(() => {
