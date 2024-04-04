@@ -17,6 +17,17 @@ export default function AuthScreen() {
     const [notice, setNotice] = useState("");
     const [noticeColor, setNoticeColor] = useState("red");
 
+    const urlParams = new URLSearchParams(window.location.search);
+
+    // ?email=demo%40abair.ie&password=demo&autologin=true&board=1_4584228
+    const emailParam = urlParams.get("email")
+    const passwordParam = urlParams.get("password")
+    const autologinParam = urlParams.get("autologin")
+
+    if (emailParam && passwordParam && autologinParam && autologinParam === "true") {
+        signIn(emailParam, passwordParam);
+    }
+
     const submit =  async (props) => {
         // Login case
         // If they login successfully it'll automatically remove the authscreen component.
