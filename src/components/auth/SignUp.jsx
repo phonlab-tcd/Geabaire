@@ -4,21 +4,28 @@ import { StyleSheet, Text, View } from "react-native";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import InformationSheet from "./InformationSheet";
 
+/**
+ * SignUp component renders the sign-up form and handles user registration.
+ * 
+ * @param {Object} props - The component props.
+ * @param {function} props.submit - Function to handle the sign-up submission.
+ * @param {function} props.change - Function to switch to the login screen.
+ */
 export default function SignUp({ submit, change }) {
-    const [name, setName] = useState("");
-    const [guardian, setGuardian] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [inviteCode, setInviteCode] = useState("");
+    const [name, setName] = useState(""); // State for storing the name
+    const [guardian, setGuardian] = useState(""); // State for storing the guardian's email
+    const [email, setEmail] = useState(""); // State for storing the email address
+    const [password, setPassword] = useState(""); // State for storing the password
+    const [inviteCode, setInviteCode] = useState(""); // State for storing the invitation code
 
-    const [selectedIndex, setSelectedIndex] = useState(-1);
-    const [is1Checked, set1Checked] = useState(false);
-    const [is2Checked, set2Checked] = useState(false);
-    const [is3Checked, set3Checked] = useState(false);
-    const [is4Checked, set4Checked] = useState(false);
-    const [is5Checked, set5Checked] = useState(false);
-    const [is6Checked, set6Checked] = useState(false);
-    const [is7Checked, set7Checked] = useState(false);
+    const [selectedIndex, setSelectedIndex] = useState(-1); // State for storing the selected age group
+    const [is1Checked, set1Checked] = useState(false); // State for first checkbox
+    const [is2Checked, set2Checked] = useState(false); // State for second checkbox
+    const [is3Checked, set3Checked] = useState(false); // State for third checkbox
+    const [is4Checked, set4Checked] = useState(false); // State for fourth checkbox
+    const [is5Checked, set5Checked] = useState(false); // State for fifth checkbox
+    const [is6Checked, set6Checked] = useState(false); // State for sixth checkbox
+    const [is7Checked, set7Checked] = useState(false); // State for seventh (optional) checkbox
 
     // Makes sure they have checked all the required check boxes.
     const canSignUp = is1Checked && is2Checked && is3Checked && is4Checked && is5Checked && is6Checked;
@@ -159,6 +166,7 @@ export default function SignUp({ submit, change }) {
     )
 }
 
+// Styles for the SignUp component
 const styles = StyleSheet.create({
     logo: {
         paddingBottom: 5

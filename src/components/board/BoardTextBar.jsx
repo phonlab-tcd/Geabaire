@@ -2,6 +2,14 @@ import { StyleSheet, TextInput, View } from "react-native";
 import useSentence from "../../state/hooks/useSentence";
 import TouchableIcon from "../ui/TouchableIcon";
 
+
+/**
+ * BoardTextBar component renders a text input bar with a play button for the board.
+ * 
+ * @param {Object} props - The properties object.
+ * @param {Object} props.textBarInputRef - Reference to the text input component.
+ * @returns {JSX.Element} A styled View component containing a play button and a text input bar.
+ */
 export default function BoardTextBar({textBarInputRef}) {
     const {sentence, playNow, setSentence} = useSentence();
 
@@ -25,6 +33,7 @@ export default function BoardTextBar({textBarInputRef}) {
     )
 }
 
+// Styles for the BoardText component
 const styles = StyleSheet.create({
     container: {
         flex: 1,

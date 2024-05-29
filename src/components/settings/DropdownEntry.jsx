@@ -3,7 +3,18 @@ import { StyleSheet, Text, View } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import { useRecoilState } from "recoil";
 
+/**
+ * DropdownEntry component renders a dropdown entry with a title and dropdown menu.
+ * 
+ * @param {Object} props - The properties object.
+ * @param {string} props.title - The title of the dropdown entry.
+ * @param {Array<Object>} props.data - The data array for dropdown options.
+ * @param {string} props.value - The currently selected value.
+ * @param {function} props.setValue - Function to set the selected value.
+ * @returns {JSX.Element} A dropdown entry component.
+ */
 export default function DropdownEntry({ title, data, value, setValue }) {
+  // State to manage focus state of the dropdown
   const [isFocus, setIsFocus] = useState(false);
 
   return (
@@ -34,6 +45,7 @@ export default function DropdownEntry({ title, data, value, setValue }) {
   )
 }
 
+// Styles for the DropdownEntry component
 const styles = StyleSheet.create({
   container: {
     width: "100%",

@@ -12,20 +12,30 @@ import useSettings from '../../state/hooks/useSettings.js';
 import { isDeepEqual } from '../../partials/objects.js';
 import { supabase } from '../../state/supabase.js';
 
-export default function BoardSettingsScreen({ navigation, route: { params: { boardId } } }) {
-    const [region, setRegion] = useState();
-    const [speaker, setSpeaker] = useState();
-    const [type, setType] = useState();
+/**
+ * Component for displaying and updating board settings.
+ * 
+ * @param {object} navigation - Navigation object provided by React Navigation.
+ * @param {object} route - Route object provided by React Navigation.
+ * @param {object} route.params - Parameters passed to the route.
+ * @param {string} route.params.boardId - ID of the board to update settings for.
+ */
 
-    const { settings, initialSettings, updateSetting } = useSettings();
+export default function BoardSettingsScreen({ navigation, route: { params: { boardId } } }) {
+    const [region, setRegion] = useState(); // State for selected region
+    const [speaker, setSpeaker] = useState(); // State for selected speaker
+    const [type, setType] = useState(); // State for selected type
+
+    const { settings, initialSettings, updateSetting } = useSettings(); // Custom hook for settings management
 
     let synthTypes = [];
 
+    // Set the synthTypes based on the selected speaker
     if (speaker) {
         synthTypes = Object.entries(speakerProfiles(speaker).codes).map(([key, value]) => ({ label: key, value: key }))
     }
 
-    // Sets the initial value of the speaker/region
+    // Sets the initial value of the speaker/region when settings are loaded
     useEffect(() => {
         if (settings && (!region || !speaker)) {
             console.log("initials")
@@ -39,7 +49,7 @@ export default function BoardSettingsScreen({ navigation, route: { params: { boa
         }
     }, [])
 
-    // Updates the code 
+    // Updates the code when region, speaker, or type changes
     useEffect(() => {
         console.log("[useSettings] Voice parameter changed.")
         // If they are all defined
@@ -54,6 +64,7 @@ export default function BoardSettingsScreen({ navigation, route: { params: { boa
         }
     }, [region, speaker, type])
 
+    // Updates settings in the database when leaving the screen if changes were made
     useFocusEffect(
         useCallback(() => {
             return () => {

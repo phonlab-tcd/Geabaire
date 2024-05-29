@@ -10,20 +10,25 @@ import { supabase } from "../supabase";
 export default function AuthProvider({children, AuthComponent}) {
     const [session, setSession] = useState(null);
 
+    // Function to handle authentication
     async function authHandler() {
+        // Get the current session from Supabase
         supabase.auth.getSession().then(({ data: { session } }) => {
-            setSession(session);
+            setSession(session); // Set the session state
         });
 
+        // Listen for authentication state changes
         supabase.auth.onAuthStateChange((_event, session) => {
-            setSession(session);
+            setSession(session); // Update session state on change
         });
     }
 
+    // Effect to run the authHandler on component mount
     useEffect(() => {
         authHandler();
     }, []);
 
+    // Render children if session exists, otherwise render AuthComponent
     return (
         <>
             {session && session.user ? children : <AuthComponent/>}

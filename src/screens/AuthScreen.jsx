@@ -7,15 +7,18 @@ import SignUp from "../components/auth/SignUp";
 import { ScrollView } from "react-native-gesture-handler";
 import { signIn, signUp } from "../partials/auth";
 
+// Background and logo images
 const backgroundImage = require("../assets/auth-bg.png")
 const abairLogo = require("../assets/abair.ie_logo.png")
 
+// Function to open a link in browser
 const openLink = (link) => () => Linking.openURL(link)
 
 export default function AuthScreen() {
-    const [isLogin, setIsLogin] = useState(true);
-    const [notice, setNotice] = useState("");
-    const [noticeColor, setNoticeColor] = useState("red");
+    // State variables
+    const [isLogin, setIsLogin] = useState(true); // Indicates whether the user is in login or signup mode
+    const [notice, setNotice] = useState(""); // Notice message to display
+    const [noticeColor, setNoticeColor] = useState("red"); // Colour of the notice message
 
     const urlParams = new URLSearchParams(window.location.search);
 
@@ -24,10 +27,12 @@ export default function AuthScreen() {
     const passwordParam = urlParams.get("password")
     const autologinParam = urlParams.get("autologin")
 
+    // Auto-login if parameters are provided
     if (emailParam && passwordParam && autologinParam && autologinParam === "true") {
         signIn(emailParam, passwordParam);
     }
 
+    // Function to handle form submission
     const submit =  async (props) => {
         // Login case
         // If they login successfully it'll automatically remove the authscreen component.
@@ -100,6 +105,7 @@ export default function AuthScreen() {
     )
 }
 
+// Component for rendering text anchor (clikable link)
 const TextAnchor = ({ text, link }) => (
     <TouchableOpacity onPress={openLink(link)}>
         <Text style={styles.legalLink}>{text}</Text>

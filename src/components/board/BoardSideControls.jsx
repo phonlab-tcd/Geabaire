@@ -2,6 +2,14 @@ import { Platform, Share, StyleSheet, Text, TouchableOpacity, View } from "react
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+/**
+ * BoardSideControls component renders control buttons on the side of the board.
+ * 
+ * @param {Object} props - The properties object.
+ * @param {string} props.sentence - The sentence to be shared.
+ * @param {Object} props.navigation - The navigation object for navigating between screens.
+ * @returns {JSX.Element} A styled View component containing control buttons.
+ */
 export default function BoardSideControls({sentence, navigation}) {
     return <View style={[styles.sidebar]}>
         {Platform.OS !== "web" && (
@@ -23,6 +31,16 @@ export default function BoardSideControls({sentence, navigation}) {
     </View>
 }
 
+/**
+ * ControlButton component renders a button with an icon and a label.
+ * 
+ * @param {Object} props - The properties object.
+ * @param {string} props.icon - The name of the icon to display.
+ * @param {string} props.label - The label of the button.
+ * @param {Function} props.action - The function to execute on button press.
+ * @param {string} props.type - The type of the icon (e.g., "fontawesome", "material-community").
+ * @returns {JSX.Element} A styled TouchableOpacity component representing a control button.
+ */
 function ControlButton({ icon, label, action, type }) {
     return (
         <TouchableOpacity style={[styles.controlButtonContainer]} onPress={action}>
@@ -37,6 +55,7 @@ function ControlButton({ icon, label, action, type }) {
     )
 }
 
+// Styles for the BoardSideControls component and its children
 const styles = StyleSheet.create({
     row: {
         marginTop: 16,

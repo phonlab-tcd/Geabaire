@@ -5,6 +5,15 @@ import { StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { supabase } from "../../state/supabase";
 
+/**
+ * HomeDrawer renders the custom drawer content for the home screen.
+ * 
+ * @param {Object} props - The properties object.
+ * @param {Object} props.state - The navigation state object.
+ * @param {Object} props.navigation - The navigation object.
+ * @param {Object} props.descriptors - The descriptors object.
+ * @returns {JSX.Element} A View component representing the custom drawer content.
+ */
 export default function HomeDrawer({state, navigation, descriptors}) {
     return (
         <View style={styles.container}>
@@ -29,6 +38,7 @@ export default function HomeDrawer({state, navigation, descriptors}) {
     );
 }
 
+// Styles for the HomeDrawer component
 const styles = StyleSheet.create({
     container: {
         flex: 1,

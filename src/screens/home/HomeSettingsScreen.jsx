@@ -8,9 +8,16 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const API_LINK = process.env.EXPO_PUBLIC_GEABAIRE_API_LINK;
 
+/**
+ * HomeSettingScreen component displaying settings related to the user's account
+ */
 export default function HomeSettingsScreen() {
-    const [boards, setBoards] = useState([]);
-    const navigation = useNavigation();
+    const [boards, setBoards] = useState([]); // State for storing the list of boards
+    const navigation = useNavigation(); // Navigation object from React Navigation
+
+    /**
+     * Displays an alert to confirm account closure.
+     */
 
     async function beginClosure() {
         Alert.alert('Close your account.', 'This action cannot be reverted. If you close your account it is immediately deleted. There is no way to bring it back.', [
@@ -22,9 +29,14 @@ export default function HomeSettingsScreen() {
         ]);
     }
 
+    /**
+     * Closes the user's account by sending a request to the server and signing out the user.
+     */
     async function closeAccount() {
+        // Get the current session and user details
         const { data: { session: { access_token, user } } } = await supabase.auth.getSession();
 
+        // Send a request to close the account
         const response = await fetch(API_LINK + "/account/close", {
             method: "POST",
             body: JSON.stringify({
@@ -38,14 +50,19 @@ export default function HomeSettingsScreen() {
             }
         })
 
+        // Sign out the user
         await supabase.auth.signOut();
         // await AsyncStorage.clear(); // Hard removes the session from the local cache.
         Alert.alert("Successful", "Your account has been deleted successfully.")
     }
 
+    // Log the boards state
     console.log(boards);
+
+    // Load the list of boards and user information when the component mounts
     useEffect(() => {
         async function load() {
+            // Fetch the list of boards from the database
             const { data, error } = await supabase.from("aac_complete_boards").select();
 
             if (data) {
@@ -57,6 +74,7 @@ export default function HomeSettingsScreen() {
             }
         }
 
+        // Load data if the boards list is empty
         if (boards.length == 0) {
             load();
         }
@@ -90,6 +108,7 @@ export default function HomeSettingsScreen() {
     )
 }
 
+// Styles for the HomeSettingScreen component
 const styles = StyleSheet.create({
     container: {
         backgroundColor: "#F3F4F6",
