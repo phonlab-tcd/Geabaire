@@ -8,6 +8,15 @@ import BoardDrawer from "../components/drawers/BoardDrawer";
 
 const Drawer = createDrawerNavigator();
 
+
+/**
+ * BoardRouter component handles navigation within the board-related screens using a drawer navigator.
+ * 
+ * @param {Object} props - The properties object.
+ * @param {Object} props.route - The route object.
+ * @param {Object} props.navigation - The navigation object.
+ * @returns {JSX.Element} A SafeAreaView containing the DrawerNavigator for board-related screens.
+ */
 export default function BoardRouter({ route, navigation }) {
     const { boardId } = route.params;
 
@@ -26,7 +35,7 @@ export default function BoardRouter({ route, navigation }) {
                     swipeEdgeWidth: 0,
                 
                 }}
-                drawerContent={BoardDrawer}
+                drawerContent={BoardDrawer} // Custom drawer content provided by BoardDrawer component
             >
                 <Drawer.Screen name="Board Loader" component={LoadingBoardScreen} initialParams={{ boardId }} options={{drawerItemStyle: { height: 0 }}}/>
                 <Drawer.Screen name="Board" component={BoardScreen} initialParams={{ boardId }}/>

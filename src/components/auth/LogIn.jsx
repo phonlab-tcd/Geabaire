@@ -3,9 +3,16 @@ import { TextInput } from "react-native-gesture-handler";
 import { RaisedButton } from "../../partials/theme";
 import { useState } from "react";
 
+/**
+ * LogIn component renders the login form and handles user authentication.
+ * 
+ * @param {Object} props - The component props.
+ * @param {function} props.submit - Function to handle the login submission.
+ * @param {function} props.change - Function to switch to the sign-up screen.
+ */
 export default function LogIn({ submit, change }) {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState(""); // State for storing the email address
+    const [password, setPassword] = useState(""); // State for storing the password
 
     return (
         <View style={styles.container}>
@@ -50,6 +57,7 @@ export default function LogIn({ submit, change }) {
     )
 }
 
+// Styles for the LogIn component
 const styles = StyleSheet.create({
     container: {
         flex: 1,

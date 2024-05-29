@@ -10,6 +10,7 @@ import TouchableIcon from "../../components/ui/TouchableIcon.jsx";
 import appjson from "../../../app.json"
 import { Platform } from "react-native";
 
+// Determine platform-specific build/version information
 let platformString; 
 
 switch (Platform.OS) {
@@ -27,26 +28,35 @@ switch (Platform.OS) {
         break;
 }
 
+// Concatenate the full version string
 const versionString = `Geabaire v${appjson.expo.version} (${platformString})`
 
+/**
+ * HomeScreen component displaying the home screen with boards list and user info.
+ */
 export default function HomeScreen() {
-    const [boards, setBoards] = useState([]);
-    const navigation = useNavigation();
-
-    const [user, setUser] = useState();
-
+    const [boards, setBoards] = useState([]); // State for storing the list of boards
+    const navigation = useNavigation(); // Navigation object from React Navigation
+    const [user, setUser] = useState(); // State for storing user information
+    /** 
+     * Navigate to a specific board.
+     * @param {string} boardId - The ID of the board to navigate to.
+     */
     const goToBoard = (boardId) => {
         navigation.navigate("BoardRouter", { boardId });
     }
 
+    // Check if a board parameter is present in the URL and navigate to that board
     const urlParams = new URLSearchParams(window.location.search);
     const boardParam = urlParams.get("board");
     if (boardParam) {
         goToBoard(boardParam);
     }
 
+    // Load boards and user information when the component mounts
     useEffect(() => {
         async function load() {
+            // Fetch the list of boards from the database
             const { data, error } = await supabase.from("aac_complete_boards").select();
 
             if (data) {
@@ -57,6 +67,7 @@ export default function HomeScreen() {
                 console.error(error);
             }
 
+            // Fetch the current user's information
             const {data: d2, error: e2} = await supabase.auth.getUser();
 
             if (d2) {
@@ -70,6 +81,7 @@ export default function HomeScreen() {
 
         }
 
+        // Load data if the boards list is empty
         if (boards.length == 0) {
             load();
         }
@@ -110,6 +122,7 @@ export default function HomeScreen() {
     )
 }
 
+// Styles for the HomeScreen component
 const styles = StyleSheet.create({
     container: {
         flex: 1,

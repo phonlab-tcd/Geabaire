@@ -8,6 +8,16 @@ import BoardImageBar from "./BoardImageBar";
 import BoardTextBar from "./BoardTextBar";
 import TouchableIcon from "../ui/TouchableIcon";
 
+
+/**
+ * BoardControls component provides a control bar for the board.
+ * It includes buttons for navigation, sentence manipulation, and settings.
+ * 
+ * @param {Object} props - The properties object.
+ * @param {Object} props.navigation - The navigation object for navigating between screens.
+ * @param {Object} props.textBarInputRef - A reference to the text bar input element.
+ * @returns {JSX.Element} A styled View component representing the board controls.
+ */
 export default function BoardControls({ navigation, textBarInputRef }) {
     const { removeLastButtonPress, clearSentence } = useSentence();
     const { popAll, pop } = useBoard();
@@ -56,17 +66,18 @@ export default function BoardControls({ navigation, textBarInputRef }) {
     );
 }
 
+// Styles for the BoardControls component
 const styles = StyleSheet.create({
     container: {
-        height: 70,
-        flexDirection: "row",
-        justifyContent: "space-between",
-        backgroundColor: "#6a994e",
-        alignItems: "center",
-        paddingLeft: 8,
-        paddingRight: 8,
+        height: 70, // Height of the control bar
+        flexDirection: "row", // Arrange children in a row
+        justifyContent: "space-between", // Space out children evenly
+        backgroundColor: "#6a994e", // Background color of the control bar
+        alignItems: "center", // Center children vertically
+        paddingLeft: 8, // Padding on the left
+        paddingRight: 8, // Padding on the right
     },
     settingsContainer: {
-        flexDirection: "row",
+        flexDirection: "row", // Arrange children in a row
     }
 });

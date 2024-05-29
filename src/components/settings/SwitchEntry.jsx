@@ -2,6 +2,15 @@ import { Switch, Text, View } from "react-native";
 import { StyleSheet } from "react-native";
 import { useRecoilState } from "recoil";
 
+/**
+ * SwitchEntry component renders a switch entry with a title and switch control.
+ * 
+ * @param {Object} props - The properties object.
+ * @param {string} props.title - The title of the switch entry.
+ * @param {boolean} props.value - The current value of the switch.
+ * @param {function} props.setValue - Function to set the value of the switch.
+ * @returns {JSX.Element} A switch entry component.
+ */
 export default function SwitchEntry({ title, value, setValue }) {
     return (
         <View style={styles.container}>
@@ -21,6 +30,7 @@ export default function SwitchEntry({ title, value, setValue }) {
     );
 }
 
+// Styles for the SwitchEntry component
 const styles = StyleSheet.create({
     container: {
         flex: 1,

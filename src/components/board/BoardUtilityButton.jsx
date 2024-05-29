@@ -4,7 +4,16 @@ import FAIcon from 'react-native-vector-icons/FontAwesome';
 import { Image } from "expo-image";
 import { Platform } from "react-native";
 
-
+/**
+ * BoardUtilityButton renders a utility button based on the item passed.
+ * 
+ * @param {Object} props - The properties object.
+ * @param {Object} props.item - The utility button item data.
+ * @param {Function} props.onKeyboardPress - The function to execute on keyboard press.
+ * @param {Function} props.onPluralPress - The function to execute on plural press.
+ * @param {string} props.boardId - The ID of the board.
+ * @returns {JSX.Element} A TouchableOpacity component representing the utility button.
+ */
 export default function BoardUtilityButton({ item, onKeyboardPress, onPluralPress, boardId }) {
     const code = item.label.trim()
 
@@ -49,6 +58,19 @@ export default function BoardUtilityButton({ item, onKeyboardPress, onPluralPres
 
 }
 
+
+/**
+ * UtilityButton renders the utility button with a label and an optional image.
+ * 
+ * @param {Object} props - The properties object.
+ * @param {Function} props.onPress - The function to execute on button press.
+ * @param {string} props.boardId - The ID of the board.
+ * @param {string} props.label - The label of the button.
+ * @param {string} props.image - The image URI.
+ * @param {string} props.borderColor - The border color of the button.
+ * @param {string} props.backgroundColor - The background color of the button.
+ * @returns {JSX.Element} A TouchableOpacity component representing the utility button.
+ */
 function UtilityButton({ onPress, boardId, label, image, borderColor, backgroundColor }) {
     const API_LINK = process.env.EXPO_PUBLIC_GEABAIRE_API_LINK ?? "https://api.geabaire.abair.ie/v1/"
 
@@ -95,7 +117,7 @@ function UtilityButton({ onPress, boardId, label, image, borderColor, background
 
 
 
-
+// Styles for the BoardUtilityButton and UtilityButton components
 const styles = StyleSheet.create({
     container: {
         margin: 8,

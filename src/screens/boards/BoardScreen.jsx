@@ -15,17 +15,25 @@ import { getPluralOf } from "../../partials/plurals";
 import useSettings from "../../state/hooks/useSettings";
 
 export default function BoardScreen({ navigation, route: { params: { boardId } } }) {
+    // Retrieve board data and functions from custom hook
     const { board, push } = useBoard(boardId);
+    // Retrieve sentence state and functions from custom hook
     const { addButtonPress, sentence, lastWord, cutOffLastWord } = useSentence();
+    // Retrieve settings state and update function from custom hook
     const {settings, updateSetting} = useSettings();
+    // Function to set whether to show images in the home bar
     const setShowImagesInHomebar = (value) => updateSetting("doShowImagesInHomeBar", value);
+    // Reference to the text input bar
     const textBarInputRef = useRef(null);
 
+    // Memoised components for performance optimisation
     const boardControls = useMemo(() => <BoardControls navigation={navigation} textBarInputRef={textBarInputRef}/>, [navigation]);
     const boardSideControls = useMemo(() => <BoardSideControls style={styles.sidebar} sentence={sentence} navigation={navigation}/>, [sentence, navigation]);
 
+    // Determine the image ID based on settings
     const otherImageId = settings.internal?.imagesid;
 
+    // Memoised grid component with buttons
     const boardGrid = useMemo(() => {
         if (!board || !board.buttons) return;
         return <FlatGrid
@@ -57,12 +65,15 @@ export default function BoardScreen({ navigation, route: { params: { boardId } }
         />
     }, [board, sentence]);
 
+    // Function to handle plural press
     async function test() {
         getPluralOf("fear")
     }
 
+    // Effect hook to test plural function on mount
     useEffect(() => {test()}, [])
 
+    // Function to handle keyboard press
     function onKeyboardPress() {
         // Switch to text bar in settings if not already
         if (settings.doShowImagesInHomeBar) {
@@ -102,6 +113,7 @@ export default function BoardScreen({ navigation, route: { params: { boardId } }
     )
 }
 
+// Stylesheet
 const styles = StyleSheet.create({
     container: {
         flex: 1,

@@ -5,29 +5,35 @@ import useProfile from "../state/hooks/useProfile";
 import { useEffect } from "react";
 import { supabase } from "../state/supabase";
 
+// LoadingUserScreen component
 export default function LoadingUserScreen() {
-    const navigation = useNavigation();
-    const { id, onOpenBoard } = useProfile();
+    const navigation = useNavigation(); // Navigation object
+    const { id, onOpenBoard } = useProfile(); // User profile data
   
     useEffect(() => {
-      if (!id) return;
+      // Effect to execute when user profile is loaded
+      if (!id) return; // Return if user id is not available
   
       async function load() {
+        // Load user profile
         console.log("[LoadingUserScreen] Loaded Profile.")
 
+        // If there's a default board to open, navigate to BoardRouter with boardId param
         if (onOpenBoard) {
           console.log("[LoadingUserScreen] Opening Default Board: " + onOpenBoard);
           navigation.navigate("BoardRouter", { boardId: onOpenBoard });
         } else {
+          // If no default board, navigate to HomeRouter
           console.log("[LoadingUserScreen] No Default Board, going to home screen.")
           navigation.navigate("HomeRouter");
         }
       }
   
-      load();
-    }, [id, navigation, onOpenBoard]);
+      load(); // Call the load function
+    }, [id, navigation, onOpenBoard]); // Dependancies for the effect
 
 
+    // Render the loading indicator
     return (
 
         <View style={styles.container}>

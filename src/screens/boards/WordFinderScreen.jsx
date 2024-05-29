@@ -9,10 +9,11 @@ import { useEffect, useState } from "react";
 export default function WordFinderScreen({navigation}) {
     const { loadedBoard } = useBoard();
     
-    const [searchResults, setSearchResults] = useState([]);
-    const [searchInput, setSearchInput] = useState("");
+    const [searchResults, setSearchResults] = useState([]); // State to hold search results
+    const [searchInput, setSearchInput] = useState(""); // State to hold search input value
 
     useEffect(() => {
+        // Filter paths based on search input
         const filtered = paths.filter(item =>
           item.label.toLowerCase().includes(searchInput.toLowerCase()),
         );
@@ -21,6 +22,7 @@ export default function WordFinderScreen({navigation}) {
           return setSearchResults(paths);
         }
     
+        // Update search results based on filtered paths
         setSearchResults(filtered);
       }, [searchInput]);
 
@@ -28,6 +30,7 @@ export default function WordFinderScreen({navigation}) {
     // Remove control codes. 
     paths = paths.filter((item) => !item.label.startsWith("<%"));
 
+    //Function to convert path array to string
     function toPathString(path) {
         let s = "";
 
